@@ -19,7 +19,7 @@ namespace IdentitySample.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -149,7 +149,15 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email.Substring(0, model.Email.Length - 17), Email = model.Email };
+
+                user.Nombre = model.Nombre;
+                user.aPaterno = model.aPaterno;
+                user.aMaterno = model.aMaterno;
+                user.Supervisor = model.Supervisor;
+                user.Zona = model.Zona;
+                user.Activo = model.Activo;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

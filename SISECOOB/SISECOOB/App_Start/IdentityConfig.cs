@@ -106,17 +106,17 @@ namespace IdentitySample.Models
     public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext> 
     {
         protected override void Seed(ApplicationDbContext context) {
-            InitializeIdentityForEF(context);
+            DropCreateDatabaseIfModelChanges(context);
             base.Seed(context);
         }
 
         //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
-        public static void InitializeIdentityForEF(ApplicationDbContext db) {
+        public static void DropCreateDatabaseIfModelChanges(ApplicationDbContext db) {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
             const string name = "admin@example.com";
             const string password = "Admin@123456";
-            const string roleName = "Admin";
+            const string roleName = "Administrator";
 
             //Create Role Admin if it does not exist
             var role = roleManager.FindByName(roleName);

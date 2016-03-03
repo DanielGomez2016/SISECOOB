@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace IdentitySample.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrator")]
     public class UsersAdminController : Controller
     {
         public UsersAdminController()
@@ -90,7 +90,25 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = userViewModel.Email,
+                    Email = userViewModel.Email,
+                    Nombre = userViewModel.Nombre,
+                    aPaterno = userViewModel.aPaterno,
+                    aMaterno = userViewModel.aMaterno,
+                    Supervisor = userViewModel.Supervisor,
+                    Zona = userViewModel.Zona,
+                    Activo = userViewModel.Activo
+                };
+
+                user.Nombre = userViewModel.Nombre;
+                user.aPaterno = userViewModel.aPaterno;
+                user.aMaterno = userViewModel.aMaterno;
+                user.Supervisor = userViewModel.Supervisor;
+                user.Zona = userViewModel.Zona;
+                user.Activo = userViewModel.Activo;
+
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
@@ -140,6 +158,12 @@ namespace IdentitySample.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                Nombre = user.Nombre,
+                aPaterno = user.aPaterno,
+                aMaterno = user.aMaterno,
+                Supervisor = user.Supervisor,
+                Zona = user.Zona,
+                Activo = user.Activo,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),
@@ -153,7 +177,7 @@ namespace IdentitySample.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,aPaterno,aMaterno,Supervisor,Activo,Zona")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -163,8 +187,14 @@ namespace IdentitySample.Controllers
                     return HttpNotFound();
                 }
 
-                user.UserName = editUser.Email;
+                user.UserName = editUser.Email.Substring(0, '@');
                 user.Email = editUser.Email;
+                user.Nombre = editUser.Nombre;
+                user.aPaterno = editUser.aPaterno;
+                user.aMaterno = editUser.aMaterno;
+                user.Supervisor = editUser.Supervisor;
+                user.Zona = editUser.Zona;
+                user.Activo = editUser.Activo;
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 

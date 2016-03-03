@@ -76,6 +76,20 @@ namespace IdentitySample.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string Nombre { get; set; }
+
+        [Display(Name = "Apellido Paterno")]
+        public string aPaterno { get; set; }
+
+        [Display(Name = "Apellido Materno")]
+        public string aMaterno { get; set; }
+
+        public int Supervisor { get; set; }
+
+        public int Activo { get; set; }
+
+        public int Zona { get; set; }
     }
 
     public class ResetPasswordViewModel
