@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SISECOOB.Models;
 
 namespace IdentitySample.Controllers
 {
@@ -56,7 +57,54 @@ namespace IdentitySample.Controllers
         // GET: /Users/
         public async Task<ActionResult> Index()
         {
+            ViewBag.RoleNames = RoleManager.Roles.ToList().Select(i => new { nombre = i.Name });
+            List<ItemZona> item = new List<ItemZona>();
+            item.Add(new ItemZona(0, "Chihuahua"));
+            item.Add(new ItemZona(1, "Juarez"));
+
+            ViewBag.Zonas = item;
+            var a = item;
             return View(await UserManager.Users.ToListAsync());
+        }
+
+        public JsonResult Buscar(string userName, string rol, int? Zona, int page = 1, int pageSize = 15)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            IQueryable<IdentitySample.Models.ApplicationUser> query = UserManager.Users;
+
+            if (!string.IsNullOrEmpty(userName))
+                query = query.Where(i => i.UserName.Contains(userName));
+            //if (!string.IsNullOrEmpty(rol))
+            //{
+            //    string role = RoleManager.Roles.Where(i => i.Name == rol).Select(j => j.Id).ToString();
+            //    string[] usuarios = UserManager.Users.Where(i => i.Roles.Where(j => j.RoleId == role).ToArray();
+            //    query = query.Where(i => usuarios.Contains(i.UserName));
+            //}
+            if (Zona == 0 || Zona == 1)
+                query = query.Where(i => i.Zona == Zona);
+
+            return Json(new
+            {
+                total = query.Count(),
+                datos = query.OrderBy(i => i.UserName)
+                             .Skip((page - 1) * pageSize)
+                             .Take(pageSize)
+                             .ToList()
+                             .Select(i => new
+                             {
+                                 id = i.Id,
+                                 Nombre = i.Nombre,
+                                 ApellidoP = i.aPaterno,
+                                 ApellidoM = i.aMaterno,
+                                 Email = i.Email,
+                                 UserName = i.UserName,
+                                 Rol = UserManager.GetRoles(i.Id),
+                                 Zona = i.Zona,
+                                 Activo = i.Activo,
+                             })
+                             .ToList()
+            }, JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -92,7 +140,7 @@ namespace IdentitySample.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = userViewModel.Email,
+                    UserName = userViewModel.Email.Substring(0, userViewModel.Email.Length - 17),
                     Email = userViewModel.Email,
                     Nombre = userViewModel.Nombre,
                     aPaterno = userViewModel.aPaterno,

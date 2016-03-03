@@ -3,9 +3,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/loader-style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/js/button/ladda/ladda.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/site.css")">
+
+
+    @RenderSection("styles", required: false)
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
     @Scripts.Render("~/bundles/modernizr")
+
+    <!-- MAIN EFFECT -->
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/preloader.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/bootstrap.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/plugins/html2Canvas/html2canvas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/app.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/load.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/main.js")"></script>
+
+
 
 </head>
 <body>

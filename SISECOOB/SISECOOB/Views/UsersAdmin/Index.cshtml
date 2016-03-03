@@ -1,12 +1,71 @@
 ﻿@model IEnumerable<IdentitySample.Models.ApplicationUser>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Usuarios";
 }
+<style>
+    .btn-desactivo {
+        background-color: #A4A4A4;
+        color: white;
+    }
+</style>
+<div class="col-md-12 col-sm-12 form-group">
+    <form id="fBusqueda">
+        @Html.Hidden("page", 1)
+        @Html.Hidden("pageSize", 10)
+        <div class="col-md-12 col-xs-12 text-center">
+            <h4>Administración de usuarios</h4>
+            <br />
+        </div>
+        <div class="col-md-3 col-sm-3">
+            @Html.Label("Nombre de Usuario")
+            @Html.TextBox("userName", "", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 col-sm-3">
+            @Html.Label("Rol")
+            @Html.DropDownList("rol", new SelectList(ViewBag.RoleNames, "nombre", "nombre"), "Todos", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 col-sm-3">
+            @Html.Label("Zona")
+            @Html.DropDownList("Zona", new SelectList(ViewBag.Zonas, "itemID", "nombre"), "Todos", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <br />
+            <div class="btn-group">
+                <input type="submit" value="Buscar" class="btn btn-sm btn-primary" />
+                <button type="button" id="nuevo" class="btn btn-sm btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Agregar Usuario</button>
+            </div>
+        </div>
+    </form>
+</div>
+<table id="tUsuarios" class="table table-hover table-stripped">
+    <thead>
+        <tr>
+            <th class="col-md-1">Nombre</th>
+            <th class="col-md-2">Apellido Paterno</th>
+            <th class="col-md-2">Apellido Materno</th>
+            <th class="col-md-2">Email</th>
+            <th class="col-md-1">Usuario</th>
+            <th class="col-md-1">Rol</th>
+            <th class="col-md-1">Zona</th>
+            <th class="col-md-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="12" class="text-center">No se encontraron resultados</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="paginacion" id="paginador"></div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
 
-<h2>Index</h2>
-
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -33,4 +92,248 @@
         </tr>
     }
 
-</table>
+</table>*@
+
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.messages.js")"></script>
+    <script src="/Scripts/Paginacion.js"></script>
+    <script>
+        var opcion = 0, actual = null;
+
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                ignore: '.ignore'
+            });
+
+            pag = new Paginacion({
+                content: $('#tUsuarios .paginacion'),
+                search: buscar,
+                pageSize: 15,
+                info: true
+            });
+
+            $('#fBusqueda').submit(function (e) {
+                e.preventDefault();
+                buscar();
+            });
+
+            setTimeout(function () {
+                buscar();
+            }, 2000);
+        });
+
+        function buscar() {
+            var form = $('#fBusqueda');
+
+            $('#page').val(pag.getCurrentPage());
+            $('#pageSize').val(pag.getPageSize());
+
+            $.ajax({
+                type: "GET",
+                url: '/UsersAdmin/Buscar',
+                data: form.serialize(),
+                beforeSend: function () {
+                    Loading('Buscando');
+                }
+            })
+            .always(function () {
+                Loading();
+            })
+            .done(function (data) {
+                
+                var t = $('#tUsuarios tbody').empty();
+
+                if (data.total > 0) {
+                    var html = '<tr><td class="col-md-1">{Nombre}</td>'
+                        + '<td class="col-md-2">{ApellidoP}</td>'
+                        + '<td class="col-md-2">{ApellidoM}</td>'
+                        + '<td class="col-md-2">{Email}</td>'
+                        + '<td class="col-md-1">{UserName}</td>'
+                        + '<td class="col-md-1">{Rol}</td>'
+                        + '<td class="col-md-1">{ZonaNombre}</td>'
+                        + '<td class="text-right col-md-2">'
+                                + '<button type="button" name="editar" value="{id}" class="btn btn-default">Editar</button>'
+                                + ' {BtnActiva}</td></tr>';
+                    var x = 1;
+                    data.datos.map(function (e) {
+
+                        if (e.Activo > 0) {
+                            e.BtnActiva = '<input type="button" id="Activa' + x + '" value="Activo" data-id="' + e.Activo + '" onclick="AbrirActivacion(' + e.id + ', Activa' + x + ');" class="btn btn-success">';
+                            x++
+                        }
+                        else {
+                            e.Activo = '<input type="button" id="Activa' + x + '" value="Inactivo" data-id="' + e.Activo + '" onclick="AbrirActivacion(' + e.id + ', Activa' + x + ');" class="btn btn-desactivo">';
+                            x++
+                        }
+
+                        if (e.Zona == 0)
+                        { e.ZonaNombre = 'Chihuahua' }
+                        else { e.ZonaNombre = 'Juarez' }
+
+                        t.append(html.format(e));
+
+                    });
+                }
+                else
+                    t.html('<tr><td class="text-center" colspan="6">No se encontraron resultados</td></tr>');
+
+                pag.updateControls(data.total);
+            });
+        }
+
+
+
+        @*var CrearUsuario = function () {
+
+            if ($('#Nombre').val() != "" && $('#ApellidoPaterno').val() != "")
+            {
+                var nombre = $('#Nombre').val();
+                var apellido = $('#ApellidoPaterno').val();
+
+                nombre = nombre.split(" ")[0];
+                apellido = apellido.split(" ")[0];
+
+                var user = nombre + "." + apellido;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Usuarios/VerificarUsario',
+                    data: { username: user },
+                    beforeSend: function () {
+                        Loading("Verificando");
+                    },
+                    complete: function () {
+                        Loading();
+                    },
+                    success: function (data) {
+                        if (data.result) {
+                            $('#UserName').val(data.user);
+                            AlertSuccess('Verificacion Correcta', '@ViewBag.Title');
+                        }
+                    },
+                    error: function () {
+                        AlertError('No se pudo hacer la verificacion, compruebe el nombre y apellido paterno');
+                    }
+                });
+            }
+        }*@
+
+        @*$('#nuevo').click(function () {
+            opcion = 1;
+            actual = null;
+            $('#titulo').text('Crear Usuario');
+            $.ajax({
+                type: 'POST',
+                url: '/Usuarios/Formulario',
+                data: { id: 0 },
+                beforeSend: function () {
+                    Loading("Cargando");
+                },
+                complete: function () {
+                    Loading();
+                },
+                success: function (html) {
+                    $('#formulario').find('.modal-body form').remove();
+                    $('#formulario').find('.modal-body').append(html);
+                    $('#formulario').modal('show');
+                },
+                error: function () {
+                    AlertError('No se pudo cargar el formulario. Intente nuevamente.');
+                }
+            });
+        });
+
+        $('#tUsuarios').on('click', 'button[name="editar"]', function () {
+            opcion = 2;
+            var id = $(this).val();
+            if (id != actual) {
+                actual = id;
+                $('#titulo').text('Editar Usuario');
+                $.ajax({
+                    type: 'POST',
+                    url: '/Usuarios/Formulario',
+                    data: { id: id },
+                    beforeSend: function () {
+                        Loading("Cargando");
+                    },
+                    complete: function () {
+                        Loading();
+                    },
+                    success: function (html) {
+                        $('#formulario').find('.modal-body form').remove();
+                        $('#formulario').find('.modal-body').append(html);
+                        $('#formulario').modal('show');
+                    },
+                    error: function () {
+                        AlertError('No se pudo cargar el registro. Intente nuevamente.');
+                    }
+                });
+            } else {
+                $('#formulario').modal('show');
+            }
+        });
+
+        $('#guardar').click(function () {
+
+            var totRoles = $('[name="Rol"]:checked').length;
+
+            if (totRoles == 0) {
+                AlertError('No se ha seleccionado ningún rol');
+                return;
+            }
+
+            var form = $('#formulario form');
+            if (form.find('#Edicion').val() == true) {
+                if (form.find('#Password').val() != '' || form.find('#Password2').val() != '') {
+                    form.find('#Password').removeClass('ignore');
+                    form.find('#Password2').removeClass('ignore');
+                } else {
+                    form.find('#Password').addClass('ignore');
+                    form.find('#Password2').addClass('ignore');
+                }
+            }
+            form.removeData('validator');
+            form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(form);
+            if (form.valid()) {
+                var url = null;
+                var params = null;
+                if (opcion == 1) {
+                    url = '/Usuarios/Crear';
+                } else {
+                    url = '/Usuarios/Editar';
+                }
+                params = form.serializeArray();
+                if (url != null && params != null) {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: params,
+                        beforeSend: function () {
+                            Loading("Guardando");
+                        },
+                        complete: function () {
+                            Loading();
+                            $('#formulario').modal('hide');
+                        },
+                        success: function (data) {
+                            if (data.result == true) {
+                                AlertSuccess('Se ha guardado el registro exitosamente.', '@ViewBag.Title');
+                                buscar();
+                                opcion = 0;
+                                actual = 0;
+                            } else {
+                                AlertError(data.message, '@ViewBag.Title');
+                            }
+                        },
+                        error: function () {
+                            AlertError('No se pudo guardar el registro. Intente nuevamente.', '@ViewBag.Title');
+                        }
+                    });
+                }
+            }
+        });*@
+    </script>
+}
