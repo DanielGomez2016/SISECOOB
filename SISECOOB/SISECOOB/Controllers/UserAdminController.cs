@@ -55,7 +55,7 @@ namespace IdentitySample.Controllers
 
         //
         // GET: /Users/
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             ViewBag.RoleNames = RoleManager.Roles.ToList().Select(i => new { nombre = i.Name });
             List<ItemZona> item = new List<ItemZona>();
