@@ -19,6 +19,8 @@ namespace IdentitySample
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                                         "~/Content/bootstrap.css",
+                                        "~/Content/bootstrap.js",
+                                        "~/Content/bootstrap.min.js",
                                         "~/Content/bootstrap.min.css",
                                         "~/Content/bootstrap-theme.css"));
 

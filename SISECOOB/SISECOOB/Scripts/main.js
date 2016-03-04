@@ -1,4 +1,6 @@
-﻿var Alerta = function (mensaje, titulo, delay, tipo) {
+﻿/// <reference path="bootstrap.js" />
+/// <reference path="bootstrap.js" />
+var Alerta = function (mensaje, titulo, delay, tipo) {
     $.pnotify({
         title: titulo,
         text: mensaje,
@@ -1409,3 +1411,5 @@ $(function () {
 // Cargar scripts extras
 // Info de los Autocomplete
 head.js('/Scripts/InfoAutocomplete.js');
+head.js('/Scripts/bootstrap.min.js');
+head.js('/Scripts/bootstrap.js');

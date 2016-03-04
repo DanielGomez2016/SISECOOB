@@ -134,7 +134,7 @@
                 Loading();
             })
             .done(function (data) {
-                
+
                 var t = $('#tUsuarios tbody').empty();
 
                 if (data.total > 0) {
@@ -179,14 +179,14 @@
             });
         }
 
-        //funcion javascript para crear un nuevo usuario en un modal
+        //funcion javascript para abrir la vista de crear un nuevo usuario en un modal
 
         $('#Nuevo').click(function () {
             Nuevo();
         });
 
         function Nuevo() {
-            $('#titulo').text('Crear Usuario');
+            $('#titulo').text('Nuevo Usuario');
             $.ajax({
                 type: 'POST',
                 url: '/UsersAdmin/Formulario',
@@ -206,6 +206,53 @@
                 }
             });
         }
+
+
+        //funcion para crear al nuevo usuario
+
+        $('#guardar').click(function () {
+            Crear();
+        });
+
+        function Crear() {
+
+            var form = $('#NuevoUsuario form');
+
+            form.removeData('validator');
+            form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(form);
+            if (form.valid()) {
+                var url = null;
+                var params = null;
+                params = form.serializeArray();
+                if (params != null) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'UsersAdmin/Create',
+                        data: params,
+                        beforeSend: function () {
+                            Loading("Guardando");
+                        },
+                        complete: function () {
+                            Loading();
+                            $('#NuevoUsuario').modal('hide');
+                        },
+                        success: function (data) {
+                            if (data.result == true) {
+                                AlertSuccess('Se ha guardado el registro exitosamente.', '@ViewBag.Title');
+                                buscar();
+                            } else {
+                                AlertError(data.message, '@ViewBag.Title');
+                            }
+                        },
+                        error: function () {
+                            AlertError('No se pudo guardar el registro. Intente nuevamente.', '@ViewBag.Title');
+                        }
+                    });
+                }
+            }
+        }
+
 
         @*var CrearUsuario = function () {
 

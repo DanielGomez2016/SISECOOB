@@ -129,14 +129,18 @@ namespace IdentitySample.Controllers
         public ActionResult Formulario()
         {
             //Get the list of Roles
-            ViewBag.RoleId = new SelectList( RoleManager.Roles.ToList(), "Name", "Name");
+            List<ItemZona> item = new List<ItemZona>();
+            item.Add(new ItemZona(0, "Chihuahua"));
+            item.Add(new ItemZona(1, "Juarez"));
+
+            ViewBag.Zonas = item;
             return PartialView("_Create");
         }
 
         //
         // POST: /Users/Create
         [HttpPost]
-        public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
+        public JsonResult Create(RegisterViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -157,35 +161,32 @@ namespace IdentitySample.Controllers
                 user.aMaterno = userViewModel.aMaterno;
                 user.Supervisor = userViewModel.Supervisor;
                 user.Zona = userViewModel.Zona;
-                user.Activo = userViewModel.Activo;
+                user.Activo = 1;
 
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+                var adminresult = UserManager.Create(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)
                 {
-                    if (selectedRoles != null)
+                    return Json(new
                     {
-                        var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
-                        if (!result.Succeeded)
-                        {
-                            ModelState.AddModelError("", result.Errors.First());
-                            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
-                            return View();
-                        }
-                    }
+                        result = true
+                    });
                 }
                 else
                 {
-                    ModelState.AddModelError("", adminresult.Errors.First());
-                    ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
-                    return View();
+                    return Json(new
+                    {
+                        result = false
+                    });
 
                 }
-                return RedirectToAction("Index");
+                
             }
-            ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
-            return View();
+            return Json(new
+            {
+                result = false
+            });
         }
 
         //
