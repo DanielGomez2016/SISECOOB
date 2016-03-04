@@ -1,6 +1,4 @@
-﻿@model IEnumerable<IdentitySample.Models.ApplicationUser>
-
-@{
+﻿@{
     ViewBag.Title = "Usuarios";
 }
 <style>
@@ -18,12 +16,12 @@
             <br />
         </div>
         <div class="col-md-3 col-sm-3">
-            @Html.Label("Nombre de Usuario")
-            @Html.TextBox("userName", "", new { @class = "form-control" })
+            @Html.Label("Usuario Y/O Email")
+            @Html.TextBox("email", "", new { @class = "form-control" })
         </div>
         <div class="col-md-3 col-sm-3">
-            @Html.Label("Rol")
-            @Html.DropDownList("rol", new SelectList(ViewBag.RoleNames, "nombre", "nombre"), "Todos", new { @class = "form-control" })
+            @Html.Label("Nombre")
+            @Html.TextBox("nombre", "", new { @class = "form-control" })
         </div>
         <div class="col-md-3 col-sm-3">
             @Html.Label("Zona")
@@ -33,7 +31,7 @@
             <br />
             <div class="btn-group">
                 <input type="submit" value="Buscar" class="btn btn-sm btn-primary" />
-                <button type="button" id="nuevo" class="btn btn-sm btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Agregar Usuario</button>
+                <button type="button" id="Nuevo" class="btn btn-sm btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Agregar Usuario</button>
             </div>
         </div>
     </form>
@@ -65,34 +63,26 @@
     </tfoot>
 </table>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DisplayName)
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>*@
+<div id="NuevoUsuario" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button id="guardar" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 @section Scripts {
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
@@ -102,6 +92,7 @@
     <script>
         var opcion = 0, actual = null;
 
+        //javascript de inicio de pagina carga las funciones necesarias
         $(document).ready(function () {
             $.validator.setDefaults({
                 ignore: '.ignore'
@@ -124,6 +115,7 @@
             }, 2000);
         });
 
+        //funcion de javascript para buscar usuarios y llenar la tabla
         function buscar() {
             var form = $('#fBusqueda');
 
@@ -169,8 +161,12 @@
                         }
 
                         if (e.Zona == 0)
-                        { e.ZonaNombre = 'Chihuahua' }
-                        else { e.ZonaNombre = 'Juarez' }
+                        {
+                            e.ZonaNombre = 'Chihuahua'
+                        }
+                        else {
+                            e.ZonaNombre = 'Juarez'
+                        }
 
                         t.append(html.format(e));
 
@@ -183,7 +179,33 @@
             });
         }
 
+        //funcion javascript para crear un nuevo usuario en un modal
 
+        $('#Nuevo').click(function () {
+            Nuevo();
+        });
+
+        function Nuevo() {
+            $('#titulo').text('Crear Usuario');
+            $.ajax({
+                type: 'POST',
+                url: '/UsersAdmin/Formulario',
+                beforeSend: function () {
+                    Loading("Cargando");
+                },
+                complete: function () {
+                    Loading();
+                },
+                success: function (html) {
+                    $('#NuevoUsuario').find('.modal-body form').remove();
+                    $('#NuevoUsuario').find('.modal-body').append(html);
+                    $('#NuevoUsuario').modal('show');
+                },
+                error: function () {
+                    AlertError('No se pudo cargar el formulario. Intente nuevamente.');
+                }
+            });
+        }
 
         @*var CrearUsuario = function () {
 
@@ -218,7 +240,7 @@
                     }
                 });
             }
-        }*@
+        }
 
         @*$('#nuevo').click(function () {
             opcion = 1;

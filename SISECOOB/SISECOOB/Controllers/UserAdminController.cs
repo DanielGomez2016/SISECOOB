@@ -64,23 +64,24 @@ namespace IdentitySample.Controllers
 
             ViewBag.Zonas = item;
             var a = item;
-            return View(await UserManager.Users.ToListAsync());
+            return View();
         }
 
-        public JsonResult Buscar(string userName, string rol, int? Zona, int page = 1, int pageSize = 15)
+        public JsonResult Buscar(string email, string nombre, int? Zona, int page = 1, int pageSize = 15)
         {
             ApplicationDbContext db = new ApplicationDbContext();
 
             IQueryable<IdentitySample.Models.ApplicationUser> query = UserManager.Users;
 
-            if (!string.IsNullOrEmpty(userName))
-                query = query.Where(i => i.UserName.Contains(userName));
-            //if (!string.IsNullOrEmpty(rol))
-            //{
-            //    string role = RoleManager.Roles.Where(i => i.Name == rol).Select(j => j.Id).ToString();
-            //    string[] usuarios = UserManager.Users.Where(i => i.Roles.Where(j => j.RoleId == role).ToArray();
-            //    query = query.Where(i => usuarios.Contains(i.UserName));
-            //}
+            if (!string.IsNullOrEmpty(email))
+                query = query.Where(i => i.Email.Contains(email));
+
+            if (!string.IsNullOrEmpty(email))
+                query = query.Where(i => i.UserName.Contains(email));
+
+            if (!string.IsNullOrEmpty(nombre))
+                query = query.Where(i => (i.Nombre + " " + i.aPaterno + " " + i.aMaterno).Contains(email));
+
             if (Zona == 0 || Zona == 1)
                 query = query.Where(i => i.Zona == Zona);
 
@@ -124,11 +125,12 @@ namespace IdentitySample.Controllers
 
         //
         // GET: /Users/Create
-        public async Task<ActionResult> Create()
+        [HttpPost]
+        public ActionResult Formulario()
         {
             //Get the list of Roles
-            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
-            return View();
+            ViewBag.RoleId = new SelectList( RoleManager.Roles.ToList(), "Name", "Name");
+            return PartialView("_Create");
         }
 
         //
