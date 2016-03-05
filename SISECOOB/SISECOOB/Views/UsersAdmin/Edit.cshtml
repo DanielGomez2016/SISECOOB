@@ -67,6 +67,7 @@
                 {
                     <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
                     @Html.Label(item.Value, new { @class = "control-label" })
+                    @item = null;
                 }
             </span>
         </div>

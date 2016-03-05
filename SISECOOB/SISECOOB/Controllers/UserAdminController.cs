@@ -59,8 +59,8 @@ namespace IdentitySample.Controllers
         {
             ViewBag.RoleNames = RoleManager.Roles.ToList().Select(i => new { nombre = i.Name });
             List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua"));
-            item.Add(new ItemZona(1, "Juarez"));
+            item.Add(new ItemZona(0, "Chihuahua",""));
+            item.Add(new ItemZona(1, "Juarez",""));
 
             ViewBag.Zonas = item;
             var a = item;
@@ -130,8 +130,8 @@ namespace IdentitySample.Controllers
         {
             //Get the list of Roles
             List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua"));
-            item.Add(new ItemZona(1, "Juarez"));
+            item.Add(new ItemZona(0, "Chihuahua",""));
+            item.Add(new ItemZona(1, "Juarez",""));
 
             ViewBag.Zonas = item;
             return PartialView("_Create");
@@ -189,47 +189,54 @@ namespace IdentitySample.Controllers
             });
         }
 
-        //
-        // GET: /Users/Edit/1
-        public async Task<ActionResult> Edit(string id)
+        [HttpPost]
+        public ActionResult EditandoUsuario(string id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var user = await UserManager.FindByIdAsync(id);
+            var user = UserManager.FindById(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
 
-            var userRoles = await UserManager.GetRolesAsync(user.Id);
+            //var userRoles = UserManager.GetRoles(user.Id);
 
-            return View(new EditUserViewModel()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Nombre = user.Nombre,
-                aPaterno = user.aPaterno,
-                aMaterno = user.aMaterno,
-                Supervisor = user.Supervisor,
-                Zona = user.Zona,
-                Activo = user.Activo,
-                RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
-                {
-                    Selected = userRoles.Contains(x.Name),
-                    Text = x.Name,
-                    Value = x.Name
-                })
-            });
+            EditUserViewModel usuario = new EditUserViewModel();
+
+            usuario.Id = user.Id;
+            usuario.Email = user.Email != null ? user.Email : "";
+            usuario.Nombre = user.Nombre != null ? user.Nombre : "";
+            usuario.aPaterno = user.aPaterno != null ? user.aPaterno : "";
+            usuario.aMaterno = user.aMaterno != null ? user.aMaterno : "";
+            usuario.Zona = user.Zona < 0 ? user.Zona : 0;
+
+
+            List<ItemZona> item = new List<ItemZona>();
+            item.Add(new ItemZona(0, "Chihuahua", usuario.Zona == 0 ? "checked" : ""));
+            item.Add(new ItemZona(1, "Juarez", usuario.Zona == 1 ? "checked" : ""));
+
+            ViewBag.Zonas = item;
+            //RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
+            //{
+            //    Selected = userRoles.Contains(x.Name),
+            //    Text = x.Name,
+            //    Value = x.Name
+            //})
+
+            return PartialView("_EditandoUsuario",usuario);
         }
-
         //
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,aPaterno,aMaterno,Supervisor,Activo,Zona")] EditUserViewModel editUser, params string[] selectedRole)
         {
+
+
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByIdAsync(editUser.Id);
@@ -238,7 +245,7 @@ namespace IdentitySample.Controllers
                     return HttpNotFound();
                 }
 
-                user.UserName = editUser.Email.Substring(0, '@');
+                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17);
                 user.Email = editUser.Email;
                 user.Nombre = editUser.Nombre;
                 user.aPaterno = editUser.aPaterno;
