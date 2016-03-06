@@ -170,7 +170,7 @@ function Crear() {
     }
 }
 
-//actualizar la informacion del usuario
+//abrir modal para actualizar la informacion del usuario
 $('#tUsuarios').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
@@ -196,4 +196,49 @@ function Editar(id) {
             AlertError('No se pudo cargar el registro. Intente nuevamente.');
         }
     });
+}
+
+//funcion para guardar los cambios editados del usuario
+
+$('#Editando').click(function () {
+    Editando();
+});
+
+function Editando() {
+
+    var form = $('#EditarUsuario form');
+
+    form.removeData('validator');
+    form.removeData('unobtrusiveValidation');
+    $.validator.unobtrusive.parse(form);
+    if (form.valid()) {
+        var url = null;
+        var params = null;
+        params = form.serializeArray();
+        if (params != null) {
+            $.ajax({
+                type: 'POST',
+                url: 'UsersAdmin/Edit',
+                data: params,
+                beforeSend: function () {
+                    Loading("Guardando");
+                },
+                complete: function () {
+                    Loading();
+                    $('#EditarUsuario').modal('hide');
+                },
+                success: function (data) {
+                    if (data.result == true) {
+                        AlertSuccess('Se ha Actualizado el registro exitosamente.', 'Usuarios');
+                        buscar();
+                    } else {
+                        AlertError(data.message, 'Usuario');
+                    }
+                },
+                error: function () {
+                    AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Usuarios');
+                }
+            });
+        }
+    }
 }

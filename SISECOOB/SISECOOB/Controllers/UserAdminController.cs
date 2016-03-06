@@ -123,8 +123,7 @@ namespace IdentitySample.Controllers
             return View(user);
         }
 
-        //
-        // GET: /Users/Create
+
         [HttpPost]
         public ActionResult Formulario()
         {
@@ -137,8 +136,7 @@ namespace IdentitySample.Controllers
             return PartialView("_Create");
         }
 
-        //
-        // POST: /Users/Create
+
         [HttpPost]
         public JsonResult Create(RegisterViewModel userViewModel)
         {
@@ -212,7 +210,7 @@ namespace IdentitySample.Controllers
             usuario.Nombre = user.Nombre != null ? user.Nombre : "";
             usuario.aPaterno = user.aPaterno != null ? user.aPaterno : "";
             usuario.aMaterno = user.aMaterno != null ? user.aMaterno : "";
-            usuario.Zona = user.Zona < 0 ? user.Zona : 0;
+            usuario.Zona = user.Zona;
 
 
             List<ItemZona> item = new List<ItemZona>();
@@ -233,7 +231,7 @@ namespace IdentitySample.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,aPaterno,aMaterno,Supervisor,Activo,Zona")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,aPaterno,aMaterno,Zona,Activo")] EditUserViewModel editUser)
         {
 
 
@@ -245,37 +243,37 @@ namespace IdentitySample.Controllers
                     return HttpNotFound();
                 }
 
-                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17);
+                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17) == ""?editUser.Email:editUser.Nombre + "." + editUser.aPaterno;
                 user.Email = editUser.Email;
                 user.Nombre = editUser.Nombre;
                 user.aPaterno = editUser.aPaterno;
                 user.aMaterno = editUser.aMaterno;
-                user.Supervisor = editUser.Supervisor;
                 user.Zona = editUser.Zona;
                 user.Activo = editUser.Activo;
 
-                var userRoles = await UserManager.GetRolesAsync(user.Id);
 
-                selectedRole = selectedRole ?? new string[] { };
+                var result = UserManager.Update(user);
 
-                var result = await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray<string>());
-
-                if (!result.Succeeded)
+                if (result.Succeeded)
                 {
-                    ModelState.AddModelError("", result.Errors.First());
-                    return View();
+                    return Json(new
+                    {
+                        result = true
+                    }
+                    );
                 }
-                result = await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray<string>());
-
-                if (!result.Succeeded)
-                {
-                    ModelState.AddModelError("", result.Errors.First());
-                    return View();
+                else {
+                    return Json(new
+                    {
+                        result = false
+                    }
+                );
                 }
-                return RedirectToAction("Index");
+                
             }
-            ModelState.AddModelError("", "Something failed.");
-            return View();
+            return Json(new {
+                    result = false}
+                ); 
         }
 
         //
