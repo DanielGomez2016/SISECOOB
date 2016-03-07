@@ -103,6 +103,7 @@ namespace IdentitySample.Controllers
                                  Rol = UserManager.GetRoles(i.Id),
                                  Zona = i.Zona,
                                  Activo = i.Activo,
+                                 Supervisor = i.Supervisor
                              })
                              .ToList()
             }, JsonRequestBehavior.AllowGet);
@@ -261,21 +262,67 @@ namespace IdentitySample.Controllers
                         result = true
                     }
                     );
-                }
-                else {
-                    return Json(new
-                    {
-                        result = false
-                    }
-                );
-                }
-                
+                }               
             }
             return Json(new {
                     result = false}
                 ); 
         }
 
+
+        [HttpPost]
+        public JsonResult Activacion(string iduser = "", int activo = 0)
+        {
+            try
+            {
+                var user = UserManager.FindById(iduser);
+                user.Activo = activo;
+
+                var result = UserManager.Update(user);
+
+                if (result.Succeeded)
+                {
+                    return Json(new{result = true});
+                }
+                else {
+                    return Json(new{result = false});
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    result = false
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Supervisor(string iduser = "", int supervisor = 0)
+        {
+            try
+            {
+                var user = UserManager.FindById(iduser);
+                user.Supervisor = supervisor;
+
+                var result = UserManager.Update(user);
+
+                if (result.Succeeded)
+                {
+                    return Json(new { result = true });
+                }
+                else {
+                    return Json(new { result = false });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    result = false
+                });
+            }
+        }
         //
         // GET: /Users/Delete/5
         public async Task<ActionResult> Delete(string id)
@@ -294,7 +341,7 @@ namespace IdentitySample.Controllers
 
         //
         // POST: /Users/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {

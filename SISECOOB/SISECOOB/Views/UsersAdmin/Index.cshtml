@@ -40,14 +40,12 @@
 <table id="tUsuarios" class="table table-hover table-stripped">
     <thead>
         <tr>
-            <th class="col-md-1">Nombre</th>
-            <th class="col-md-2">Apellido Paterno</th>
-            <th class="col-md-2">Apellido Materno</th>
+            <th class="col-md-3">Nombre</th>
             <th class="col-md-2">Email</th>
             <th class="col-md-1">Usuario</th>
             <th class="col-md-1">Rol</th>
             <th class="col-md-1">Zona</th>
-            <th class="col-md-2"></th>
+            <th class="col-md-4"></th>
         </tr>
     </thead>
     <tbody>
@@ -105,110 +103,87 @@
 </div>
 <!-- /.modal -->
 
+<div id="modalActivacion" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo1" class=" text-center modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <div class="col-12 text-center">
+                        <input class="btn btn-primary btn" id="Activando" type="button" value="">
+                        <a class="btn btn-default  btn" data-dismiss="modal">Cancelar</a>
+                    </div>
+                    <input type="hidden" id="UsuarioID" value="" />
+                    <input type="hidden" id="Elementoid" value="" />
+                    <input type="hidden" id="Activa" value="" />
+                    <input type="hidden" id="elemento" value="" />
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="modalSupervisor" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="tituloSU" class=" text-center modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <div class="col-12 text-center">
+                        <input class="btn btn-primary btn" id="btnSupervisor" type="button" value="">
+                        <a class="btn btn-default  btn" data-dismiss="modal">Cancelar</a>
+                    </div>
+                    <input type="hidden" id="SuId" value="" />
+                    <input type="hidden" id="ElementoidS" value="" />
+                    <input type="hidden" id="Supervisor" value="" />
+                    <input type="hidden" id="elementoS" value="" />
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="Eliminarmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="tituloElimina" class="modal-title text-center" ></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="eliminarID" value="" />
+
+                <div class="col-12 text-center">
+                    <input class="btn btn-primary btn" id="btnElimina" type="button" value="">
+                    <a class="btn btn-default  btn" data-dismiss="modal">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 @section Scripts {
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.messages.js")"></script>
     <script src="/Scripts/Paginacion.js"></script>
     <script src="~/Scripts/Controles/Usuarios.js"></script>
-    <script>
-        
 
-
-        @*var CrearUsuario = function () {
-
-            if ($('#Nombre').val() != "" && $('#ApellidoPaterno').val() != "")
-            {
-                var nombre = $('#Nombre').val();
-                var apellido = $('#ApellidoPaterno').val();
-
-                nombre = nombre.split(" ")[0];
-                apellido = apellido.split(" ")[0];
-
-                var user = nombre + "." + apellido;
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/Usuarios/VerificarUsario',
-                    data: { username: user },
-                    beforeSend: function () {
-                        Loading("Verificando");
-                    },
-                    complete: function () {
-                        Loading();
-                    },
-                    success: function (data) {
-                        if (data.result) {
-                            $('#UserName').val(data.user);
-                            AlertSuccess('Verificacion Correcta', '@ViewBag.Title');
-                        }
-                    },
-                    error: function () {
-                        AlertError('No se pudo hacer la verificacion, compruebe el nombre y apellido paterno');
-                    }
-                });
-            }
-        }
-
-        $('#guardar').click(function () {
-
-            var totRoles = $('[name="Rol"]:checked').length;
-
-            if (totRoles == 0) {
-                AlertError('No se ha seleccionado ningún rol');
-                return;
-            }
-
-            var form = $('#formulario form');
-            if (form.find('#Edicion').val() == true) {
-                if (form.find('#Password').val() != '' || form.find('#Password2').val() != '') {
-                    form.find('#Password').removeClass('ignore');
-                    form.find('#Password2').removeClass('ignore');
-                } else {
-                    form.find('#Password').addClass('ignore');
-                    form.find('#Password2').addClass('ignore');
-                }
-            }
-            form.removeData('validator');
-            form.removeData('unobtrusiveValidation');
-            $.validator.unobtrusive.parse(form);
-            if (form.valid()) {
-                var url = null;
-                var params = null;
-                if (opcion == 1) {
-                    url = '/Usuarios/Crear';
-                } else {
-                    url = '/Usuarios/Editar';
-                }
-                params = form.serializeArray();
-                if (url != null && params != null) {
-                    $.ajax({
-                        type: 'POST',
-                        url: url,
-                        data: params,
-                        beforeSend: function () {
-                            Loading("Guardando");
-                        },
-                        complete: function () {
-                            Loading();
-                            $('#formulario').modal('hide');
-                        },
-                        success: function (data) {
-                            if (data.result == true) {
-                                AlertSuccess('Se ha guardado el registro exitosamente.', '@ViewBag.Title');
-                                buscar();
-                                opcion = 0;
-                                actual = 0;
-                            } else {
-                                AlertError(data.message, '@ViewBag.Title');
-                            }
-                        },
-                        error: function () {
-                            AlertError('No se pudo guardar el registro. Intente nuevamente.', '@ViewBag.Title');
-                        }
-                    });
-                }
-            }
-        });*@
-    </script>
 }
