@@ -480,7 +480,7 @@ $("#btnElimina").click(function () {
 function EliminaUsuario(id) {
     $.ajax({
             type: 'POST',
-            url: '/UsersAdmin/DeleteConfirmed',
+            url: '/UsersAdmin/EliminarUsuario',
             data: { id: $("#eliminarID").val() },
             beforeSend: function () {
                 Loading("Eliminando");

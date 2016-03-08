@@ -59,8 +59,8 @@ namespace IdentitySample.Controllers
         {
             ViewBag.RoleNames = RoleManager.Roles.ToList().Select(i => new { nombre = i.Name });
             List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua",""));
-            item.Add(new ItemZona(1, "Juarez",""));
+            item.Add(new ItemZona(0, "Chihuahua", ""));
+            item.Add(new ItemZona(1, "Juarez", ""));
 
             ViewBag.Zonas = item;
             var a = item;
@@ -130,8 +130,8 @@ namespace IdentitySample.Controllers
         {
             //Get the list of Roles
             List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua",""));
-            item.Add(new ItemZona(1, "Juarez",""));
+            item.Add(new ItemZona(0, "Chihuahua", ""));
+            item.Add(new ItemZona(1, "Juarez", ""));
 
             ViewBag.Zonas = item;
             return PartialView("_Create");
@@ -180,7 +180,7 @@ namespace IdentitySample.Controllers
                     });
 
                 }
-                
+
             }
             return Json(new
             {
@@ -226,7 +226,7 @@ namespace IdentitySample.Controllers
             //    Value = x.Name
             //})
 
-            return PartialView("_EditandoUsuario",usuario);
+            return PartialView("_EditandoUsuario", usuario);
         }
         //
         // POST: /Users/Edit/5
@@ -244,7 +244,7 @@ namespace IdentitySample.Controllers
                     return HttpNotFound();
                 }
 
-                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17) == ""?editUser.Email:editUser.Nombre + "." + editUser.aPaterno;
+                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17) == "" ? editUser.Email : editUser.Nombre + "." + editUser.aPaterno;
                 user.Email = editUser.Email;
                 user.Nombre = editUser.Nombre;
                 user.aPaterno = editUser.aPaterno;
@@ -262,11 +262,13 @@ namespace IdentitySample.Controllers
                         result = true
                     }
                     );
-                }               
+                }
             }
-            return Json(new {
-                    result = false}
-                ); 
+            return Json(new
+            {
+                result = false
+            }
+                );
         }
 
 
@@ -282,10 +284,10 @@ namespace IdentitySample.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Json(new{result = true});
+                    return Json(new { result = true });
                 }
                 else {
-                    return Json(new{result = false});
+                    return Json(new { result = false });
                 }
             }
             catch (Exception e)
@@ -366,6 +368,32 @@ namespace IdentitySample.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult EliminarUsuario(string id)
+        {
+            try
+            {
+                var u = UserManager.FindById(id);
+
+                var result = UserManager.Delete(u);
+
+                if (result.Succeeded)
+                  {
+                    return Json(new { result = true });
+                  }
+                else {
+                    return Json(new { result = false });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    result = false
+                });
+            }
         }
     }
 }
