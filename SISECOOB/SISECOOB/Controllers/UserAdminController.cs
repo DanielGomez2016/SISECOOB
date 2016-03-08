@@ -80,7 +80,7 @@ namespace IdentitySample.Controllers
                 query = query.Where(i => i.UserName.Contains(email));
 
             if (!string.IsNullOrEmpty(nombre))
-                query = query.Where(i => (i.Nombre + " " + i.aPaterno + " " + i.aMaterno).Contains(email));
+                query = query.Where(i => (i.Nombre + " " + i.aPaterno + " " + i.aMaterno).Contains(nombre));
 
             if (Zona == 0 || Zona == 1)
                 query = query.Where(i => i.Zona == Zona);
@@ -134,12 +134,17 @@ namespace IdentitySample.Controllers
             item.Add(new ItemZona(1, "Juarez", ""));
 
             ViewBag.Zonas = item;
+            ViewBag.Roles = RoleManager.Roles.Select(i => new
+            {
+                nombre = i.Name
+            }).ToList();
+
             return PartialView("_Create");
         }
 
 
         [HttpPost]
-        public JsonResult Create(RegisterViewModel userViewModel)
+        public JsonResult Create(RegisterViewModel userViewModel, string Rol)
         {
             if (ModelState.IsValid)
             {
@@ -163,14 +168,21 @@ namespace IdentitySample.Controllers
                 user.Activo = 1;
 
                 var adminresult = UserManager.Create(user, userViewModel.Password);
-
+                
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)
                 {
-                    return Json(new
+                    var rolresult = UserManager.AddToRole(user.Id, Rol);
+                    
+
+                    if (rolresult.Succeeded)
                     {
-                        result = true
-                    });
+                        return Json(new
+                        {
+                            result = true
+                        });
+                    }
+                    
                 }
                 else
                 {

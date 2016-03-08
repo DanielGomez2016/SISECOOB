@@ -29,6 +29,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    @Html.Label("Rol", new { @class = "col-md-12 control-label" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("Rol", new SelectList(ViewBag.Roles, "nombre", "nombre"), "Todos", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(m => m.Supervisor, new { @class = "col-md-12 control-label" })
                     <div class="col-md-12">
                         <label><input name="Supervisor" type="checkbox" value="1" /> Es Supervisor </label><br />

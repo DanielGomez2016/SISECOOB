@@ -68,22 +68,29 @@ function buscar() {
             var x = 1;
             data.datos.map(function (e) {
 
-                if (e.Activo > 0) {
+                if (e.Activo == 1) {
 
                     e.BtnActiva = '<input type="button" id="Activo' + x + '" name="activar" value="Activo" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Activo + '" data-value2="" class="btn btn-success"><input id="segundovalor' + x + '" type="hidden" value="" />';
-                    x++
                 }
                 else {
-                    e.BtnActiva = '<input type="button" id="Activo' + x + '" name="activar" value="Activar" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Activo + '" data-value2="" class="btn btn-desactivo"><input id="segundovalor' + x + '" type="hidden" value="" />';
-                    x++
+                    e.BtnActiva = '<input type="button" id="Activo' + x + '" name="activar" value="Activar" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Activo + '" data-value2="" class="btn btn-desactivo"><input id="segundovalor' + x + '" type="hidden" value="" />';   
                 }
-                if (e.Supervisor > 0) {
+                if (e.Supervisor == 1 && e.Activo == 1) {
 
                     e.BtnSupervisa = '<input type="button" id="Supervisa' + x + '" name="supervisor" value="Supervisor" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Supervisor + '" class="btn btn-primary"><input id="Suval' + x + '" type="hidden" value="" />';
                     x++
                 }
-                else {
+                if (e.Supervisor == 1 && e.Activo == 0) {
+
+                    e.BtnSupervisa = '<input type="button" id="Supervisa' + x + '" name="supervisor" value="Supervisor" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Supervisor + '" disabled="true" class="btn btn-primary"><input id="Suval' + x + '" type="hidden" value="" />';
+                    x++
+                }
+                if (e.Supervisor == 0 && e.Activo == 1) {
                     e.BtnSupervisa = '<input type="button" id="Supervisa' + x + '" name="supervisor" value="Supervisor" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Supervisor + '" class="btn btn-warning"><input id="Suval' + x + '" type="hidden" value="" />';
+                    x++
+                }
+                if (e.Supervisor == 0 && e.Activo == 0) {
+                    e.BtnSupervisa = '<input type="button" id="Supervisa' + x + '" name="supervisor" value="Supervisor" data-elemento="' + x + '" data-id="' + e.id + '" data-value="' + e.Supervisor + '" disabled="true" class="btn btn-warning"><input id="Suval' + x + '" type="hidden" value="" />';
                     x++
                 }
 
@@ -165,14 +172,14 @@ function Crear() {
                 },
                 success: function (data) {
                     if (data.result == true) {
-                        AlertSuccess('Se ha guardado el registro exitosamente.', '@ViewBag.Title');
+                        AlertSuccess('Se ha guardado el registro exitosamente.', 'Usuario');
                         buscar();
                     } else {
                         AlertError(data.message, 'Usuario');
                     }
                 },
                 error: function () {
-                    AlertError('No se pudo guardar el registro. Intente nuevamente.', '@ViewBag.Title');
+                    AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Usuario');
                 }
             });
         }
@@ -291,6 +298,7 @@ $("#Activando").click(function () {
 
 function ActivarUsuario() {
     var boton;
+    var btnSup;
     var elem = $("#elemento").val();
     var activo = $("#Activa").val();
     if (activo == 0) {
@@ -306,6 +314,9 @@ function ActivarUsuario() {
             },
             success: function (data) {
                 if (data) {
+                    ids = 'Supervisa' + elem
+                    btnSup = $('#' + ids + '');
+                    btnSup.removeAttr('disabled');
                     element = $('#Elementoid').val();
                     boton = $('#' + element + '');
                     boton.removeClass('btn-desactivo');
@@ -336,6 +347,9 @@ function ActivarUsuario() {
             },
             success: function (data) {
                 if (data) {
+                    ids = 'Supervisa' + elem
+                    btnSup = $('#' + ids + '');
+                    btnSup.attr('disabled', true);
                     element = $('#Elementoid').val();
                     boton = $('#' + element + '');
                     boton.removeClass('btn-success');
