@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MunicipiosController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -1068,6 +1069,7 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />
     <Content Include="Scripts\fullcalendar.css" />
@@ -1194,6 +1196,8 @@
     <Content Include="Views\UsersAdmin\_EditandoUsuario.cshtml" />
     <Content Include="Views\Municipios\Index.cshtml" />
     <Content Include="Views\Municipios\_Formulario.cshtml" />
+    <Content Include="Views\Localidades\Index.cshtml" />
+    <Content Include="Views\Localidades\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

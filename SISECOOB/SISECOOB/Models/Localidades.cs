@@ -11,7 +11,8 @@ namespace SISECOOB.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Localidades
     {
         public int LocalidadId { get; set; }
@@ -19,5 +20,53 @@ namespace SISECOOB.Models
         public string Nombre { get; set; }
     
         public virtual Municipios Municipios { get; set; }
+
+
+        public void Crear()
+        {
+            try
+            {
+
+                SISECOOBEntities db = new SISECOOBEntities();
+                db.Localidades.Add(this);
+                db.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Editar()
+        {
+            try
+            {
+                SISECOOBEntities db = new SISECOOBEntities();
+                Localidades localidad = db.Localidades.FirstOrDefault(u => u.LocalidadId == LocalidadId);
+                localidad.Nombre = Nombre;
+                localidad.MunicipioId_FK = MunicipioId_FK;
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            try
+            {
+                SISECOOBEntities db = new SISECOOBEntities();
+                var localidades = db.Localidades.FirstOrDefault(i => i.LocalidadId == LocalidadId);
+                db.Localidades.Remove(localidades);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
