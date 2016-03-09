@@ -214,7 +214,7 @@ namespace IdentitySample.Controllers
                 return HttpNotFound();
             }
 
-            //var userRoles = UserManager.GetRoles(user.Id);
+            var userRoles = UserManager.GetRoles(user.Id);
 
             EditUserViewModel usuario = new EditUserViewModel();
 
@@ -231,12 +231,12 @@ namespace IdentitySample.Controllers
             item.Add(new ItemZona(1, "Juarez", usuario.Zona == 1 ? "checked" : ""));
 
             ViewBag.Zonas = item;
-            //RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
-            //{
-            //    Selected = userRoles.Contains(x.Name),
-            //    Text = x.Name,
-            //    Value = x.Name
-            //})
+            ViewBag.RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
+            {
+                Selected = userRoles.Contains(x.Name),
+                Text = x.Name,
+                Value = x.Name
+            });
 
             return PartialView("_EditandoUsuario", usuario);
         }
@@ -244,7 +244,7 @@ namespace IdentitySample.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,aPaterno,aMaterno,Zona,Activo")] EditUserViewModel editUser)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,aPaterno,aMaterno,Zona,Activo")] EditUserViewModel editUser, string Rol)
         {
 
 
@@ -267,7 +267,9 @@ namespace IdentitySample.Controllers
 
                 var result = UserManager.Update(user);
 
-                if (result.Succeeded)
+                var resultrol = UserManager.AddToRole(user.Id, Rol);
+
+                if (result.Succeeded && resultrol.Succeeded)
                 {
                     return Json(new
                     {

@@ -43,13 +43,27 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
                     @if (Request.IsAuthenticated && User.IsInRole("Administrator")) {
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                        <li>@Html.ActionLink("Administracion Roles", "Index", "RolesAdmin")</li>
+                        <li>@Html.ActionLink("Administracion Usuarios", "Index", "UsersAdmin")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+                    {
+                        <li class=" dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Catalogos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Municipios", "Index", "Municipios")</li>
+                                <li>@Html.ActionLink("Departamentos", "Index", "Departamentos")</li>
+                                <li>@Html.ActionLink("Conceptos", "Index", "Conceptos")</li>
+                                <li>@Html.ActionLink("Localidades", "Index", "Localidades")</li>
+                                <li>@Html.ActionLink("Nivel Educativo", "Index", "NivelsEducativos")</li>
+                            </ul>
+                        </li>
+                        
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
