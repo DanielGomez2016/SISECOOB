@@ -1,0 +1,16 @@
+﻿@model SISECOOB.Models.Municipios
+
+
+@using (@Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.MunicipioId)
+            <div class=" form-group col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                @Html.LabelFor(i => i.Nombre)
+                @Html.TextBoxFor(i => i.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Nombre)
+            </div>
+        </div>
+    </fieldset>
+}
