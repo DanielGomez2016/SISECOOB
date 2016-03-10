@@ -218,30 +218,48 @@ function Editando() {
 //eliminar el municipio
 
 $('#tMunicipios').on('click', 'button[name="eliminar"]', function () {
-    Elimina($(this).val());
+    Eliminar($(this).val());
 });
 
-function Elimina(id) {
+function Eliminar(id) {
+
+    $("#Eliminarmodal").modal("show");
+    $("#eliminarID").val(id);
+
+    $("#tituloElimina").text("¿ Quieres ELIMINAR a este municipio, ten en cuenta que se eliminaran sus respectivas Localidades ?");
+    $("#btnElimina").val("Si, Eliminar Municipio");
+    $("#btnElimina").addClass('btn-danger');
+
+    $('#titulo').text('Eliminar Municipio');
+}
+
+$("#btnElimina").click(function () {
+    EliminarMunicipio();
+});
+
+function EliminarMunicipio() {
     $.ajax({
         type: 'POST',
-                url: 'Municipios/Elimina',
-                data: { id: id },
-                beforeSend: function () {
-                    Loading("Eliminando");
-                },
-                complete: function () {
-                    Loading();
-                },
-                success: function (data) {
-                    if (data.result == true) {
-                        AlertSuccess('Se ha Eliminado el registro exitosamente.', 'Municipios');
-                        buscar();
-                    } else {
-                        AlertError(data.message, 'Municipios');
-                    }
-                },
-                error: function () {
-                    AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Municipios');
-                }
-            });
+        url: '/Municipios/Elimina',
+        data: { id: $("#eliminarID").val() },
+        beforeSend: function () {
+            Loading("Eliminando");
+        },
+        complete: function () {
+            Loading();
+        },
+        success: function (data) {
+            if (data.result == true) {
+                AlertSuccess('Se ha eliminado el municipio exitosamente.', 'Municipios');
+                $("#Eliminarmodal").modal("hide");
+                buscar();
+            } else {
+                AlertError(data.message, 'Municipios');
+            }
+        },
+        error: function () {
+            AlertError('No se pudo eliminar el Municipio. Intente nuevamente.', 'Municipios');
+            $("#Eliminarmodal").modal("hide");
         }
+    });
+}

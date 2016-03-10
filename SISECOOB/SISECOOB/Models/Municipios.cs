@@ -63,6 +63,16 @@ namespace SISECOOB.Models
             {
                 SISECOOBEntities db = new SISECOOBEntities();
                 var municipio = db.Municipios.FirstOrDefault(i => i.MunicipioId == id);
+
+                Localidades[] localidades = db.Localidades.Where(i => i.MunicipioId_FK == municipio.MunicipioId).ToArray();
+
+                foreach(var item in localidades)
+                {
+                    db.Localidades.Remove(item);
+                    db.SaveChanges();
+                }
+
+
                 db.Municipios.Remove(municipio);
                 db.SaveChanges();
             }

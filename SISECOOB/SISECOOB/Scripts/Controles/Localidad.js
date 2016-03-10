@@ -154,7 +154,7 @@ function Editar(id) {
     $('#titulo').text('Editar Usuario');
     $.ajax({
         type: 'POST',
-        url: '/Municipios/Formulario',
+        url: '/Localidades/Formulario',
         data: { id: id },
         beforeSend: function () {
             Loading("Cargando");

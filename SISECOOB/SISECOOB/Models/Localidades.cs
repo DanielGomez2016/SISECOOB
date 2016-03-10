@@ -11,11 +11,17 @@ namespace SISECOOB.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web.Security;
 
     public partial class Localidades
     {
         public int LocalidadId { get; set; }
+
+        [Display(Name ="Municipio")]
         public Nullable<int> MunicipioId_FK { get; set; }
         public string Nombre { get; set; }
     
