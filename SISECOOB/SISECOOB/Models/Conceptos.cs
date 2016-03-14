@@ -12,7 +12,7 @@ namespace SISECOOB.Models
         public class mConceptos
         {
             [Display(Name = "Identificador")]
-            public int ConceptoId { get; set; }
+            public int? ConceptoId { get; set; }
 
             [Display(Name = "Clave")]
             public string Clave { get; set; }
@@ -27,7 +27,7 @@ namespace SISECOOB.Models
             public string Unidad { get; set; }
 
             [Display(Name = "Precio")]
-            public string Precio { get; set; }
+            public double Precio { get; set; }
 
         }
         public void Crear()

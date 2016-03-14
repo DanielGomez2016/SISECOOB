@@ -119,7 +119,7 @@ function Crear() {
         if (params != null) {
             $.ajax({
                 type: 'POST',
-                url: 'Municipios/Create',
+                url: '/Municipios/Create',
                 data: params,
                 beforeSend: function () {
                     Loading("Guardando");
@@ -190,7 +190,7 @@ function Editando() {
         if (params != null) {
             $.ajax({
                 type: 'POST',
-                url: 'Municipios/Edicion',
+                url: '/Municipios/Edicion',
                 data: params,
                 beforeSend: function () {
                     Loading("Actualizando");

@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     //paginacion de las tablas
     pag = new Paginacion({
-        content: $('#tconcepto .paginacion'),
+        content: $('#tNiveles .paginacion'),
         search: buscar,
         pageSize: 15,
         info: true
@@ -40,7 +40,7 @@ function buscar() {
 
     $.ajax({
         type: "GET",
-        url: '/Conceptos/Buscar',
+        url: '/NivelesEducativos/Buscar',
         data: form.serialize(),
         beforeSend: function () {
             Loading('Buscando');
@@ -51,15 +51,12 @@ function buscar() {
     })
     .done(function (data) {
 
-        var t = $('#tconcepto tbody').empty();
+        var t = $('#tNiveles tbody').empty();
 
         if (data.total > 0) {
-            var html = '<td class="col-md-2">{clave}</td>'
-                + '<td class="col-md-2">{concepto}</td>'
-                + '<td class="col-md-3">{desc}</td>'
-                + '<td class="col-md-1">{unidad}</td>'
-                + '<td class="col-md-1">{precio}</td>'
-                + '<td class="text-right col-md-3">'
+            var html = '<tr><td class="col-md-4">{id}</td>'
+                + '<td class="col-md-4">{nombre}</td>'
+                + '<td class="text-right col-md-4">'
                 + '<button type="button" name="editar" value="{id}" class="btn btn-info">Editar</button>'
                 + ' <button type="button" name="eliminar" value="{id}" class="btn btn-danger">Eliminar</button></td></tr>';
 
@@ -82,10 +79,10 @@ $('#Nuevo').click(function () {
 });
 
 function Nuevo() {
-    $('#titulo').text('Nuevo Concepto');
+    $('#titulo').text('Nuevo Nivel');
     $.ajax({
         type: 'POST',
-        url: '/Conceptos/Formulario',
+        url: '/NivelesEducativos/Formulario',
         data: { id: 0 },
         beforeSend: function () {
             Loading("Cargando");
@@ -94,9 +91,9 @@ function Nuevo() {
             Loading();
         },
         success: function (html) {
-            $('#NuevaConcepto').find('.modal-body form').remove();
-            $('#NuevaConcepto').find('.modal-body').append(html);
-            $('#NuevaConcepto').modal('show');
+            $('#NuevoNivel').find('.modal-body form').remove();
+            $('#NuevoNivel').find('.modal-body').append(html);
+            $('#NuevoNivel').modal('show');
         },
         error: function () {
             AlertError('No se pudo cargar el formulario. Intente nuevamente.');
@@ -110,53 +107,46 @@ $('#guardar').click(function () {
 
 function Crear() {
 
-    var form = $('#NuevaConcepto form');
-
-    form.removeData('validator');
-    form.removeData('unobtrusiveValidation');
-    $.validator.unobtrusive.parse(form);
-    if (form.valid()) {
-        var url = null;
-        var params = null;
-        params = form.serializeArray();
-        if (params != null) {
-            $.ajax({
-                type: 'POST',
-                url: '/Conceptos/Create',
-                data: params,
-                beforeSend: function () {
-                    Loading("Guardando");
-                },
-                complete: function () {
-                    Loading();
-                    $('#NuevaConcepto').modal('hide');
-                },
-                success: function (data) {
-                    if (data.result == true) {
-                        AlertSuccess('Se ha guardado el registro exitosamente.', 'Concepto');
-                        buscar();
-                    } else {
-                        AlertError(data.message, 'Concepto');
-                    }
-                },
-                error: function () {
-                    AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Concepto');
+    var form = $('#NuevoNivel form');
+    params = form.serializeArray();
+    if (params != null) {
+        $.ajax({
+            type: 'POST',
+            url: '/NivelesEducativos/Create',
+            data: params,
+            beforeSend: function () {
+                Loading("Guardando");
+            },
+            complete: function () {
+                Loading();
+                $('#NuevoNivel').modal('hide');
+            },
+            success: function (data) {
+                if (data.result == true) {
+                    AlertSuccess('Se ha guardado el registro exitosamente.', 'Niveles Educativos');
+                    buscar();
+                } else {
+                    AlertError(data.message, 'Niveles Educativos');
                 }
-            });
-        }
+            },
+            error: function () {
+                AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Niveles Educativos');
+            }
+        });
     }
 }
 
+
 //abrir modal para actualizar la informacion del municipio
-$('#tconcepto').on('click', 'button[name="editar"]', function () {
+$('#tNiveles').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
 
 function Editar(id) {
-    $('#titulo').text('Editar Concepto');
+    $('#titulo').text('Editar Nivel');
     $.ajax({
         type: 'POST',
-        url: '/Conceptos/Formulario',
+        url: '/NivelesEducativos/Formulario',
         data: { id: id },
         beforeSend: function () {
             Loading("Cargando");
@@ -165,9 +155,9 @@ function Editar(id) {
             Loading();
         },
         success: function (html) {
-            $('#EditarConcepto').find('.modal-body form').remove();
-            $('#EditarConcepto').find('.modal-body').append(html);
-            $('#EditarConcepto').modal('show');
+            $('#EditarNivel').find('.modal-body form').remove();
+            $('#EditarNivel').find('.modal-body').append(html);
+            $('#EditarNivel').modal('show');
         },
         error: function () {
             AlertError('No se pudo cargar el registro. Intente nuevamente.');
@@ -181,53 +171,49 @@ $('#Editando').click(function () {
 
 function Editando() {
 
-    var form = $('#EditarConcepto form');
+    var form = $('#EditarNivel form');
 
-    form.removeData('validator');
-    form.removeData('unobtrusiveValidation');
     $.validator.unobtrusive.parse(form);
-    if (form.valid()) {
         var url = null;
         var params = null;
         params = form.serializeArray();
         if (params != null) {
             $.ajax({
                 type: 'POST',
-                url: '/Conceptos/Edicion',
+                url: '/NivelesEducativos/Edicion',
                 data: params,
                 beforeSend: function () {
                     Loading("Actualizando");
                 },
                 complete: function () {
                     Loading();
-                    $('#EditarConcepto').modal('hide');
+                    $('#EditarNivel').modal('hide');
                 },
                 success: function (data) {
                     if (data.result == true) {
-                        AlertSuccess('Se ha Actualizado el registro exitosamente.', 'Concepto');
+                        AlertSuccess('Se ha Actualizado el registro exitosamente.', 'Niveles Educativos');
                         buscar();
                     } else {
-                        AlertError(data.message, 'Concepto');
+                        AlertError(data.message, 'Niveles Educativos');
                     }
                 },
                 error: function () {
-                    AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Concepto');
+                    AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Niveles Educativos');
                 }
             });
         }
-    }
 }
 
 //eliminar el municipio
 
-$('#tconcepto').on('click', 'button[name="eliminar"]', function () {
+$('#tNiveles').on('click', 'button[name="eliminar"]', function () {
     Elimina($(this).val());
 });
 
 function Elimina(id) {
     $.ajax({
         type: 'POST',
-        url: 'Conceptos/Elimina',
+        url: '/NivelesEducativos/Elimina',
         data: { id: id },
         beforeSend: function () {
             Loading("Eliminando");
@@ -237,14 +223,14 @@ function Elimina(id) {
         },
         success: function (data) {
             if (data.result == true) {
-                AlertSuccess('Se ha Eliminado el registro exitosamente.', 'Concepto');
+                AlertSuccess('Se ha Eliminado el registro exitosamente.', 'Niveles Educativos');
                 buscar();
             } else {
-                AlertError(data.message, 'Concepto');
+                AlertError(data.message, 'Niveles Educativos');
             }
         },
         error: function () {
-            AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Concepto');
+            AlertError('No se pudo guardar el registro. Intente nuevamente.', 'Niveles Educativos');
         }
     });
 }
