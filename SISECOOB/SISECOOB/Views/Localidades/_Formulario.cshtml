@@ -4,6 +4,7 @@
 {
     <fieldset>
         <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.LocalidadId)
             <div class="form-group">
                 @Html.LabelFor(m => m.Nombre, new { @class = "col-md-12 control-label" })
                 <div class="col-md-12">
@@ -20,4 +21,3 @@
     </fieldset>
 }
 
- -

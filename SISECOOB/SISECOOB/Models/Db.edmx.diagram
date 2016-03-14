@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2e2a4dacd47e471b9910ae983ccf1e0d" Name="Diagram1">
-        <EntityTypeShape EntityType="SISECOOBModel.Conceptos" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SISECOOBModel.Localidades" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SISECOOBModel.Municipios" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SISECOOBModel.NivelesEducativos" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SISECOOBModel.TipoOficios" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SISECOOBModel.Zonas" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SISECOOBModel.Fk_Municipios_Localidades" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SISECOOBModel.Conceptos" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SISECOOBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SISECOOBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Conceptos">
           <Key>
             <PropertyRef Name="ConceptoId" />
@@ -13,7 +13,7 @@
           <Property Name="Clave" Type="varchar" MaxLength="50" />
           <Property Name="Concepto" Type="varchar" MaxLength="50" />
           <Property Name="Descripcion" Type="text" />
-          <Property Name="Unidad" Type="int" />
+          <Property Name="Unidad" Type="varchar" MaxLength="50" />
           <Property Name="Precio" Type="float" />
         </EntityType>
         <EntityType Name="Localidades">
@@ -76,22 +76,10 @@
             <End Role="Localidades" EntitySet="Localidades" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SISECOOBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Conceptos">
-          <Key>
-            <PropertyRef Name="ConceptoId" />
-          </Key>
-          <Property Name="ConceptoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Unidad" Type="Int32" />
-          <Property Name="Precio" Type="Double" />
-        </EntityType>
         <EntityType Name="Localidades">
           <Key>
             <PropertyRef Name="LocalidadId" />
@@ -143,7 +131,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SISECOOBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Conceptos" EntityType="Self.Conceptos" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" />
           <EntitySet Name="Municipios" EntityType="Self.Municipios" />
           <EntitySet Name="NivelesEducativos" EntityType="Self.NivelesEducativos" />
@@ -153,25 +140,25 @@
             <End Role="Municipios" EntitySet="Municipios" />
             <End Role="Localidades" EntitySet="Localidades" />
           </AssociationSet>
+          <EntitySet Name="Conceptos" EntityType="SISECOOBModel.Conceptos" />
         </EntityContainer>
+        <EntityType Name="Conceptos">
+          <Key>
+            <PropertyRef Name="ConceptoId" />
+          </Key>
+          <Property Name="ConceptoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Double" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SISECOOBModelStoreContainer" CdmEntityContainer="SISECOOBEntities">
-          <EntitySetMapping Name="Conceptos">
-            <EntityTypeMapping TypeName="SISECOOBModel.Conceptos">
-              <MappingFragment StoreEntitySet="Conceptos">
-                <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Localidades">
             <EntityTypeMapping TypeName="SISECOOBModel.Localidades">
               <MappingFragment StoreEntitySet="Localidades">
@@ -210,6 +197,18 @@
               <MappingFragment StoreEntitySet="Zonas">
                 <ScalarProperty Name="ZonaID" ColumnName="ZonaID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conceptos">
+            <EntityTypeMapping TypeName="SISECOOBModel.Conceptos">
+              <MappingFragment StoreEntitySet="Conceptos">
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

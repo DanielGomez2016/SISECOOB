@@ -74,22 +74,6 @@ namespace SISECOOB.Models
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<Conceptos> Conceptos
-        {
-            get
-            {
-                if ((_Conceptos == null))
-                {
-                    _Conceptos = base.CreateObjectSet<Conceptos>("Conceptos");
-                }
-                return _Conceptos;
-            }
-        }
-        private ObjectSet<Conceptos> _Conceptos;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         public ObjectSet<Localidades> Localidades
         {
             get
@@ -166,18 +150,26 @@ namespace SISECOOB.Models
             }
         }
         private ObjectSet<Zonas> _Zonas;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Conceptos> Conceptos
+        {
+            get
+            {
+                if ((_Conceptos == null))
+                {
+                    _Conceptos = base.CreateObjectSet<Conceptos>("Conceptos");
+                }
+                return _Conceptos;
+            }
+        }
+        private ObjectSet<Conceptos> _Conceptos;
 
         #endregion
 
         #region Métodos AddTo
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Conceptos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToConceptos(Conceptos conceptos)
-        {
-            base.AddObject("Conceptos", conceptos);
-        }
     
         /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet Localidades. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
@@ -217,6 +209,14 @@ namespace SISECOOB.Models
         public void AddToZonas(Zonas zonas)
         {
             base.AddObject("Zonas", zonas);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Conceptos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToConceptos(Conceptos conceptos)
+        {
+            base.AddObject("Conceptos", conceptos);
         }
 
         #endregion
@@ -356,7 +356,7 @@ namespace SISECOOB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Unidad
+        public global::System.String Unidad
         {
             get
             {
@@ -366,13 +366,13 @@ namespace SISECOOB.Models
             {
                 OnUnidadChanging(value);
                 ReportPropertyChanging("Unidad");
-                _Unidad = StructuralObject.SetValidValue(value, "Unidad");
+                _Unidad = StructuralObject.SetValidValue(value, true, "Unidad");
                 ReportPropertyChanged("Unidad");
                 OnUnidadChanged();
             }
         }
-        private Nullable<global::System.Int32> _Unidad;
-        partial void OnUnidadChanging(Nullable<global::System.Int32> value);
+        private global::System.String _Unidad;
+        partial void OnUnidadChanging(global::System.String value);
         partial void OnUnidadChanged();
     
         /// <summary>

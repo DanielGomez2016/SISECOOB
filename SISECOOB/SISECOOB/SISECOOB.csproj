@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConceptosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -181,6 +182,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Conceptos.cs" />
     <Compile Include="Models\Db.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1033,6 +1035,7 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controles\Conceptos.js" />
     <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />
@@ -1162,6 +1165,8 @@
     <Content Include="Views\Municipios\_Formulario.cshtml" />
     <Content Include="Views\Localidades\Index.cshtml" />
     <Content Include="Views\Localidades\_Formulario.cshtml" />
+    <Content Include="Views\Conceptos\Index.cshtml" />
+    <Content Include="Views\Conceptos\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
