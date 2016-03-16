@@ -163,6 +163,8 @@ namespace IdentitySample.Controllers
                     Activo = userViewModel.Activo
                 };
 
+                user.UserName = "";
+                user.UserName = userViewModel.Email.Substring(0, userViewModel.Email.Length - 17);
                 user.Nombre = userViewModel.Nombre;
                 user.aPaterno = userViewModel.aPaterno;
                 user.aMaterno = userViewModel.aMaterno;
@@ -221,6 +223,7 @@ namespace IdentitySample.Controllers
 
             EditUserViewModel usuario = new EditUserViewModel();
 
+            usuario.UserName = user.Email.Substring(0, user.Email.Length - 17);
             usuario.Id = user.Id;
             usuario.Email = user.Email != null ? user.Email : "";
             usuario.Nombre = user.Nombre != null ? user.Nombre : "";
@@ -257,13 +260,12 @@ namespace IdentitySample.Controllers
                     return HttpNotFound();
                 }
 
-                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17) == "" ? editUser.Email : editUser.Nombre + "." + editUser.aPaterno;
+                user.UserName = editUser.Email.Substring(0, editUser.Email.Length - 17);
                 user.Email = editUser.Email;
                 user.Nombre = editUser.Nombre;
                 user.aPaterno = editUser.aPaterno;
                 user.aMaterno = editUser.aMaterno;
                 user.Zona = editUser.Zona;
-                user.Activo = editUser.Activo;
 
 
                 var result = UserManager.Update(user);

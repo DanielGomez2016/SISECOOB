@@ -30,6 +30,8 @@ namespace IdentitySample.Models
 
         public int Zona { get; set; }
 
+        public string UserName { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Email")]
         [EmailAddress]
