@@ -34,23 +34,9 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Zona, new { @class = "col-md-2 control-label" })
-            <span class=" col-md-10">
-                @foreach (var item in ViewBag.Zonas)
-                {
-                    if (item.Selected == "checked")
-                    {
-                        <input type="checkbox" name="Zona" value="@item.itemID" checked="checked" class="checkbox-inline" />
-                    }
-                    else
-                    {
-                        <input type="checkbox" name="Zona" value="@item.itemID" class="checkbox-inline" />
-
-                    }
-                    <label>@item.nombre</label>
-                }
-            </span>
-
-
+            <div class="col-md-10">
+                @Html.DropDownList("Zona", new SelectList(ViewBag.Zonas, "id", "nombre"), "Todos", new { @class = "form-control" })
+            </div>
         </div>
         <div class="form-group">
             @Html.Label("Roles", new { @class = "control-label col-md-2" })

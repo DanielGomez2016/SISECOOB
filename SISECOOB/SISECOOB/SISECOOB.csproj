@@ -177,7 +177,9 @@
     <Compile Include="Controllers\MunicipiosController.cs" />
     <Compile Include="Controllers\NivelesEducativosController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\TipoOficiosController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\ZonasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,6 +197,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\NivelesEducativos.cs" />
+    <Compile Include="Models\TipoOficios.cs" />
+    <Compile Include="Models\Zonas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1040,7 +1044,9 @@
     <Content Include="Scripts\Controles\Conceptos.js" />
     <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
+    <Content Include="Scripts\Controles\TipoOficios.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />
+    <Content Include="Scripts\Controles\Zonas.js" />
     <Content Include="Scripts\fullcalendar.css" />
     <Content Include="Scripts\InfoAutocomplete.js" />
     <EntityDeploy Include="Models\Db.edmx">
@@ -1172,6 +1178,10 @@
     <Content Include="Views\Conceptos\_Formulario.cshtml" />
     <Content Include="Views\NivelesEducativos\Index.cshtml" />
     <Content Include="Views\NivelesEducativos\_Formulario.cshtml" />
+    <Content Include="Views\TipoOficios\Index.cshtml" />
+    <Content Include="Views\TipoOficios\_Formulario.cshtml" />
+    <Content Include="Views\Zonas\Index.cshtml" />
+    <Content Include="Views\Zonas\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

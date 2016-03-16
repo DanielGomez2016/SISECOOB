@@ -57,19 +57,24 @@ namespace IdentitySample.Controllers
         // GET: /Users/
         public ActionResult Index()
         {
+            SISECOOBEntities db = new SISECOOBEntities();
             ViewBag.RoleNames = RoleManager.Roles.ToList().Select(i => new { nombre = i.Name });
-            List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua", ""));
-            item.Add(new ItemZona(1, "Juarez", ""));
 
-            ViewBag.Zonas = item;
-            var a = item;
+            //List<ItemZona> item = new List<ItemZona>();
+            //item.Add(new ItemZona(0, "Chihuahua", ""));
+            //item.Add(new ItemZona(1, "Juarez", ""));
+
+            ViewBag.Zonas = db.Zonas.Select(i => new { id = i.ZonaID, nombre = i.Nombre }).ToList();
+
             return View();
         }
 
         public JsonResult Buscar(string email, string nombre, int? Zona, int page = 1, int pageSize = 15)
         {
             ApplicationDbContext db = new ApplicationDbContext();
+            SISECOOBEntities dbb = new SISECOOBEntities();
+
+            var zonas = dbb.Zonas.Select(i => new { id = i.ZonaID, nombre = i.Nombre }).ToList();
 
             IQueryable<IdentitySample.Models.ApplicationUser> query = UserManager.Users;
 
@@ -82,7 +87,7 @@ namespace IdentitySample.Controllers
             if (!string.IsNullOrEmpty(nombre))
                 query = query.Where(i => (i.Nombre + " " + i.aPaterno + " " + i.aMaterno).Contains(nombre));
 
-            if (Zona == 0 || Zona == 1)
+            if (Zona > 0)
                 query = query.Where(i => i.Zona == Zona);
 
             return Json(new
@@ -101,7 +106,7 @@ namespace IdentitySample.Controllers
                                  Email = i.Email,
                                  UserName = i.UserName,
                                  Rol = UserManager.GetRoles(i.Id),
-                                 Zona = i.Zona,
+                                 Zona = zonas.Where(j => j.id == i.Zona).Select(j => j.nombre),
                                  Activo = i.Activo,
                                  Supervisor = i.Supervisor
                              })
@@ -129,11 +134,9 @@ namespace IdentitySample.Controllers
         public ActionResult Formulario()
         {
             //Get the list of Roles
-            List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua", ""));
-            item.Add(new ItemZona(1, "Juarez", ""));
+            SISECOOBEntities db = new SISECOOBEntities();
 
-            ViewBag.Zonas = item;
+            ViewBag.Zonas = db.Zonas.Select(i => new { id = i.ZonaID, nombre = i.Nombre }).ToList();
             ViewBag.Roles = RoleManager.Roles.Select(i => new
             {
                 nombre = i.Name
@@ -225,12 +228,10 @@ namespace IdentitySample.Controllers
             usuario.aMaterno = user.aMaterno != null ? user.aMaterno : "";
             usuario.Zona = user.Zona;
 
+            SISECOOBEntities db = new SISECOOBEntities();
 
-            List<ItemZona> item = new List<ItemZona>();
-            item.Add(new ItemZona(0, "Chihuahua", usuario.Zona == 0 ? "checked" : ""));
-            item.Add(new ItemZona(1, "Juarez", usuario.Zona == 1 ? "checked" : ""));
+            ViewBag.Zonas = db.Zonas.Select(i => new { id = i.ZonaID, nombre = i.Nombre }).ToList();
 
-            ViewBag.Zonas = item;
             ViewBag.RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
             {
                 Selected = userRoles.Contains(x.Name),
@@ -267,9 +268,13 @@ namespace IdentitySample.Controllers
 
                 var result = UserManager.Update(user);
 
-                var resultrol = UserManager.AddToRole(user.Id, Rol);
+                var t = UserManager.IsInRole(user.Id, Rol);
 
-                if (result.Succeeded && resultrol.Succeeded)
+                if (t) { 
+                var resultrol = UserManager.AddToRole(user.Id, Rol);
+                }
+
+                if (result.Succeeded)
                 {
                     return Json(new
                     {

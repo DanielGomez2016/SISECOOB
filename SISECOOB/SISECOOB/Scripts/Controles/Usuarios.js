@@ -60,7 +60,7 @@ function buscar() {
                 + '<td class="col-md-2">{Email}</td>'
                 + '<td class="col-md-1">{UserName}</td>'
                 + '<td class="col-md-1">{Rol}</td>'
-                + '<td class="col-md-1">{ZonaNombre}</td>'
+                + '<td class="col-md-1">{Zona}</td>'
                 + '<td class="text-right col-md-4">'
                 + '<button type="button" name="editar" value="{id}" class="btn btn-info">Editar</button>'
                 + ' {BtnActiva} {BtnSupervisa}'
@@ -94,12 +94,12 @@ function buscar() {
                     x++
                 }
 
-                if (e.Zona == 0) {
-                    e.ZonaNombre = 'Chihuahua'
-                }
-                else {
-                    e.ZonaNombre = 'Juarez'
-                }
+                //if (e.Zona == 0) {
+                //    e.ZonaNombre = 'Chihuahua'
+                //}
+                //else {
+                //    e.ZonaNombre = 'Juarez'
+                //}
 
                 t.append(html.format(e));
 
