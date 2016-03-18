@@ -24,6 +24,25 @@
           <Property Name="MunicipioId_FK" Type="int" />
           <Property Name="Nombre" Type="varchar" MaxLength="60" />
         </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="Controlador" Type="varchar" MaxLength="50" />
+          <Property Name="Padre" Type="int" />
+          <Property Name="Nivel" Type="int" />
+        </EntityType>
+        <EntityType Name="Menu_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuID_Fk" Type="int" />
+          <Property Name="Usuario_Id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="Municipios">
           <Key>
             <PropertyRef Name="MunicipioId" />
@@ -52,6 +71,18 @@
           <Property Name="ZonaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Menu_Usuarios_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Menu_Usuarios" Type="Self.Menu_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="Menu_Usuarios">
+              <PropertyRef Name="MenuID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Fk_Municipios_Localidades">
           <End Role="Municipios" Type="Self.Municipios" Multiplicity="0..1" />
           <End Role="Localidades" Type="Self.Localidades" Multiplicity="*" />
@@ -67,10 +98,16 @@
         <EntityContainer Name="SISECOOBModelStoreContainer">
           <EntitySet Name="Conceptos" EntityType="Self.Conceptos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu_Usuarios" EntityType="Self.Menu_Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Municipios" EntityType="Self.Municipios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NivelesEducativos" EntityType="Self.NivelesEducativos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoOficios" EntityType="Self.TipoOficios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zonas" EntityType="Self.Zonas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Menu_Usuarios_Menu" Association="Self.FK_Menu_Usuarios_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu_Usuarios" EntitySet="Menu_Usuarios" />
+          </AssociationSet>
           <AssociationSet Name="Fk_Municipios_Localidades" Association="Self.Fk_Municipios_Localidades">
             <End Role="Municipios" EntitySet="Municipios" />
             <End Role="Localidades" EntitySet="Localidades" />
@@ -141,6 +178,12 @@
             <End Role="Localidades" EntitySet="Localidades" />
           </AssociationSet>
           <EntitySet Name="Conceptos" EntityType="SISECOOBModel.Conceptos" />
+          <EntitySet Name="Menu" EntityType="SISECOOBModel.Menu" />
+          <EntitySet Name="Menu_Usuarios" EntityType="SISECOOBModel.Menu_Usuarios" />
+          <AssociationSet Name="FK_Menu_Usuarios_Menu" Association="SISECOOBModel.FK_Menu_Usuarios_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu_Usuarios" EntitySet="Menu_Usuarios" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Conceptos">
           <Key>
@@ -153,6 +196,39 @@
           <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Precio" Type="Double" />
         </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Controlador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Padre" Type="Int32" />
+          <Property Name="Nivel" Type="Int32" />
+          <NavigationProperty Name="Menu_Usuarios" Relationship="SISECOOBModel.FK_Menu_Usuarios_Menu" FromRole="Menu" ToRole="Menu_Usuarios" />
+        </EntityType>
+        <EntityType Name="Menu_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuID_Fk" Type="Int32" />
+          <Property Name="Usuario_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Menu" Relationship="SISECOOBModel.FK_Menu_Usuarios_Menu" FromRole="Menu_Usuarios" ToRole="Menu" />
+        </EntityType>
+        <Association Name="FK_Menu_Usuarios_Menu">
+          <End Type="SISECOOBModel.Menu" Role="Menu" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Menu_Usuarios" Role="Menu_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="Menu_Usuarios">
+              <PropertyRef Name="MenuID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -209,6 +285,27 @@
                 <ScalarProperty Name="Concepto" ColumnName="Concepto" />
                 <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="SISECOOBModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Padre" ColumnName="Padre" />
+                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu_Usuarios">
+            <EntityTypeMapping TypeName="SISECOOBModel.Menu_Usuarios">
+              <MappingFragment StoreEntitySet="Menu_Usuarios">
+                <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
+                <ScalarProperty Name="MenuID_Fk" ColumnName="MenuID_Fk" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

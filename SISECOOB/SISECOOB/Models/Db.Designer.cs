@@ -20,6 +20,7 @@ using System.Xml.Serialization;
 #region Metadatos de relaciones en EDM
 
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "Fk_Municipios_Localidades", "Municipios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Municipios), "Localidades", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Localidades), true)]
+[assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Menu_Usuarios_Menu", "Menu", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Menu), "Menu_Usuarios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Menu_Usuarios), true)]
 
 #endregion
 
@@ -166,6 +167,38 @@ namespace SISECOOB.Models
             }
         }
         private ObjectSet<Conceptos> _Conceptos;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Menu> Menu
+        {
+            get
+            {
+                if ((_Menu == null))
+                {
+                    _Menu = base.CreateObjectSet<Menu>("Menu");
+                }
+                return _Menu;
+            }
+        }
+        private ObjectSet<Menu> _Menu;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Menu_Usuarios> Menu_Usuarios
+        {
+            get
+            {
+                if ((_Menu_Usuarios == null))
+                {
+                    _Menu_Usuarios = base.CreateObjectSet<Menu_Usuarios>("Menu_Usuarios");
+                }
+                return _Menu_Usuarios;
+            }
+        }
+        private ObjectSet<Menu_Usuarios> _Menu_Usuarios;
 
         #endregion
 
@@ -217,6 +250,22 @@ namespace SISECOOB.Models
         public void AddToConceptos(Conceptos conceptos)
         {
             base.AddObject("Conceptos", conceptos);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Menu. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToMenu(Menu menu)
+        {
+            base.AddObject("Menu", menu);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Menu_Usuarios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToMenu_Usuarios(Menu_Usuarios menu_Usuarios)
+        {
+            base.AddObject("Menu_Usuarios", menu_Usuarios);
         }
 
         #endregion
@@ -541,6 +590,354 @@ namespace SISECOOB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Municipios>("SISECOOBModel.Fk_Municipios_Localidades", "Municipios", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="Menu")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Menu : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto Menu.
+        /// </summary>
+        /// <param name="menuID">Valor inicial de la propiedad MenuID.</param>
+        public static Menu CreateMenu(global::System.Int32 menuID)
+        {
+            Menu menu = new Menu();
+            menu.MenuID = menuID;
+            return menu;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MenuID
+        {
+            get
+            {
+                return _MenuID;
+            }
+            set
+            {
+                if (_MenuID != value)
+                {
+                    OnMenuIDChanging(value);
+                    ReportPropertyChanging("MenuID");
+                    _MenuID = StructuralObject.SetValidValue(value, "MenuID");
+                    ReportPropertyChanged("MenuID");
+                    OnMenuIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _MenuID;
+        partial void OnMenuIDChanging(global::System.Int32 value);
+        partial void OnMenuIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Nombre
+        {
+            get
+            {
+                return _Nombre;
+            }
+            set
+            {
+                OnNombreChanging(value);
+                ReportPropertyChanging("Nombre");
+                _Nombre = StructuralObject.SetValidValue(value, true, "Nombre");
+                ReportPropertyChanged("Nombre");
+                OnNombreChanged();
+            }
+        }
+        private global::System.String _Nombre;
+        partial void OnNombreChanging(global::System.String value);
+        partial void OnNombreChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Direccion
+        {
+            get
+            {
+                return _Direccion;
+            }
+            set
+            {
+                OnDireccionChanging(value);
+                ReportPropertyChanging("Direccion");
+                _Direccion = StructuralObject.SetValidValue(value, true, "Direccion");
+                ReportPropertyChanged("Direccion");
+                OnDireccionChanged();
+            }
+        }
+        private global::System.String _Direccion;
+        partial void OnDireccionChanging(global::System.String value);
+        partial void OnDireccionChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Controlador
+        {
+            get
+            {
+                return _Controlador;
+            }
+            set
+            {
+                OnControladorChanging(value);
+                ReportPropertyChanging("Controlador");
+                _Controlador = StructuralObject.SetValidValue(value, true, "Controlador");
+                ReportPropertyChanged("Controlador");
+                OnControladorChanged();
+            }
+        }
+        private global::System.String _Controlador;
+        partial void OnControladorChanging(global::System.String value);
+        partial void OnControladorChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Padre
+        {
+            get
+            {
+                return _Padre;
+            }
+            set
+            {
+                OnPadreChanging(value);
+                ReportPropertyChanging("Padre");
+                _Padre = StructuralObject.SetValidValue(value, "Padre");
+                ReportPropertyChanged("Padre");
+                OnPadreChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Padre;
+        partial void OnPadreChanging(Nullable<global::System.Int32> value);
+        partial void OnPadreChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Nivel
+        {
+            get
+            {
+                return _Nivel;
+            }
+            set
+            {
+                OnNivelChanging(value);
+                ReportPropertyChanging("Nivel");
+                _Nivel = StructuralObject.SetValidValue(value, "Nivel");
+                ReportPropertyChanged("Nivel");
+                OnNivelChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Nivel;
+        partial void OnNivelChanging(Nullable<global::System.Int32> value);
+        partial void OnNivelChanged();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Menu_Usuarios_Menu", "Menu_Usuarios")]
+        public EntityCollection<Menu_Usuarios> Menu_Usuarios
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Menu_Usuarios>("SISECOOBModel.FK_Menu_Usuarios_Menu", "Menu_Usuarios");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Menu_Usuarios>("SISECOOBModel.FK_Menu_Usuarios_Menu", "Menu_Usuarios", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="Menu_Usuarios")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Menu_Usuarios : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto Menu_Usuarios.
+        /// </summary>
+        /// <param name="id">Valor inicial de la propiedad ID.</param>
+        public static Menu_Usuarios CreateMenu_Usuarios(global::System.Int32 id)
+        {
+            Menu_Usuarios menu_Usuarios = new Menu_Usuarios();
+            menu_Usuarios.ID = id;
+            return menu_Usuarios;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value, "ID");
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> MenuID_Fk
+        {
+            get
+            {
+                return _MenuID_Fk;
+            }
+            set
+            {
+                OnMenuID_FkChanging(value);
+                ReportPropertyChanging("MenuID_Fk");
+                _MenuID_Fk = StructuralObject.SetValidValue(value, "MenuID_Fk");
+                ReportPropertyChanged("MenuID_Fk");
+                OnMenuID_FkChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _MenuID_Fk;
+        partial void OnMenuID_FkChanging(Nullable<global::System.Int32> value);
+        partial void OnMenuID_FkChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Usuario_Id
+        {
+            get
+            {
+                return _Usuario_Id;
+            }
+            set
+            {
+                OnUsuario_IdChanging(value);
+                ReportPropertyChanging("Usuario_Id");
+                _Usuario_Id = StructuralObject.SetValidValue(value, true, "Usuario_Id");
+                ReportPropertyChanged("Usuario_Id");
+                OnUsuario_IdChanged();
+            }
+        }
+        private global::System.String _Usuario_Id;
+        partial void OnUsuario_IdChanging(global::System.String value);
+        partial void OnUsuario_IdChanged();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Menu_Usuarios_Menu", "Menu")]
+        public Menu Menu
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Menu>("SISECOOBModel.FK_Menu_Usuarios_Menu", "Menu").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Menu>("SISECOOBModel.FK_Menu_Usuarios_Menu", "Menu").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Menu> MenuReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Menu>("SISECOOBModel.FK_Menu_Usuarios_Menu", "Menu");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Menu>("SISECOOBModel.FK_Menu_Usuarios_Menu", "Menu", value);
                 }
             }
         }

@@ -12,6 +12,9 @@
         <EntityTypeShape EntityType="SISECOOBModel.Zonas" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SISECOOBModel.Fk_Municipios_Localidades" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SISECOOBModel.Conceptos" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Menu" Width="1.5" PointX="3.375" PointY="7" />
+        <EntityTypeShape EntityType="SISECOOBModel.Menu_Usuarios" Width="1.5" PointX="5.625" PointY="7.25" />
+        <AssociationConnector Association="SISECOOBModel.FK_Menu_Usuarios_Menu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

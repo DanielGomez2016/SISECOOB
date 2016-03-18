@@ -42,7 +42,7 @@
                 @Html.ActionLink("SISECOOB", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" id="menu-link">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
@@ -53,7 +53,7 @@
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
                     {
-                        <li class=" dropdown">
+                        @*<li class=" dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Catalogos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Conceptos", "Index", "Conceptos")</li>
@@ -66,7 +66,7 @@
                                 <li>@Html.ActionLink("Tipo Oficios", "Index", "TipoOficios")</li>
                                 <li>@Html.ActionLink("Zonas", "Index", "Zonas")</li>
                             </ul>
-                        </li>
+                        </li>*@
                         
                     }
                 </ul>
@@ -85,5 +85,107 @@
     @Scripts.Render("~/bundles/jquery")
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
+    <script>
+        // Menu
+        $.ajax({
+            url: '@Url.Action("CargarMenu","Utilidades")',
+            type: 'get',
+            cache: true,
+            success: function (data) {
+                var t = $('#menu-link');
+                if (data.total > 0) {
+                    var html = '<li class="dropdown">'
+                             + '{menuPrincipal}<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"">{menuSecundario}</ul>'
+                             + '</li>';
+
+                    data.datos.map(function (e) {
+
+                        e.menuPrincipal = "";
+                        e.menuSecundario = "";
+
+                        if (e.nivel == 0) {
+                            //agrega el menu principal o nivel 0
+                            e.menuPrincipal = '<a class="dropdown-toggle" data-toggle="dropdown" href="#">' + e.nombre + '';
+
+                            //checa si el menu principal tiene hijos para agregarlos al menu principal
+                            if (e.hijos.length > 0) {
+                                e.menuPrincipal += '<span class="caret"></span></a>';
+                            } else { e.menuPrincipal += '</a>'; }
+
+                            //agrega los submenu al menu principal
+                            for (i = 0; i < e.hijos.length; i++) {
+                                if (e.hijos[i].hijos.length > 0) {
+                                    e.menuSecundario += '<li class="dropdown-submenu"><a tabindex="-1" href="#">' + e.hijos[i].nombre + '</a><ul class="dropdown-menu">';
+
+                                    for (j = 0; j < e.hijos[i].hijos.length; j++) {
+                                        e.menuSecundario += '<li><a tabindex="-1" href="/' + e.hijos[i].hijos[j].controlador + '/' + e.hijos[i].hijos[j].direccion + '">' + e.hijos[i].hijos[j].nombre + '</a></li>';
+                                    }
+                                    e.menuSecundario += '</ul></li>'
+                                } else {
+                                    e.menuSecundario += '<li><a href="/' + e.hijos[i].controlador + '/' + e.hijos[i].direccion + '">' + e.hijos[i].nombre + '</a></li>';
+                                }
+                             }
+
+                        }
+
+
+
+
+                        t.append(html.format(e));
+
+                    });
+                }
+            }
+        });
+    </script>
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                -webkit-border-radius: 0 6px 6px 6px;
+                -moz-border-radius: 0 6px 6px;
+                border-radius: 0 6px 6px 6px;
+            }
+
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-submenu > a:after {
+                display: block;
+                content: " ";
+                float: right;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-width: 5px 0 5px 5px;
+                border-left-color: #ccc;
+                margin-top: 5px;
+                margin-right: -10px;
+            }
+
+            .dropdown-submenu:hover > a:after {
+                border-left-color: #fff;
+            }
+
+            .dropdown-submenu.pull-left {
+                float: none;
+            }
+
+                .dropdown-submenu.pull-left > .dropdown-menu {
+                    left: -100%;
+                    margin-left: 10px;
+                    -webkit-border-radius: 6px 0 6px 6px;
+                    -moz-border-radius: 6px 0 6px 6px;
+                    border-radius: 6px 0 6px 6px;
+                }
+    </style>
 </body>
 </html>

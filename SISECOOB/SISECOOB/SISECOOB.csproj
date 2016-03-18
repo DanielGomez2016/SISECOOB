@@ -179,6 +179,7 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\TipoOficiosController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\UtilidadesController.cs" />
     <Compile Include="Controllers\ZonasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +199,7 @@
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\NivelesEducativos.cs" />
     <Compile Include="Models\TipoOficios.cs" />
+    <Compile Include="Models\Utilidades.cs" />
     <Compile Include="Models\Zonas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1046,6 +1048,7 @@
     <Content Include="Scripts\Controles\Municipios.js" />
     <Content Include="Scripts\Controles\TipoOficios.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />
+    <Content Include="Scripts\Controles\Utilidades.js" />
     <Content Include="Scripts\Controles\Zonas.js" />
     <Content Include="Scripts\fullcalendar.css" />
     <Content Include="Scripts\InfoAutocomplete.js" />
@@ -1186,6 +1189,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\assets\js\wizard\build\" />
+    <Folder Include="Views\Utilidades\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
