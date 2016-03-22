@@ -60,10 +60,6 @@ namespace IdentitySample.Controllers
             SISECOOBEntities db = new SISECOOBEntities();
             ViewBag.RoleNames = RoleManager.Roles.ToList().Select(i => new { nombre = i.Name });
 
-            //List<ItemZona> item = new List<ItemZona>();
-            //item.Add(new ItemZona(0, "Chihuahua", ""));
-            //item.Add(new ItemZona(1, "Juarez", ""));
-
             ViewBag.Zonas = db.Zonas.Select(i => new { id = i.ZonaID, nombre = i.Nombre }).ToList();
 
             return View();
@@ -116,17 +112,44 @@ namespace IdentitySample.Controllers
 
         //
         // GET: /Users/Details/5
-        public async Task<ActionResult> Details(string id)
+        public ActionResult Details(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            try {
+
+                var user = UserManager.FindById(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var userRoles = UserManager.GetRoles(user.Id);
+
+                EditUserViewModel usuario = new EditUserViewModel();
+
+                usuario.UserName = user.Email.Substring(0, user.Email.Length - 17);
+                usuario.Id = user.Id;
+                usuario.Email = user.Email != null ? user.Email : "";
+                usuario.Nombre = user.Nombre != null ? user.Nombre : "";
+                usuario.aPaterno = user.aPaterno != null ? user.aPaterno : "";
+                usuario.aMaterno = user.aMaterno != null ? user.aMaterno : "";
+                usuario.Zona = user.Zona;
+                usuario.Rol = UserManager.GetRoles(user.Id).FirstOrDefault();
+
+                SISECOOBEntities db = new SISECOOBEntities();
+
+                ViewBag.Zonas = db.Zonas.Select(i => new { id = i.ZonaID, nombre = i.Nombre }).ToList();
+                ViewBag.Roles = RoleManager.Roles.Select(i => new
+                {
+                    nombre = i.Name
+                }).ToList();
+
+                return PartialView("_Details", usuario);
+
             }
-            var user = await UserManager.FindByIdAsync(id);
-
-            ViewBag.RoleNames = await UserManager.GetRolesAsync(user.Id);
-
-            return View(user);
+            catch(Exception e)
+            {
+                throw e;
+            }           
         }
 
 

@@ -50,6 +50,7 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Administrator")) {
                         <li>@Html.ActionLink("Administracion Roles", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("Administracion Usuarios", "Index", "UsersAdmin")</li>
+                        <li>@Html.ActionLink("Modulos", "Index", "Modulo")</li>
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
                     {

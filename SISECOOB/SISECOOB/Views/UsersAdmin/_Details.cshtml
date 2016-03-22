@@ -1,0 +1,55 @@
+﻿@model IdentitySample.Models.EditUserViewModel
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nombre, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.aPaterno, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.aPaterno, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.aMaterno, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.aMaterno, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Zona, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(m => m.Zona, new SelectList(ViewBag.Zonas, "id", "nombre"), "Todos", new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Rol", new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("Rol", new SelectList(ViewBag.Roles, "nombre", "nombre"), "Todos", new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Supervisor, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    <label><input class="checkbox-inline" disabled name="Supervisor" type="checkbox" value="1" /> Es Supervisor </label><br />
+                    <label><input class="checkbox-inline" disabled name="Supervisor" type="checkbox" value="0" checked="checked" /> No es Supervisor </label>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+
+            </div>
+        </div>
+    </fieldset>
+}

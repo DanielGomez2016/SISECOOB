@@ -56,7 +56,7 @@ function buscar() {
         var t = $('#tUsuarios tbody').empty();
 
         if (data.total > 0) {
-            var html = '<tr><td class="col-md-3">{Nombre} {ApellidoP} {ApellidoM}</td>'
+            var html = '<tr data-id="{id}"><td class="col-md-3">{Nombre} {ApellidoP} {ApellidoM}</td>'
                 + '<td class="col-md-2">{Email}</td>'
                 + '<td class="col-md-1">{UserName}</td>'
                 + '<td class="col-md-1">{Rol}</td>'
@@ -516,4 +516,32 @@ function EliminaUsuario(id) {
                 $("#Eliminarmodal").modal("hide");
             }
         });
+}
+
+//abrir modal con el detalle de el usuario
+$('#tUsuarios').on('click', 'tr', function () {
+    Detalle($(this).data('id'));
+});
+
+function Detalle(id) {
+    $('#titulodetalle').text('Detalle Usuario');
+    $.ajax({
+        type: 'POST',
+        url: '/UsersAdmin/Details',
+        data: { id: id },
+        beforeSend: function () {
+            Loading("Cargando");
+        },
+        complete: function () {
+            Loading();
+        },
+        success: function (html) {
+            $('#Detallemodel').find('.modal-body form').remove();
+            $('#Detallemodel').find('.modal-body').append(html);
+            $('#Detallemodel').modal('show');
+        },
+        error: function () {
+            AlertError('No se pudo cargar el registro. Intente nuevamente.');
+        }
+    });
 }
