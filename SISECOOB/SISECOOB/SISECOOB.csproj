@@ -1187,11 +1187,12 @@
     <Content Include="Views\Zonas\Index.cshtml" />
     <Content Include="Views\Zonas\_Formulario.cshtml" />
     <Content Include="Views\UsersAdmin\_Details.cshtml" />
+    <Content Include="Views\Modulos\Index.cshtml" />
+    <Content Include="Views\Modulos\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\assets\js\wizard\build\" />
-    <Folder Include="Views\Modulos\" />
     <Folder Include="Views\Utilidades\" />
   </ItemGroup>
   <ItemGroup>
