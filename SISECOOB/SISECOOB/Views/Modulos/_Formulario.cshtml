@@ -1,7 +1,41 @@
-﻿
-@{
-    ViewBag.Title = "_Formulario";
-}
+﻿@model SISECOOB.Models.Menu
 
-<h2>_Formulario</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.MenuID)
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nombre, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Padre, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("Padre", new SelectList(ViewBag.ModuloP, "id", "nombre"), "Todos", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nivel, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Nivel, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Direccion, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Controlador, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Controlador, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}
 

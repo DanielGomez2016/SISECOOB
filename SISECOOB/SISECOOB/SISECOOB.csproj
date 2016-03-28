@@ -197,6 +197,7 @@
     <Compile Include="Models\JsonMvc.cs" />
     <Compile Include="Models\Localidades.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Modulos.cs" />
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\NivelesEducativos.cs" />
     <Compile Include="Models\TipoOficios.cs" />
@@ -1046,6 +1047,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controles\Conceptos.js" />
     <Content Include="Scripts\Controles\Localidad.js" />
+    <Content Include="Scripts\Controles\Modulos.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
     <Content Include="Scripts\Controles\TipoOficios.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />

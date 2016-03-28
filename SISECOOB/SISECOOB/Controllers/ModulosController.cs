@@ -32,12 +32,13 @@ namespace SISECOOB.Controllers
             {
                 total = query.Count(),
                 datos = query
-                     .OrderBy(i => new { i.MenuID, i.Padre })
+                     .OrderBy(i => new { i.Padre })
                      .Select(i => new {
-                         menuid = i.MenuID,
+                         id = i.MenuID,
+                         nivel = db.Menu.Where(j => j.Padre == i.MenuID).Count(),
                          nombre = i.Nombre,
                          direccion = i.Controlador + "/" + i.Direccion,
-                         padre = i.Padre,
+                         padre = db.Menu.Where(j => j.MenuID == i.Padre).Select(j => j.Nombre),
                      }).ToList()
             }, JsonRequestBehavior.AllowGet);
         }
@@ -130,5 +131,4 @@ namespace SISECOOB.Controllers
             }
         }
     }
-}
 }
