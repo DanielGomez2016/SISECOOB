@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SISECOOB.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ModulosController : Controller
     {
         // GET: Modulos
@@ -129,6 +130,46 @@ namespace SISECOOB.Controllers
                     message = e.Message
                 });
             }
+        }
+
+        [HttpGet]
+        public JsonResult ModulosUsuario(string usuario)
+        {
+
+            SISECOOBEntities db = new SISECOOBEntities();
+
+            var menus = db.Menu
+                          .Where(i => i.Nivel == 0)
+                          .OrderBy(i => new { i.Nombre })
+                          .Select(i => new
+                          {
+                              menuid = i.MenuID,
+                              nombre = i.Nombre,
+                              nivel = i.Nivel,
+                              selected = db.Menu_Usuarios.Any(j => j.MenuID_Fk == i.MenuID && j.Usuario_Id == usuario),
+                              hijos = db.Menu.Where(e => e.Padre == i.MenuID).OrderBy(e => new { e.Nombre })
+                              .Select(e => new
+                              {
+                                  menuid = e.MenuID,
+                                  nombre = e.Nombre,
+                                  nivel = e.Nivel,
+                                  selected = db.Menu_Usuarios.Any(j => j.MenuID_Fk == e.MenuID && j.Usuario_Id == usuario),
+                                  hijos = db.Menu.Where(m => m.Padre == e.MenuID).OrderBy(m => new { e.Nombre })
+                                  .Select(m => new
+                                  {
+                                      menuid = m.MenuID,
+                                      nombre = m.Nombre,
+                                      nivel = m.Nivel,
+                                      selected = db.Menu_Usuarios.Any(j => j.MenuID_Fk == m.MenuID && j.Usuario_Id == usuario),
+                                  })
+                              })
+                          }).ToList();
+
+            return Json(new
+            {
+                datos = menus,
+                total = menus.Count(),
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

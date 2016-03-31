@@ -6,11 +6,39 @@ $(document).ready(function () {
         ignore: '.ignore'
     });
 
-    //nos permite solo marcar un checkbox con el mismo name
+    //marca todos los checbox con el mismo nombre desde el principal/ si es un secundario solo el mismo y el principal
     $('input[type=checkbox]').live('click', function () {
-        var parent = $(this).attr('name');
-        $('[name='+parent+']').prop('checked', false);
-        $(this).attr('checked', 'checked');
+        var parent = $(this).data('name');
+        if (parent == null) {
+            parent = $(this).attr('id');
+            if (parent != null) {
+                var valor = $(this).is(":checked");
+                $('[name=' + parent + ']').prop('checked', valor);
+                $(this).attr('checked', valor);
+            } else { var parent = $(this).attr('name'); }
+
+            if (parent != null) {
+                var valor = $(this).is(":checked");
+                if (valor) {
+                    $('#' + parent + '').prop('checked', valor);
+                }
+                $(this).attr('checked', valor);
+            }
+        } else {
+
+            var valor = $(this).is(":checked");
+            if (valor) {
+                $('#' + parent + '').prop('checked', valor);
+                var parentppl = $('#' + parent + '').attr('name')
+                $('#' + parentppl + '').prop('checked', valor);
+            }
+            $(this).attr('checked', valor);
+        }
+    });
+
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content"
     });
 
     //paginacion de las tablas
@@ -56,13 +84,14 @@ function buscar() {
         var t = $('#tUsuarios tbody').empty();
 
         if (data.total > 0) {
-            var html = '<tr data-id="{id}"><td class="col-md-3">{Nombre} {ApellidoP} {ApellidoM}</td>'
+            var html = '<tr data-id="{id}"><td class="col-md-2">{Nombre} {ApellidoP} {ApellidoM}</td>'
                 + '<td class="col-md-2">{Email}</td>'
                 + '<td class="col-md-1">{UserName}</td>'
                 + '<td class="col-md-1">{Rol}</td>'
                 + '<td class="col-md-1">{Zona}</td>'
-                + '<td class="text-right col-md-4">'
-                + '<button type="button" name="editar" value="{id}" class="btn btn-info">Editar</button>'
+                + '<td class="text-right col-md-5">'
+                + '<button type="button" name="Detalle" value="{id}" class="btn btn-default">Detalle</button>'
+                + ' <button type="button" name="editar" value="{id}" class="btn btn-info">Editar</button>'
                 + ' {BtnActiva} {BtnSupervisa}'
                 + ' <button type="button" name="Elimina" value="{id}" class="btn btn-danger">Eliminar</button></td></tr>';
             var x = 1;
@@ -94,12 +123,6 @@ function buscar() {
                     x++
                 }
 
-                //if (e.Zona == 0) {
-                //    e.ZonaNombre = 'Chihuahua'
-                //}
-                //else {
-                //    e.ZonaNombre = 'Juarez'
-                //}
 
                 t.append(html.format(e));
 
@@ -519,11 +542,12 @@ function EliminaUsuario(id) {
 }
 
 //abrir modal con el detalle de el usuario
-$('#tUsuarios').on('click', 'tr', function () {
-    Detalle($(this).data('id'));
+$('#tUsuarios').on('click', 'button[name="Detalle"]', function () {
+    Detalle($(this).val());
 });
 
 function Detalle(id) {
+    $('#idusu').val(id);
     $('#titulodetalle').text('Detalle Usuario');
     $.ajax({
         type: 'POST',
@@ -545,3 +569,77 @@ function Detalle(id) {
         }
     });
 }
+
+//abrir modla con el cual agregaremos los modulos que le pertenecen al usuario
+
+$("#btnModulos").click(function () {
+    AbrirModulos($('#idusu').val());
+});
+
+function AbrirModulos(usuario) {
+    $.ajax({
+        type: "GET",
+        url: '/Modulos/ModulosUsuario',
+        data: {usuario: usuario},
+        beforeSend: function () {
+            Loading('Cargando');
+        }
+    })
+    .always(function () {
+        Loading();
+    })
+    .done(function (data) {
+
+        $('#Detallemodel').modal('hide');
+        $('#AgrModulos').modal('show');
+
+        for (n = 0; n < data.datos.length; n++) {
+
+        var t = $('#'+data.datos[n].nombre+'-body');
+
+        if (data.total > 0) {
+            var html = '<div>{submenu}</div>';
+
+            data.datos.map(function (e) {
+
+                if (e.nivel == 0 && data.datos[n].nombre == e.nombre) {
+                    e.submenu = '<div">';
+                    if (e.selected) {
+                        e.submenu += '<label class="col-md-12"><input id="' + e.nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
+                    } else {
+                        e.submenu += '<label class="col-md-12"><input id="' + e.nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
+                    }
+
+                    if (e.hijos.length > 0 ) {
+                        
+                        for (i = 0; i < e.hijos.length; i++) {
+
+                            if (e.hijos[i].selected) {
+                                e.submenu += '<label class="col-md-12"><input id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                            } else {
+                                e.submenu += '<label class="col-md-12"><input id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                            }
+
+                            if (e.hijos[i].hijos.length > 0) {
+                                for (j = 0; j < e.hijos[i].hijos.length; j++) {
+                                    if (e.hijos[i].hijos[j].selected) {
+                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input name="' + e.nombre + '" data-name="' + e.hijos[i].nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                    } else {
+                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input name="' + e.nombre + '" data-name="' + e.hijos[i].nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                    }
+                                }
+                            }
+                        }
+                        e.submenu += '</div>';
+                    }
+                    
+                
+                t.append(html.format(e));}
+            });
+        }
+        else
+            t.html('<tr><td class="text-center" colspan="6">No se encontraron resultados</td></tr>');
+        }
+    });
+}
+

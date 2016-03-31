@@ -7,6 +7,15 @@
         background-color: #A4A4A4;
         color: white;
     }
+    .color-title{
+        background-color: #808080 !important;
+        color: white !important;
+        border-color: #646464 !important;
+    }
+    .color-body {
+        border-color: #646464 !important;
+    }
+
 </style>
 <div class="col-md-12 col-sm-12 form-group">
     <form id="fBusqueda">
@@ -40,12 +49,12 @@
 <table id="tUsuarios" class="table table-hover table-stripped">
     <thead>
         <tr>
-            <th class="col-md-3">Nombre</th>
+            <th class="col-md-2">Nombre</th>
             <th class="col-md-2">Email</th>
             <th class="col-md-1">Usuario</th>
             <th class="col-md-1">Rol</th>
             <th class="col-md-1">Zona</th>
-            <th class="col-md-4"></th>
+            <th class="col-md-5"></th>
         </tr>
     </thead>
     <tbody>
@@ -186,12 +195,37 @@
                 <h4 id="titulodetalle" class="modal-title text-center"></h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="eliminarID" value="" />
 
 
             </div>
             <div class="modal-footer">
                 <input class="btn btn-primary btn" id="btnModulos" type="button" value="Agregar Modulos">
+                <a class="btn btn-default  btn" data-dismiss="modal">Cancelar</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="AgrModulos" class="modal fade" data-keyboard="false" data-backdrop>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h4 id="titulodetalle" class="modal-title text-center">Modulos</h4>
+                <input hidden="hidden" value="" id="idusu" />
+            </div>
+            <div class="modal-body" style="height:450px;" scrolling="auto">
+                <div id="accordion">
+                    <h3 class="col-md-12 color-title" id="Catalogos-title"><label> Catalogos<span class="caret"></span> </label></h3>
+                    <div class="col-md-12 color-body" id="Catalogos-body"></div>
+                    <h3 class="col-md-12 color-title" id="Reportes-title"><label> Reportes<span class="caret"></span> </label></h3>
+                    <div class="col-md-12 color-body" id="Reportes-body"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-primary btn" id="btnagrmodulos" type="button" value="Agregar">
                 <a class="btn btn-default  btn" data-dismiss="modal">Cancelar</a>
             </div>
         </div>
@@ -207,5 +241,6 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.messages.js")"></script>
     <script src="/Scripts/Paginacion.js"></script>
     <script src="~/Scripts/Controles/Usuarios.js"></script>
-
+    <script src="@Url.Content("~/Scripts/Jquery-ui.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.accordion.css")" />
 }

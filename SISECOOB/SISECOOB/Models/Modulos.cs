@@ -108,4 +108,72 @@ namespace SISECOOB.Models
         }
 
     }
+
+    [MetadataType(typeof(mMenu_Uusuarios))]
+    public partial class Menu_Usuarios
+    {
+        public class mMenu_Uusuarios
+        {
+            [Display(Name = "Identificador")]
+            public int? ID { get; set; }
+
+
+            [Display(Name = "Modulos")]
+            public int MenuID_Fk { get; set; }
+
+            [Display(Name = "Usuario")]
+            public string Usuario_Id { get; set; }
+
+            public int[] modulos { get; set; }
+
+        }
+
+        public void Crear()
+        {
+            try
+            {
+                SISECOOBEntities db = new SISECOOBEntities();
+                db.Menu_Usuarios.AddObject(this);
+                db.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Editar()
+        {
+            try
+            {
+                SISECOOBEntities db = new SISECOOBEntities();
+                Menu menu = db.Menu.FirstOrDefault(i => i.MenuID == this.MenuID_Fk);
+
+
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            try
+            {
+                SISECOOBEntities db = new SISECOOBEntities();
+                Menu menu = db.Menu.FirstOrDefault(i => i.MenuID == id);
+
+                db.Menu.DeleteObject(menu);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+    }
 }
