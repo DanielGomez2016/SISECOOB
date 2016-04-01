@@ -8,32 +8,38 @@ $(document).ready(function () {
 
     //marca todos los checbox con el mismo nombre desde el principal/ si es un secundario solo el mismo y el principal
     $('input[type=checkbox]').live('click', function () {
-        var parent = $(this).data('name');
-        if (parent == null) {
-            parent = $(this).attr('id');
+        var parent = $(this).attr('id');
+        var valor = $(this).is(":checked");
+
             if (parent != null) {
-                var valor = $(this).is(":checked");
                 $('[name=' + parent + ']').prop('checked', valor);
                 $(this).attr('checked', valor);
-            } else { var parent = $(this).attr('name'); }
+            }
+            else {
+                var parent = $(this).data('id');
 
-            if (parent != null) {
-                var valor = $(this).is(":checked");
-                if (valor) {
-                    $('#' + parent + '').prop('checked', valor);
+                if (parent != null) {
+                    var parentppl = $(this).attr('name');
+                    if (valor) {
+                        $('#' + parentppl + '').prop('checked', valor);
+                    }
+                    $('[data-name="' + parent + '"]').prop('checked', valor);
+                    $(this).attr('checked', valor);
                 }
-                $(this).attr('checked', valor);
+                else {
+                    var parent = $(this).data('ids');
+                    if (parent) {
+                        var parentppl = $(this).attr('name');
+                        var parentsec = $(this).data('name');
+                        if (valor) {
+                            $('#' + parentppl + '').prop('checked', valor);
+                            $('[data-id="' + parentsec + '"]').prop('checked', valor);
+                        }
+                        $(this).attr('checked', valor);
+                    }
+                }
             }
-        } else {
 
-            var valor = $(this).is(":checked");
-            if (valor) {
-                $('#' + parent + '').prop('checked', valor);
-                var parentppl = $('#' + parent + '').attr('name')
-                $('#' + parentppl + '').prop('checked', valor);
-            }
-            $(this).attr('checked', valor);
-        }
     });
 
     $("#accordion").accordion({
@@ -589,13 +595,13 @@ function AbrirModulos(usuario) {
         Loading();
     })
     .done(function (data) {
-
+        $('#usuariomodulos').val(usuario);
         $('#Detallemodel').modal('hide');
         $('#AgrModulos').modal('show');
 
         for (n = 0; n < data.datos.length; n++) {
 
-        var t = $('#'+data.datos[n].nombre+'-body');
+        var t = $('#'+data.datos[n].nombre+'-body').empty();
 
         if (data.total > 0) {
             var html = '<div>{submenu}</div>';
@@ -615,17 +621,17 @@ function AbrirModulos(usuario) {
                         for (i = 0; i < e.hijos.length; i++) {
 
                             if (e.hijos[i].selected) {
-                                e.submenu += '<label class="col-md-12"><input id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                                e.submenu += '<label class="col-md-12"><input data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
                             } else {
-                                e.submenu += '<label class="col-md-12"><input id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                                e.submenu += '<label class="col-md-12"><input data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
                             }
 
                             if (e.hijos[i].hijos.length > 0) {
                                 for (j = 0; j < e.hijos[i].hijos.length; j++) {
                                     if (e.hijos[i].hijos[j].selected) {
-                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input name="' + e.nombre + '" data-name="' + e.hijos[i].nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
                                     } else {
-                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input name="' + e.nombre + '" data-name="' + e.hijos[i].nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
                                     }
                                 }
                             }
@@ -643,3 +649,43 @@ function AbrirModulos(usuario) {
     });
 }
 
+//guardar los modulos en el usuario
+$("#btnagrmodulos").click(function () {
+    GuardarMod();
+});
+
+function GuardarMod() {
+
+    var modulos = new Array();
+    var usuario = $('#usuariomodulos').val();
+
+    $('#accordion input[type=checkbox]').each(function () {
+        if (this.checked) {
+            modulos.push($(this).val());
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: '/Modulos/AgregarModulos',
+        data: { usuario: usuario, modulos: modulos },
+        beforeSend: function () {
+            Loading("Agregando Modulos");
+        },
+        complete: function () {
+            Loading();
+        },
+        success: function (data) {
+            if (data) {
+                AlertSuccess('Se han agregado correctamente los modulos al usuario', 'Usuario');
+                $("#modalSupervisor").modal("hide");
+            }
+        },
+        error: function () {
+            AlertError('No se pudo agregar los modulos .Intente Nuevamente', 'Usuario');
+            $("#modalSupervisor").modal("hide");
+        }
+    });
+
+    
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using SISECOOB.Models;
 
 namespace SISECOOB.Models
 {
@@ -124,34 +125,40 @@ namespace SISECOOB.Models
             [Display(Name = "Usuario")]
             public string Usuario_Id { get; set; }
 
-            public int[] modulos { get; set; }
 
         }
 
-        public void Crear()
+        public int[] modulos { get; set; }
+
+        public void Crear(string usuario, int[] mod)
         {
             try
             {
+
+
                 SISECOOBEntities db = new SISECOOBEntities();
-                db.Menu_Usuarios.AddObject(this);
-                db.SaveChanges();
 
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+                List<Menu_Usuarios> md = db.Menu_Usuarios.Where(j => j.Usuario_Id == usuario).ToList();
 
-        public void Editar()
-        {
-            try
-            {
-                SISECOOBEntities db = new SISECOOBEntities();
-                Menu menu = db.Menu.FirstOrDefault(i => i.MenuID == this.MenuID_Fk);
+                if (md != null)
+                {
+                    foreach (var x in md)
+                    {
+                        db.Menu_Usuarios.DeleteObject(x);
+                        db.SaveChanges();
+                    }
+                }
 
+                foreach (var i in mod) {
 
-                db.SaveChanges();
+                    Menu_Usuarios m = new Menu_Usuarios();
+
+                    m.Usuario_Id = usuario;
+                    m.MenuID_Fk = i;
+
+                    db.Menu_Usuarios.AddObject(m);
+                    db.SaveChanges();
+                }           
             }
             catch (Exception e)
             {

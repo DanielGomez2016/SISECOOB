@@ -171,5 +171,26 @@ namespace SISECOOB.Controllers
                 total = menus.Count(),
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult AgregarModulos(string usuario, int[] modulos) {
+            try
+            {
+                Menu_Usuarios menu = new Menu_Usuarios();
+                menu.Crear(usuario,modulos);
+                return Json(new
+                {
+                    result = true
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    result = false,
+                    message = e.Message
+                });
+            }
+        }
+
     }
 }
