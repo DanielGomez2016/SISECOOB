@@ -18,4 +18,9 @@ namespace SISECOOB.Models
         }
     }
 
+    public class ItemTurno {
+        public int itemID { get; set; }
+        public string nombre { get; set; }
+    }
+
 }

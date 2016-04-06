@@ -1,0 +1,90 @@
+﻿@model SISECOOB.Models.Escuelas
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.EscuelaID)
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Nombre, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Clave, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Clave, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Nivel_fk, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("Nivel_fk", new SelectList(ViewBag.Niveles, "id", "nombre"), "Todos", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Municipio_fk, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("Municipio_fk", new SelectList(ViewBag.Municipios, "id", "nombre"), "Todos", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Localidad_fk, new { @class = "col-md-6 control-label" })
+                @if (ViewBag.Localidades != null)
+                {
+                <div class="col-md-12">
+                    @Html.DropDownList("Localidad_fk", new SelectList(ViewBag.Localidades, "id", "nombre"), "Seleccione Localidad", new { @class = "form-control" })
+                </div>
+                }
+                else {
+                <div class="col-md-12">
+                    <select id="Localidad_fk" name="Localidad_fk" class="form-control"></select>
+                </div>
+                }
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Domicilio, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Domicilio, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Alumnos, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Alumnos, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Turno, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("Turno", new SelectList(ViewBag.Turnos, "id", "nombre"), "Seleccione Turno", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.Director, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Director, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.Zona, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Zona, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.Sector, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Sector, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.TipoPredio, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.TipoPredio, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}

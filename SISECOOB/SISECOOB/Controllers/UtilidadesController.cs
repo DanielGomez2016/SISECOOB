@@ -60,5 +60,27 @@ namespace SISECOOB.Controllers
                 total = menus.Count(),
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CargarLocalidades(int municipio = 0)
+        {
+            SISECOOBEntities db = new SISECOOBEntities();
+
+            IQueryable<Localidades> query = db.Localidades;
+
+            if (municipio > 0)
+                query = query.Where(i => i.Municipios.MunicipioId == municipio);
+
+            return Json(new
+            {
+                datos = query.OrderBy(i => i.Nombre)
+                             .ToList()
+                             .Select(i => new
+                             {
+                                 id = i.LocalidadId,
+                                 nombre = i.Nombre,
+                             })
+                             .ToList()
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

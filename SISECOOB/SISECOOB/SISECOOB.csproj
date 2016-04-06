@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConceptosController.cs" />
+    <Compile Include="Controllers\EscuelasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -187,20 +188,27 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\CapitulosdeObra.cs" />
     <Compile Include="Models\Conceptos.cs" />
     <Compile Include="Models\Db.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Db.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Escuelas.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonMvc.cs" />
+    <Compile Include="Models\Leyes.cs" />
     <Compile Include="Models\Localidades.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Modulos.cs" />
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\NivelesEducativos.cs" />
+    <Compile Include="Models\Programas.cs" />
+    <Compile Include="Models\SubProgramasEdu.cs" />
+    <Compile Include="Models\TipoEstructura.cs" />
     <Compile Include="Models\TipoOficios.cs" />
+    <Compile Include="Models\TipoTelefono.cs" />
     <Compile Include="Models\Utilidades.cs" />
     <Compile Include="Models\Zonas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1046,6 +1054,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controles\Conceptos.js" />
+    <Content Include="Scripts\Controles\Escuelas.js" />
     <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Modulos.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
@@ -1070,14 +1079,10 @@
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-1.8.js" />
-    <Content Include="Scripts\jquery-2.2.1.js" />
-    <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
-    <Content Include="Scripts\jquery-ui-i18n.js" />
-    <Content Include="Scripts\jquery-ui-i18n.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.css" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
@@ -1192,6 +1197,8 @@
     <Content Include="Views\UsersAdmin\_Details.cshtml" />
     <Content Include="Views\Modulos\Index.cshtml" />
     <Content Include="Views\Modulos\_Formulario.cshtml" />
+    <Content Include="Views\Escuelas\Index.cshtml" />
+    <Content Include="Views\Escuelas\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1260,7 +1267,6 @@
     <Content Include="Content\assets\js\tree\tabelizer\tabelizer.jquery.json" />
     <Content Include="Content\assets\js\upload\demos\upload.php" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-2.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
