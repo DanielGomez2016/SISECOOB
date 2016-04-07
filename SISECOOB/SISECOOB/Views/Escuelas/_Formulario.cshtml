@@ -86,5 +86,55 @@
                 </div>
             </div>
         </div>
-    </fieldset>
+        <div class="col-md-12 col-sm-12">
+            <table id="ttelefonos" class="table table-hover table-stripped">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Tipo Telefono</th>
+                        <th class="col-md-4">Telefono</th>
+                        <th class="col-md-4"><button type="button" value="Nuevo Telefono" id="btnagregar" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Nuevo Telefono</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="hidden" id="telefono" name="telefono">
+                        <td>
+                            @Html.DropDownList("tipotelefono", new SelectList(ViewBag.TipoTel, "id", "nombre"), "Todos", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <input name="telefonos" class="form-control"/>
+                        </td>
+                        <td>
+                            <button type="button" class="btn-sm btn-danger" name="btneliminar"><span class="glyphicon glyphicon-trash"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</fieldset>
 }
+
+<script>
+    //agregar telefonos de la escuela
+    var i = 1;
+    $('#btnagregar').click(function () {
+
+        var tel = $('#telefono');
+        var tel2 = tel.clone();
+        tel2.removeAttr('id');
+        tel2.removeClass('hidden');
+        tel2.attr('data-control', i);
+
+        var btne = tel2.find('[name=btneliminar]');
+        btne.attr('data-cont', i);
+
+        var html = $('#ttelefonos tbody');
+        html.append(tel2);
+        i++;
+    });
+
+    $('#ttelefonos').on('click', 'button[name="btneliminar"]', function () {
+        var data = $(this).data('cont');
+        var eliminar = $('[data-control="' + data + '"]');
+        eliminar.remove();
+    });
+</script>

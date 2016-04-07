@@ -52,13 +52,32 @@ namespace SISECOOB.Models
 
 
         }
-        public void Crear()
+        public string[] telefonos { get; set; }
+        public string[] tipotelefono { get; set; }
+        public int Crear()
         {
             try
             {
                 SISECOOBEntities db = new SISECOOBEntities();
+
+                //Escuelas es = new Escuelas();
+                //es.Nombre = Nombre;
+                //es.Clave = Clave;
+                //es.Nivel_fk = Nivel_fk;
+                //es.Municipio_fk = muni;
+                //es.Localidad_fk = Localidad_fk;
+                //es.Domicilio = Domicilio;
+                //es.Alumnos = Alumnos;
+                //es.Turno = Turno;
+                //es.Director = Director;
+                //es.Zona = Zona;
+                //es.Sector = Sector;
+                //es.TipoPredio = TipoPredio;
+
                 db.Escuelas.AddObject(this);
                 db.SaveChanges();
+
+                return EscuelaID;
 
             }
             catch (Exception e)
@@ -67,7 +86,7 @@ namespace SISECOOB.Models
             }
         }
 
-        public void Editar()
+        public int Editar()
         {
             try
             {
@@ -88,6 +107,8 @@ namespace SISECOOB.Models
 
 
                 db.SaveChanges();
+
+                return EscuelaID;
             }
             catch (Exception e)
             {

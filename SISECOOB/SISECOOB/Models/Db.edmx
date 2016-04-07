@@ -143,6 +143,7 @@
           </Key>
           <Property Name="TelefonoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoTelefono_fk" Type="int" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
           <Property Name="Proveniente" Type="varchar" MaxLength="50" />
           <Property Name="ProvenienteID" Type="int" />
         </EntityType>
@@ -241,6 +242,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Telefonos_TipoTelefono">
+          <End Role="TipoTelefono" Type="Self.TipoTelefono" Multiplicity="0..1" />
+          <End Role="Telefonos" Type="Self.Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTelefono">
+              <PropertyRef Name="TelefonoID" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="TipoTelefono_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SISECOOBModelStoreContainer">
           <EntitySet Name="CapitulosdeObra" EntityType="Self.CapitulosdeObra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conceptos" EntityType="Self.Conceptos" Schema="dbo" store:Type="Tables" />
@@ -280,88 +293,32 @@
             <End Role="Municipios" EntitySet="Municipios" />
             <End Role="Localidades" EntitySet="Localidades" />
           </AssociationSet>
+          <AssociationSet Name="FK_Telefonos_TipoTelefono" Association="Self.FK_Telefonos_TipoTelefono">
+            <End Role="TipoTelefono" EntitySet="TipoTelefono" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SISECOOBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Localidades">
-          <Key>
-            <PropertyRef Name="LocalidadId" />
-          </Key>
-          <Property Name="LocalidadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MunicipioId_FK" Type="Int32" />
-          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Municipios" Relationship="Self.Fk_Municipios_Localidades" FromRole="Localidades" ToRole="Municipios" />
-          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Escuelas_Localidades" FromRole="Localidades" ToRole="Escuelas" />
-        </EntityType>
-        <EntityType Name="Municipios">
-          <Key>
-            <PropertyRef Name="MunicipioId" />
-          </Key>
-          <Property Name="MunicipioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Localidades" Relationship="Self.Fk_Municipios_Localidades" FromRole="Municipios" ToRole="Localidades" />
-          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Escuelas_Municipios" FromRole="Municipios" ToRole="Escuelas" />
-        </EntityType>
-        <EntityType Name="NivelesEducativos">
-          <Key>
-            <PropertyRef Name="NivelID" />
-          </Key>
-          <Property Name="NivelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Escuelas_NivelesEducativos" FromRole="NivelesEducativos" ToRole="Escuelas" />
-        </EntityType>
-        <EntityType Name="TipoOficios">
-          <Key>
-            <PropertyRef Name="TipoOficioID" />
-          </Key>
-          <Property Name="TipoOficioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Zonas">
-          <Key>
-            <PropertyRef Name="ZonaID" />
-          </Key>
-          <Property Name="ZonaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="Fk_Municipios_Localidades">
-          <End Role="Municipios" Type="Self.Municipios" Multiplicity="0..1" />
-          <End Role="Localidades" Type="Self.Localidades" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Municipios">
-              <PropertyRef Name="MunicipioId" />
-            </Principal>
-            <Dependent Role="Localidades">
-              <PropertyRef Name="MunicipioId_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SISECOOBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Localidades" EntityType="Self.Localidades" />
-          <EntitySet Name="Municipios" EntityType="Self.Municipios" />
-          <EntitySet Name="NivelesEducativos" EntityType="Self.NivelesEducativos" />
-          <EntitySet Name="TipoOficios" EntityType="Self.TipoOficios" />
-          <EntitySet Name="Zonas" EntityType="Self.Zonas" />
-          <AssociationSet Name="Fk_Municipios_Localidades" Association="Self.Fk_Municipios_Localidades">
-            <End Role="Municipios" EntitySet="Municipios" />
-            <End Role="Localidades" EntitySet="Localidades" />
-          </AssociationSet>
-          <EntitySet Name="Conceptos" EntityType="SISECOOBModel.Conceptos" />
-          <EntitySet Name="Menu" EntityType="SISECOOBModel.Menu" />
-          <EntitySet Name="Menu_Usuarios" EntityType="SISECOOBModel.Menu_Usuarios" />
-          <AssociationSet Name="FK_Menu_Usuarios_Menu" Association="SISECOOBModel.FK_Menu_Usuarios_Menu">
-            <End Role="Menu" EntitySet="Menu" />
-            <End Role="Menu_Usuarios" EntitySet="Menu_Usuarios" />
-          </AssociationSet>
+          <EntitySet Name="SubProgramasEdu" EntityType="SISECOOBModel.SubProgramasEdu" />
           <EntitySet Name="CapitulosdeObra" EntityType="SISECOOBModel.CapitulosdeObra" />
+          <EntitySet Name="Conceptos" EntityType="SISECOOBModel.Conceptos" />
+          <EntitySet Name="Contratistas" EntityType="SISECOOBModel.Contratistas" />
           <EntitySet Name="Escuelas" EntityType="SISECOOBModel.Escuelas" />
           <EntitySet Name="Leyes" EntityType="SISECOOBModel.Leyes" />
+          <EntitySet Name="Localidades" EntityType="SISECOOBModel.Localidades" />
+          <EntitySet Name="Menu" EntityType="SISECOOBModel.Menu" />
+          <EntitySet Name="Menu_Usuarios" EntityType="SISECOOBModel.Menu_Usuarios" />
+          <EntitySet Name="Municipios" EntityType="SISECOOBModel.Municipios" />
+          <EntitySet Name="NivelesEducativos" EntityType="SISECOOBModel.NivelesEducativos" />
           <EntitySet Name="Programas" EntityType="SISECOOBModel.Programas" />
-          <EntitySet Name="SubProgramasEdu" EntityType="SISECOOBModel.SubProgramasEdu" />
           <EntitySet Name="TipoEstructura" EntityType="SISECOOBModel.TipoEstructura" />
-          <EntitySet Name="TipoTelefono" EntityType="SISECOOBModel.TipoTelefono" />
+          <EntitySet Name="TipoOficios" EntityType="SISECOOBModel.TipoOficios" />
+          <EntitySet Name="Turnos" EntityType="SISECOOBModel.Turnos" />
+          <EntitySet Name="Zonas" EntityType="SISECOOBModel.Zonas" />
           <AssociationSet Name="FK_Escuelas_Localidades" Association="SISECOOBModel.FK_Escuelas_Localidades">
             <End Role="Localidades" EntitySet="Localidades" />
             <End Role="Escuelas" EntitySet="Escuelas" />
@@ -374,10 +331,36 @@
             <End Role="NivelesEducativos" EntitySet="NivelesEducativos" />
             <End Role="Escuelas" EntitySet="Escuelas" />
           </AssociationSet>
-          <EntitySet Name="Contratistas" EntityType="SISECOOBModel.Contratistas" />
+          <AssociationSet Name="Fk_Municipios_Localidades" Association="SISECOOBModel.Fk_Municipios_Localidades">
+            <End Role="Municipios" EntitySet="Municipios" />
+            <End Role="Localidades" EntitySet="Localidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Usuarios_Menu" Association="SISECOOBModel.FK_Menu_Usuarios_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu_Usuarios" EntitySet="Menu_Usuarios" />
+          </AssociationSet>
           <EntitySet Name="Telefonos" EntityType="SISECOOBModel.Telefonos" />
-          <EntitySet Name="Turnos" EntityType="SISECOOBModel.Turnos" />
-        </EntityContainer>
+          <EntitySet Name="TipoTelefono" EntityType="SISECOOBModel.TipoTelefono" />
+          <AssociationSet Name="FK_Telefonos_TipoTelefono" Association="SISECOOBModel.FK_Telefonos_TipoTelefono">
+            <End Role="TipoTelefono" EntitySet="TipoTelefono" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="SubProgramasEdu">
+          <Key>
+            <PropertyRef Name="SubprogramaID" />
+          </Key>
+          <Property Name="SubprogramaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subprograma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CapitulosdeObra">
+          <Key>
+            <PropertyRef Name="CapituloObraID" />
+          </Key>
+          <Property Name="CapituloObraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Clave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Capitulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Conceptos">
           <Key>
             <PropertyRef Name="ConceptoId" />
@@ -389,46 +372,37 @@
           <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Precio" Type="Double" />
         </EntityType>
-        <EntityType Name="Menu">
+        <EntityType Name="Contratistas">
           <Key>
-            <PropertyRef Name="MenuID" />
+            <PropertyRef Name="ContratistaID" />
           </Key>
-          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Controlador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Padre" Type="Int32" />
-          <Property Name="Nivel" Type="Int32" />
-          <NavigationProperty Name="Menu_Usuarios" Relationship="SISECOOBModel.FK_Menu_Usuarios_Menu" FromRole="Menu" ToRole="Menu_Usuarios" />
-        </EntityType>
-        <EntityType Name="Menu_Usuarios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MenuID_Fk" Type="Int32" />
-          <Property Name="Usuario_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Menu" Relationship="SISECOOBModel.FK_Menu_Usuarios_Menu" FromRole="Menu_Usuarios" ToRole="Menu" />
-        </EntityType>
-        <Association Name="FK_Menu_Usuarios_Menu">
-          <End Type="SISECOOBModel.Menu" Role="Menu" Multiplicity="0..1" />
-          <End Type="SISECOOBModel.Menu_Usuarios" Role="Menu_Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Menu">
-              <PropertyRef Name="MenuID" />
-            </Principal>
-            <Dependent Role="Menu_Usuarios">
-              <PropertyRef Name="MenuID_Fk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CapitulosdeObra">
-          <Key>
-            <PropertyRef Name="CapituloObraID" />
-          </Key>
-          <Property Name="CapituloObraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Clave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Capitulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContratistaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Domicilio" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="CMIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RPUC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Vigencia" Type="DateTime" Precision="3" />
+          <Property Name="Capital" Type="Double" />
+          <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="NumEstructura" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRepleg" Type="DateTime" Precision="3" />
+          <Property Name="NumNotario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NomNotario" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="Residencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumEscrituraActCons" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Volumen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActa" Type="DateTime" Precision="3" />
+          <Property Name="NumNotarioActCons" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NomNotarioActCons" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="ResidenciaActCons" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumActa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="LugarNac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LugarRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="personafisica" Type="Boolean" />
         </EntityType>
         <EntityType Name="Escuelas">
           <Key>
@@ -459,19 +433,60 @@
           <Property Name="Ley" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Localidades">
+          <Key>
+            <PropertyRef Name="LocalidadId" />
+          </Key>
+          <Property Name="LocalidadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MunicipioId_FK" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Escuelas_Localidades" FromRole="Localidades" ToRole="Escuelas" />
+          <NavigationProperty Name="Municipios" Relationship="SISECOOBModel.Fk_Municipios_Localidades" FromRole="Localidades" ToRole="Municipios" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Controlador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Padre" Type="Int32" />
+          <Property Name="Nivel" Type="Int32" />
+          <NavigationProperty Name="Menu_Usuarios" Relationship="SISECOOBModel.FK_Menu_Usuarios_Menu" FromRole="Menu" ToRole="Menu_Usuarios" />
+        </EntityType>
+        <EntityType Name="Menu_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuID_Fk" Type="Int32" />
+          <Property Name="Usuario_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Menu" Relationship="SISECOOBModel.FK_Menu_Usuarios_Menu" FromRole="Menu_Usuarios" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Municipios">
+          <Key>
+            <PropertyRef Name="MunicipioId" />
+          </Key>
+          <Property Name="MunicipioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Escuelas_Municipios" FromRole="Municipios" ToRole="Escuelas" />
+          <NavigationProperty Name="Localidades" Relationship="SISECOOBModel.Fk_Municipios_Localidades" FromRole="Municipios" ToRole="Localidades" />
+        </EntityType>
+        <EntityType Name="NivelesEducativos">
+          <Key>
+            <PropertyRef Name="NivelID" />
+          </Key>
+          <Property Name="NivelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Escuelas_NivelesEducativos" FromRole="NivelesEducativos" ToRole="Escuelas" />
+        </EntityType>
         <EntityType Name="Programas">
           <Key>
             <PropertyRef Name="ProgramaID" />
           </Key>
           <Property Name="ProgramaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Programa" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="SubProgramasEdu">
-          <Key>
-            <PropertyRef Name="SubprogramaID" />
-          </Key>
-          <Property Name="SubprogramaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Subprograma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TipoEstructura">
           <Key>
@@ -480,12 +495,26 @@
           <Property Name="EstructuraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoEstructura1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="TipoTelefono">
+        <EntityType Name="TipoOficios">
           <Key>
-            <PropertyRef Name="TelefonoID" />
+            <PropertyRef Name="TipoOficioID" />
           </Key>
-          <Property Name="TelefonoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TipoTelefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoOficioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Turnos">
+          <Key>
+            <PropertyRef Name="TurnoID" />
+          </Key>
+          <Property Name="TurnoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Zonas">
+          <Key>
+            <PropertyRef Name="ZonaID" />
+          </Key>
+          <Property Name="ZonaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Escuelas_Localidades">
           <End Type="SISECOOBModel.Localidades" Role="Localidades" Multiplicity="1" />
@@ -523,131 +552,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Contratistas">
-          <Key>
-            <PropertyRef Name="ContratistaID" />
-          </Key>
-          <Property Name="ContratistaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Domicilio" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="CMIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RPUC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Vigencia" Type="DateTime" Precision="3" />
-          <Property Name="Capital" Type="Double" />
-          <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="NumEstructura" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaRepleg" Type="DateTime" Precision="3" />
-          <Property Name="NumNotario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NomNotario" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="Residencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NumEscrituraActCons" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Volumen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActa" Type="DateTime" Precision="3" />
-          <Property Name="NumNotarioActCons" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NomNotarioActCons" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="ResidenciaActCons" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NumActa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
-          <Property Name="LugarNac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LugarRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="personafisica" Type="Boolean" />
-        </EntityType>
+        <Association Name="Fk_Municipios_Localidades">
+          <End Type="SISECOOBModel.Municipios" Role="Municipios" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Localidades" Role="Localidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipios">
+              <PropertyRef Name="MunicipioId" />
+            </Principal>
+            <Dependent Role="Localidades">
+              <PropertyRef Name="MunicipioId_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Usuarios_Menu">
+          <End Type="SISECOOBModel.Menu" Role="Menu" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Menu_Usuarios" Role="Menu_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="Menu_Usuarios">
+              <PropertyRef Name="MenuID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Telefonos">
           <Key>
             <PropertyRef Name="TelefonoID" />
           </Key>
           <Property Name="TelefonoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoTelefono_fk" Type="Int32" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Proveniente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProvenienteID" Type="Int32" />
+          <NavigationProperty Name="TipoTelefono" Relationship="SISECOOBModel.FK_Telefonos_TipoTelefono" FromRole="Telefonos" ToRole="TipoTelefono" />
         </EntityType>
-        <EntityType Name="Turnos">
+        <EntityType Name="TipoTelefono">
           <Key>
-            <PropertyRef Name="TurnoID" />
+            <PropertyRef Name="TelefonoID" />
           </Key>
-          <Property Name="TurnoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoTelefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Telefonos" Relationship="SISECOOBModel.FK_Telefonos_TipoTelefono" FromRole="TipoTelefono" ToRole="Telefonos" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_Telefonos_TipoTelefono">
+          <End Type="SISECOOBModel.TipoTelefono" Role="TipoTelefono" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Telefonos" Role="Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTelefono">
+              <PropertyRef Name="TelefonoID" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="TipoTelefono_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SISECOOBModelStoreContainer" CdmEntityContainer="SISECOOBEntities">
-          <EntitySetMapping Name="Localidades">
-            <EntityTypeMapping TypeName="SISECOOBModel.Localidades">
-              <MappingFragment StoreEntitySet="Localidades">
-                <ScalarProperty Name="LocalidadId" ColumnName="LocalidadId" />
-                <ScalarProperty Name="MunicipioId_FK" ColumnName="MunicipioId_FK" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Municipios">
-            <EntityTypeMapping TypeName="SISECOOBModel.Municipios">
-              <MappingFragment StoreEntitySet="Municipios">
-                <ScalarProperty Name="MunicipioId" ColumnName="MunicipioId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NivelesEducativos">
-            <EntityTypeMapping TypeName="SISECOOBModel.NivelesEducativos">
-              <MappingFragment StoreEntitySet="NivelesEducativos">
-                <ScalarProperty Name="NivelID" ColumnName="NivelID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoOficios">
-            <EntityTypeMapping TypeName="SISECOOBModel.TipoOficios">
-              <MappingFragment StoreEntitySet="TipoOficios">
-                <ScalarProperty Name="TipoOficioID" ColumnName="TipoOficioID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Zonas">
-            <EntityTypeMapping TypeName="SISECOOBModel.Zonas">
-              <MappingFragment StoreEntitySet="Zonas">
-                <ScalarProperty Name="ZonaID" ColumnName="ZonaID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Conceptos">
-            <EntityTypeMapping TypeName="SISECOOBModel.Conceptos">
-              <MappingFragment StoreEntitySet="Conceptos">
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Menu">
-            <EntityTypeMapping TypeName="SISECOOBModel.Menu">
-              <MappingFragment StoreEntitySet="Menu">
-                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
-                <ScalarProperty Name="Padre" ColumnName="Padre" />
-                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Menu_Usuarios">
-            <EntityTypeMapping TypeName="SISECOOBModel.Menu_Usuarios">
-              <MappingFragment StoreEntitySet="Menu_Usuarios">
-                <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
-                <ScalarProperty Name="MenuID_Fk" ColumnName="MenuID_Fk" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="SubProgramasEdu">
+            <EntityTypeMapping TypeName="SISECOOBModel.SubProgramasEdu">
+              <MappingFragment StoreEntitySet="SubProgramasEdu">
+                <ScalarProperty Name="Subprograma" ColumnName="Subprograma" />
+                <ScalarProperty Name="SubprogramaID" ColumnName="SubprogramaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -660,63 +630,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Escuelas">
-            <EntityTypeMapping TypeName="SISECOOBModel.Escuelas">
-              <MappingFragment StoreEntitySet="Escuelas">
-                <ScalarProperty Name="TipoPredio" ColumnName="TipoPredio" />
-                <ScalarProperty Name="Sector" ColumnName="Sector" />
-                <ScalarProperty Name="Zona" ColumnName="Zona" />
-                <ScalarProperty Name="Director" ColumnName="Director" />
-                <ScalarProperty Name="Turno" ColumnName="Turno" />
-                <ScalarProperty Name="Localidad_fk" ColumnName="Localidad_fk" />
-                <ScalarProperty Name="Alumnos" ColumnName="Alumnos" />
-                <ScalarProperty Name="Municipio_fk" ColumnName="Municipio_fk" />
-                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
-                <ScalarProperty Name="Nivel_fk" ColumnName="Nivel_fk" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="EscuelaID" ColumnName="EscuelaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Leyes">
-            <EntityTypeMapping TypeName="SISECOOBModel.Leyes">
-              <MappingFragment StoreEntitySet="Leyes">
+          <EntitySetMapping Name="Conceptos">
+            <EntityTypeMapping TypeName="SISECOOBModel.Conceptos">
+              <MappingFragment StoreEntitySet="Conceptos">
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Ley" ColumnName="Ley" />
-                <ScalarProperty Name="LeyesID" ColumnName="LeyesID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Programas">
-            <EntityTypeMapping TypeName="SISECOOBModel.Programas">
-              <MappingFragment StoreEntitySet="Programas">
-                <ScalarProperty Name="Programa" ColumnName="Programa" />
-                <ScalarProperty Name="ProgramaID" ColumnName="ProgramaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubProgramasEdu">
-            <EntityTypeMapping TypeName="SISECOOBModel.SubProgramasEdu">
-              <MappingFragment StoreEntitySet="SubProgramasEdu">
-                <ScalarProperty Name="Subprograma" ColumnName="Subprograma" />
-                <ScalarProperty Name="SubprogramaID" ColumnName="SubprogramaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoEstructura">
-            <EntityTypeMapping TypeName="SISECOOBModel.TipoEstructura">
-              <MappingFragment StoreEntitySet="TipoEstructura">
-                <ScalarProperty Name="TipoEstructura1" ColumnName="TipoEstructura" />
-                <ScalarProperty Name="EstructuraID" ColumnName="EstructuraID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoTelefono">
-            <EntityTypeMapping TypeName="SISECOOBModel.TipoTelefono">
-              <MappingFragment StoreEntitySet="TipoTelefono">
-                <ScalarProperty Name="TipoTelefono1" ColumnName="TipoTelefono" />
-                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -753,13 +675,101 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Telefonos">
-            <EntityTypeMapping TypeName="SISECOOBModel.Telefonos">
-              <MappingFragment StoreEntitySet="Telefonos">
-                <ScalarProperty Name="ProvenienteID" ColumnName="ProvenienteID" />
-                <ScalarProperty Name="Proveniente" ColumnName="Proveniente" />
-                <ScalarProperty Name="TipoTelefono_fk" ColumnName="TipoTelefono_fk" />
-                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+          <EntitySetMapping Name="Escuelas">
+            <EntityTypeMapping TypeName="SISECOOBModel.Escuelas">
+              <MappingFragment StoreEntitySet="Escuelas">
+                <ScalarProperty Name="TipoPredio" ColumnName="TipoPredio" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="Zona" ColumnName="Zona" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="Localidad_fk" ColumnName="Localidad_fk" />
+                <ScalarProperty Name="Alumnos" ColumnName="Alumnos" />
+                <ScalarProperty Name="Municipio_fk" ColumnName="Municipio_fk" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Nivel_fk" ColumnName="Nivel_fk" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EscuelaID" ColumnName="EscuelaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leyes">
+            <EntityTypeMapping TypeName="SISECOOBModel.Leyes">
+              <MappingFragment StoreEntitySet="Leyes">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Ley" ColumnName="Ley" />
+                <ScalarProperty Name="LeyesID" ColumnName="LeyesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidades">
+            <EntityTypeMapping TypeName="SISECOOBModel.Localidades">
+              <MappingFragment StoreEntitySet="Localidades">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="MunicipioId_FK" ColumnName="MunicipioId_FK" />
+                <ScalarProperty Name="LocalidadId" ColumnName="LocalidadId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="SISECOOBModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Padre" ColumnName="Padre" />
+                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu_Usuarios">
+            <EntityTypeMapping TypeName="SISECOOBModel.Menu_Usuarios">
+              <MappingFragment StoreEntitySet="Menu_Usuarios">
+                <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
+                <ScalarProperty Name="MenuID_Fk" ColumnName="MenuID_Fk" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Municipios">
+            <EntityTypeMapping TypeName="SISECOOBModel.Municipios">
+              <MappingFragment StoreEntitySet="Municipios">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="MunicipioId" ColumnName="MunicipioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NivelesEducativos">
+            <EntityTypeMapping TypeName="SISECOOBModel.NivelesEducativos">
+              <MappingFragment StoreEntitySet="NivelesEducativos">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NivelID" ColumnName="NivelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programas">
+            <EntityTypeMapping TypeName="SISECOOBModel.Programas">
+              <MappingFragment StoreEntitySet="Programas">
+                <ScalarProperty Name="Programa" ColumnName="Programa" />
+                <ScalarProperty Name="ProgramaID" ColumnName="ProgramaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoEstructura">
+            <EntityTypeMapping TypeName="SISECOOBModel.TipoEstructura">
+              <MappingFragment StoreEntitySet="TipoEstructura">
+                <ScalarProperty Name="TipoEstructura1" ColumnName="TipoEstructura" />
+                <ScalarProperty Name="EstructuraID" ColumnName="EstructuraID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoOficios">
+            <EntityTypeMapping TypeName="SISECOOBModel.TipoOficios">
+              <MappingFragment StoreEntitySet="TipoOficios">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TipoOficioID" ColumnName="TipoOficioID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -771,7 +781,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Zonas">
+            <EntityTypeMapping TypeName="SISECOOBModel.Zonas">
+              <MappingFragment StoreEntitySet="Zonas">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ZonaID" ColumnName="ZonaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefonos">
+            <EntityTypeMapping TypeName="SISECOOBModel.Telefonos">
+              <MappingFragment StoreEntitySet="Telefonos">
+                <ScalarProperty Name="ProvenienteID" ColumnName="ProvenienteID" />
+                <ScalarProperty Name="Proveniente" ColumnName="Proveniente" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="TipoTelefono_fk" ColumnName="TipoTelefono_fk" />
+                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoTelefono">
+            <EntityTypeMapping TypeName="SISECOOBModel.TipoTelefono">
+              <MappingFragment StoreEntitySet="TipoTelefono">
+                <ScalarProperty Name="TipoTelefono1" ColumnName="TipoTelefono" />
+                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

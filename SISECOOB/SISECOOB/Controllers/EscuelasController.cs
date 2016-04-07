@@ -76,6 +76,11 @@ namespace SISECOOB.Controllers
                                  zona = i.Zona,
                                  sector = i.Sector,
                                  tipopredio = i.TipoPredio,
+                                 telefonos = db.Telefonos.Where(j => j.Proveniente == "Escuela" && j.ProvenienteID == i.EscuelaID)
+                                                         .Select( j => new {
+                                                             tipotel = j.TipoTelefono.TipoTelefono1,
+                                                             tel = j.Telefono
+                                                         }).ToList()
                              })
                              .ToList()
             }, JsonRequestBehavior.AllowGet);
@@ -91,9 +96,11 @@ namespace SISECOOB.Controllers
             ViewBag.Municipios = db.Municipios.Select(i => new { id = i.MunicipioId, nombre = i.Nombre }).OrderBy(i => i.nombre).ToList();
             ViewBag.Niveles = db.NivelesEducativos.Select(i => new { id = i.NivelID, nombre = i.Nombre }).OrderBy(i => i.nombre).ToList();
             ViewBag.Turnos = db.Turnos.Select(i => new { id = i.TurnoID, nombre = i.Nombre }).OrderBy(i => i.nombre).ToList();
+            ViewBag.TipoTel = db.TipoTelefono.Select(i => new { id = i.TelefonoID, nombre = i.TipoTelefono1 }).OrderBy(i => i.nombre).ToList();
 
             Escuelas e = new Escuelas();
             ViewBag.Localidades = null;
+            ViewBag.Telefonos = null;
 
             if (esc != null)
             {
@@ -112,6 +119,7 @@ namespace SISECOOB.Controllers
                 e.TipoPredio = esc.TipoPredio;
 
                 ViewBag.Localidades = db.Localidades.Where(i => i.MunicipioId_FK == e.Municipio_fk).Select(i => new { id = i.LocalidadId, nombre = i.Nombre }).OrderBy(i => i.nombre).ToList();
+                ViewBag.Telefonos = db.Telefonos.Where(i => i.Proveniente == "Escuela" && i.ProvenienteID == id).Select(i => new { tel = i.Telefono, tipo = i.TipoTelefono.TipoTelefono1 }).OrderBy(i => i.tel).ToList();
 
             }
 
@@ -124,7 +132,18 @@ namespace SISECOOB.Controllers
         {
             try
             {
-                escuela.Crear();
+                var esc = escuela.Crear();
+                for (var i = 1; i < escuela.telefonos.Count(); i++)
+                {
+                    Telefonos t = new Telefonos();
+                    t.Proveniente = "Escuela";
+                    t.ProvenienteID = esc;
+                    t.TipoTelefono_fk = Convert.ToInt32(escuela.tipotelefono[i]);
+                    t.Telefono = escuela.telefonos[i];
+
+                    t.Crear();
+                }
+
                 return Json(new
                 {
                     result = true
@@ -145,7 +164,28 @@ namespace SISECOOB.Controllers
         {
             try
             {
-                escuela.Editar();
+                var esc = escuela.Editar();
+
+                SISECOOBEntities db = new SISECOOBEntities();
+                List<Telefonos> t = db.Telefonos.Where(i => i.Proveniente == "Escuela" && i.ProvenienteID == esc).ToList();
+
+                foreach (var i in t) {
+                    db.Telefonos.DeleteObject(i);
+                    db.SaveChanges();
+                }
+
+
+                for (var i = 1; i < escuela.telefonos.Count(); i++)
+                {
+                    Telefonos tel = new Telefonos();
+                    tel.Proveniente = "Escuela";
+                    tel.ProvenienteID = esc;
+                    tel.TipoTelefono_fk = Convert.ToInt32(escuela.tipotelefono[i]);
+                    tel.Telefono = escuela.telefonos[i];
+
+                    tel.Crear();
+                }
+
                 return Json(new
                 {
                     result = true
@@ -181,6 +221,25 @@ namespace SISECOOB.Controllers
                     message = e.Message
                 });
             }
+        }
+
+        public JsonResult telefonos(int id)
+        {
+            SISECOOBEntities db = new SISECOOBEntities();
+
+            IQueryable<Telefonos> query = db.Telefonos.Where(i => i.Proveniente == "Escuela" && i.ProvenienteID == id);
+
+            return Json(new
+            {
+                total = query.Count(),
+                op = db.TipoTelefono.Select( i => new { id=i.TelefonoID, tipo=i.TipoTelefono1 } ).ToList(),
+                datos = query.Select(i => new
+                             {
+                                 tel = i.Telefono,
+                                 tipo = i.TipoTelefono.TipoTelefono1,
+                             })
+                             .ToList()
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

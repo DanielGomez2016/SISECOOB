@@ -161,8 +161,17 @@ $('#guardar').click(function () {
 });
 
 function Crear() {
-
+    var tipotelefono = new Array();
+    var telefonos = new Array();
     var form = $('#nuevaescuela form');
+
+    $('#nuevaescuela select[name=tipotelefono]').each(function () {
+            tipotelefono.push($(this).val());
+    });
+
+    $('#nuevaescuela input[name=telefonos]').each(function () {
+        telefonos.push($(this).val());
+    });
 
     form.removeData('validator');
     form.removeData('unobtrusiveValidation');
@@ -220,9 +229,56 @@ function Editar(id) {
             $('#editarescuela').find('.modal-body form').remove();
             $('#editarescuela').find('.modal-body').append(html);
             $('#editarescuela').modal('show');
+
+            llenarTelefono(id);
         },
         error: function () {
             AlertError('No se pudo cargar el registro. Intente nuevamente.');
+        }
+    });
+}
+
+//llenar los telefonos al momento de editar la escuela
+function llenarTelefono(id) {
+    $.ajax({
+        type: "GET",
+        url: '/Escuelas/telefonos',
+        data: { id: id },
+        beforeSend: function () {
+            Loading('Buscando');
+        }
+    })
+    .always(function () {
+        Loading();
+    })
+    .done(function (data) {
+
+        var t = $('#ttelefonos tbody');
+
+        if (data.datos.length > 0) {
+            var html = '<tr name="telefono" data-control="x{x}">'
+                      +'<td>{opciones}</td>'
+                      + '<td><input name="telefonos" class="form-control" value="{tel}"/></td>'
+                      +'<td><button type="button" data-cont="x{x}" class="btn-sm btn-danger" name="btneliminar">'
+                      +'<span class="glyphicon glyphicon-trash"></span></button></td></tr>';
+            var x = 1;
+            data.datos.map(function (e) {
+                e.x = x;
+                e.opciones = '<select class="form-control" name="tipotelefono">';
+                
+                for (var i = 0; i < data.op.length; i++) {
+                    if (data.op[i].tipo == e.tipo) {
+                        e.opciones += '<option value="' + data.op[i].id + '" selected="selected">' + data.op[i].tipo + '</option>'
+                    } else {
+                        e.opciones += '<option value="' + data.op[i].id + ' ">' + data.op[i].tipo + '</option>'
+                    }
+                }
+                e.opciones += '</select>';
+
+                temp = html.format(e);
+                t.append(temp);
+                x++;
+            });
         }
     });
 }
@@ -327,21 +383,30 @@ function Detalles(id) {
         if (data.datos.length > 0) {
             var html = '<fieldset>'
                       +'<div class="col-md-12 col-sm-12">'
-                      +'<div class="col-md-4"><label><h6>Nombre:</h6> {nombre}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Clave:</h6> {clave}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Nivel:</h6> {nivel}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Municipio:</h6> {municipio}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Localidad:</h6> {localidad}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Domicilio:</h6> {domicilio}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6># Alumnos:</h6> {alumnos}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Turno:</h6> {turno}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Director:</h6> {director}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Zona:</h6> {zona}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Sector:</h6> {sector}</lavel></div>'
-                      + '<div class="col-md-4"><label><h6>Tipo predio:</h6> {tipopredio}</lavel></div>'
+                      + '<div class="col-md-6"><label><h4>Nombre: </h4></label> {nombre} </div>'
+                      + '<div class="col-md-6"><label><h4>Clave: </h4></label> {clave} </div>'
+                      + '<div class="col-md-4"><label><h4>Nivel: </h4></label> {nivel} </div>'
+                      + '<div class="col-md-4"><label><h4>Turno: </h4></label> {turno} </div>'
+                      + '<div class="col-md-4"><label><h4># Alumnos: </h4></label> {alumnos} </div>'
+                      + '<div class="col-md-12"><label><h4>Domicilio: </h4></label> {domicilio}, {localidad}, {municipio} </div>'
+                      + '<div class="col-md-12"><label><h4>Director: </h4></label> {director} </div>'
+                      + '<div class="col-md-4"><label><h4>Zona: </h4></label> {zona} </div>'
+                      + '<div class="col-md-4"><label><h4>Sector: </h4></label> {sector} </div>'
+                      + '<div class="col-md-4"><label><h4>Tipo predio: </h4></label> {tipopredio} </div>'
+                      + '<div class="col-md-12"><label><h4>Telefonos: </h4></label></div>'
+                      + '{tels}'
                       +'</div></fieldset>';
 
             data.datos.map(function (e) {
+                e.tels = '<div class="col-md-12">';
+
+                if (e.telefonos.length > 0) {
+                    for (var j = 0; j < e.telefonos.length; j++) {
+                        e.tels += '<div class="col-md-6"><label><h4>Tipo Tel:   </h4></label>  ' + e.telefonos[j].tipotel + '  </div><div class="col-md-6"><label><h4>Tel:    </h4></label>  ' + e.telefonos[j].tel + ' </div>';
+                    }
+                }
+                e.tels += '</div>'
+
                 temp = html.format(e);
                 t.append(temp);
             });

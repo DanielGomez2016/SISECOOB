@@ -5,29 +5,30 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2e2a4dacd47e471b9910ae983ccf1e0d" Name="Diagram1">
-        <EntityTypeShape EntityType="SISECOOBModel.Localidades" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISECOOBModel.Municipios" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISECOOBModel.NivelesEducativos" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISECOOBModel.TipoOficios" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISECOOBModel.Zonas" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="SISECOOBModel.Fk_Municipios_Localidades" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SISECOOBModel.Conceptos" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.Menu" Width="1.5" PointX="3.375" PointY="7" />
-        <EntityTypeShape EntityType="SISECOOBModel.Menu_Usuarios" Width="1.5" PointX="5.625" PointY="7.25" />
-        <AssociationConnector Association="SISECOOBModel.FK_Menu_Usuarios_Menu" />
-        <EntityTypeShape EntityType="SISECOOBModel.CapitulosdeObra" Width="1.5" PointX="8.75" PointY="6.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.Escuelas" Width="1.5" PointX="8.625" PointY="1.125" />
-        <EntityTypeShape EntityType="SISECOOBModel.Leyes" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.Programas" Width="1.5" PointX="8.75" PointY="9.75" />
         <EntityTypeShape EntityType="SISECOOBModel.SubProgramasEdu" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.TipoEstructura" Width="1.5" PointX="2.75" PointY="10.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.TipoTelefono" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.CapitulosdeObra" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Conceptos" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Contratistas" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Escuelas" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="SISECOOBModel.Leyes" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Localidades" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="SISECOOBModel.Menu" Width="1.5" PointX="2.75" PointY="1" />
+        <EntityTypeShape EntityType="SISECOOBModel.Menu_Usuarios" Width="1.5" PointX="5" PointY="1.25" />
+        <EntityTypeShape EntityType="SISECOOBModel.Municipios" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="SISECOOBModel.NivelesEducativos" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="SISECOOBModel.Programas" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.TipoEstructura" Width="1.5" PointX="2.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.TipoOficios" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Turnos" Width="1.5" PointX="11.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Zonas" Width="1.5" PointX="11.75" PointY="9.75" />
         <AssociationConnector Association="SISECOOBModel.FK_Escuelas_Localidades" />
         <AssociationConnector Association="SISECOOBModel.FK_Escuelas_Municipios" />
         <AssociationConnector Association="SISECOOBModel.FK_Escuelas_NivelesEducativos" />
-        <EntityTypeShape EntityType="SISECOOBModel.Contratistas" Width="1.5" PointX="5.375" PointY="10.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.Telefonos" Width="1.5" PointX="11.375" PointY="6.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.Turnos" Width="1.5" PointX="11.375" PointY="9.75" />
+        <AssociationConnector Association="SISECOOBModel.Fk_Municipios_Localidades" />
+        <AssociationConnector Association="SISECOOBModel.FK_Menu_Usuarios_Menu" />
+        <EntityTypeShape EntityType="SISECOOBModel.Telefonos" Width="1.5" PointX="12.625" PointY="12.875" />
+        <EntityTypeShape EntityType="SISECOOBModel.TipoTelefono" Width="1.5" PointX="10.375" PointY="13.25" />
+        <AssociationConnector Association="SISECOOBModel.FK_Telefonos_TipoTelefono" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

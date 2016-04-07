@@ -6,9 +6,6 @@
 //    Los cambios manuales en este archivo se sobrescribirán si se regenera el código.
 // </auto-generated>
 //------------------------------------------------------------------------------
-/*using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Core.Objects.DataClasses;*/
 
 using System;
 using System.ComponentModel;
@@ -19,14 +16,16 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
+
 [assembly: EdmSchemaAttribute()]
 #region Metadatos de relaciones en EDM
 
-[assembly: EdmRelationshipAttribute("SISECOOBModel", "Fk_Municipios_Localidades", "Municipios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Municipios), "Localidades", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Localidades), true)]
-[assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Menu_Usuarios_Menu", "Menu", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Menu), "Menu_Usuarios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Menu_Usuarios), true)]
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Escuelas_Localidades", "Localidades", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(SISECOOB.Models.Localidades), "Escuelas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Escuelas), true)]
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Escuelas_Municipios", "Municipios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(SISECOOB.Models.Municipios), "Escuelas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Escuelas), true)]
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Escuelas_NivelesEducativos", "NivelesEducativos", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(SISECOOB.Models.NivelesEducativos), "Escuelas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Escuelas), true)]
+[assembly: EdmRelationshipAttribute("SISECOOBModel", "Fk_Municipios_Localidades", "Municipios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Municipios), "Localidades", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Localidades), true)]
+[assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Menu_Usuarios_Menu", "Menu", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Menu), "Menu_Usuarios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Menu_Usuarios), true)]
+[assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Telefonos_TipoTelefono", "TipoTelefono", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.TipoTelefono), "Telefonos", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Telefonos), true)]
 
 #endregion
 
@@ -81,82 +80,34 @@ namespace SISECOOB.Models
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<Localidades> Localidades
+        public ObjectSet<SubProgramasEdu> SubProgramasEdu
         {
             get
             {
-                if ((_Localidades == null))
+                if ((_SubProgramasEdu == null))
                 {
-                    _Localidades = base.CreateObjectSet<Localidades>("Localidades");
+                    _SubProgramasEdu = base.CreateObjectSet<SubProgramasEdu>("SubProgramasEdu");
                 }
-                return _Localidades;
+                return _SubProgramasEdu;
             }
         }
-        private ObjectSet<Localidades> _Localidades;
+        private ObjectSet<SubProgramasEdu> _SubProgramasEdu;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<Municipios> Municipios
+        public ObjectSet<CapitulosdeObra> CapitulosdeObra
         {
             get
             {
-                if ((_Municipios == null))
+                if ((_CapitulosdeObra == null))
                 {
-                    _Municipios = base.CreateObjectSet<Municipios>("Municipios");
+                    _CapitulosdeObra = base.CreateObjectSet<CapitulosdeObra>("CapitulosdeObra");
                 }
-                return _Municipios;
+                return _CapitulosdeObra;
             }
         }
-        private ObjectSet<Municipios> _Municipios;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<NivelesEducativos> NivelesEducativos
-        {
-            get
-            {
-                if ((_NivelesEducativos == null))
-                {
-                    _NivelesEducativos = base.CreateObjectSet<NivelesEducativos>("NivelesEducativos");
-                }
-                return _NivelesEducativos;
-            }
-        }
-        private ObjectSet<NivelesEducativos> _NivelesEducativos;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<TipoOficios> TipoOficios
-        {
-            get
-            {
-                if ((_TipoOficios == null))
-                {
-                    _TipoOficios = base.CreateObjectSet<TipoOficios>("TipoOficios");
-                }
-                return _TipoOficios;
-            }
-        }
-        private ObjectSet<TipoOficios> _TipoOficios;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<Zonas> Zonas
-        {
-            get
-            {
-                if ((_Zonas == null))
-                {
-                    _Zonas = base.CreateObjectSet<Zonas>("Zonas");
-                }
-                return _Zonas;
-            }
-        }
-        private ObjectSet<Zonas> _Zonas;
+        private ObjectSet<CapitulosdeObra> _CapitulosdeObra;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -177,50 +128,18 @@ namespace SISECOOB.Models
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<Menu> Menu
+        public ObjectSet<Contratistas> Contratistas
         {
             get
             {
-                if ((_Menu == null))
+                if ((_Contratistas == null))
                 {
-                    _Menu = base.CreateObjectSet<Menu>("Menu");
+                    _Contratistas = base.CreateObjectSet<Contratistas>("Contratistas");
                 }
-                return _Menu;
+                return _Contratistas;
             }
         }
-        private ObjectSet<Menu> _Menu;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<Menu_Usuarios> Menu_Usuarios
-        {
-            get
-            {
-                if ((_Menu_Usuarios == null))
-                {
-                    _Menu_Usuarios = base.CreateObjectSet<Menu_Usuarios>("Menu_Usuarios");
-                }
-                return _Menu_Usuarios;
-            }
-        }
-        private ObjectSet<Menu_Usuarios> _Menu_Usuarios;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<CapitulosdeObra> CapitulosdeObra
-        {
-            get
-            {
-                if ((_CapitulosdeObra == null))
-                {
-                    _CapitulosdeObra = base.CreateObjectSet<CapitulosdeObra>("CapitulosdeObra");
-                }
-                return _CapitulosdeObra;
-            }
-        }
-        private ObjectSet<CapitulosdeObra> _CapitulosdeObra;
+        private ObjectSet<Contratistas> _Contratistas;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -257,6 +176,86 @@ namespace SISECOOB.Models
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
+        public ObjectSet<Localidades> Localidades
+        {
+            get
+            {
+                if ((_Localidades == null))
+                {
+                    _Localidades = base.CreateObjectSet<Localidades>("Localidades");
+                }
+                return _Localidades;
+            }
+        }
+        private ObjectSet<Localidades> _Localidades;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Menu> Menu
+        {
+            get
+            {
+                if ((_Menu == null))
+                {
+                    _Menu = base.CreateObjectSet<Menu>("Menu");
+                }
+                return _Menu;
+            }
+        }
+        private ObjectSet<Menu> _Menu;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Menu_Usuarios> Menu_Usuarios
+        {
+            get
+            {
+                if ((_Menu_Usuarios == null))
+                {
+                    _Menu_Usuarios = base.CreateObjectSet<Menu_Usuarios>("Menu_Usuarios");
+                }
+                return _Menu_Usuarios;
+            }
+        }
+        private ObjectSet<Menu_Usuarios> _Menu_Usuarios;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Municipios> Municipios
+        {
+            get
+            {
+                if ((_Municipios == null))
+                {
+                    _Municipios = base.CreateObjectSet<Municipios>("Municipios");
+                }
+                return _Municipios;
+            }
+        }
+        private ObjectSet<Municipios> _Municipios;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<NivelesEducativos> NivelesEducativos
+        {
+            get
+            {
+                if ((_NivelesEducativos == null))
+                {
+                    _NivelesEducativos = base.CreateObjectSet<NivelesEducativos>("NivelesEducativos");
+                }
+                return _NivelesEducativos;
+            }
+        }
+        private ObjectSet<NivelesEducativos> _NivelesEducativos;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
         public ObjectSet<Programas> Programas
         {
             get
@@ -269,22 +268,6 @@ namespace SISECOOB.Models
             }
         }
         private ObjectSet<Programas> _Programas;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<SubProgramasEdu> SubProgramasEdu
-        {
-            get
-            {
-                if ((_SubProgramasEdu == null))
-                {
-                    _SubProgramasEdu = base.CreateObjectSet<SubProgramasEdu>("SubProgramasEdu");
-                }
-                return _SubProgramasEdu;
-            }
-        }
-        private ObjectSet<SubProgramasEdu> _SubProgramasEdu;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -305,34 +288,50 @@ namespace SISECOOB.Models
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<TipoTelefono> TipoTelefono
+        public ObjectSet<TipoOficios> TipoOficios
         {
             get
             {
-                if ((_TipoTelefono == null))
+                if ((_TipoOficios == null))
                 {
-                    _TipoTelefono = base.CreateObjectSet<TipoTelefono>("TipoTelefono");
+                    _TipoOficios = base.CreateObjectSet<TipoOficios>("TipoOficios");
                 }
-                return _TipoTelefono;
+                return _TipoOficios;
             }
         }
-        private ObjectSet<TipoTelefono> _TipoTelefono;
+        private ObjectSet<TipoOficios> _TipoOficios;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<Contratistas> Contratistas
+        public ObjectSet<Turnos> Turnos
         {
             get
             {
-                if ((_Contratistas == null))
+                if ((_Turnos == null))
                 {
-                    _Contratistas = base.CreateObjectSet<Contratistas>("Contratistas");
+                    _Turnos = base.CreateObjectSet<Turnos>("Turnos");
                 }
-                return _Contratistas;
+                return _Turnos;
             }
         }
-        private ObjectSet<Contratistas> _Contratistas;
+        private ObjectSet<Turnos> _Turnos;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Zonas> Zonas
+        {
+            get
+            {
+                if ((_Zonas == null))
+                {
+                    _Zonas = base.CreateObjectSet<Zonas>("Zonas");
+                }
+                return _Zonas;
+            }
+        }
+        private ObjectSet<Zonas> _Zonas;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -353,61 +352,37 @@ namespace SISECOOB.Models
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<Turnos> Turnos
+        public ObjectSet<TipoTelefono> TipoTelefono
         {
             get
             {
-                if ((_Turnos == null))
+                if ((_TipoTelefono == null))
                 {
-                    _Turnos = base.CreateObjectSet<Turnos>("Turnos");
+                    _TipoTelefono = base.CreateObjectSet<TipoTelefono>("TipoTelefono");
                 }
-                return _Turnos;
+                return _TipoTelefono;
             }
         }
-        private ObjectSet<Turnos> _Turnos;
+        private ObjectSet<TipoTelefono> _TipoTelefono;
 
         #endregion
 
         #region Métodos AddTo
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Localidades. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet SubProgramasEdu. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToLocalidades(Localidades localidades)
+        public void AddToSubProgramasEdu(SubProgramasEdu subProgramasEdu)
         {
-            base.AddObject("Localidades", localidades);
+            base.AddObject("SubProgramasEdu", subProgramasEdu);
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Municipios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet CapitulosdeObra. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToMunicipios(Municipios municipios)
+        public void AddToCapitulosdeObra(CapitulosdeObra capitulosdeObra)
         {
-            base.AddObject("Municipios", municipios);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet NivelesEducativos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToNivelesEducativos(NivelesEducativos nivelesEducativos)
-        {
-            base.AddObject("NivelesEducativos", nivelesEducativos);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet TipoOficios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToTipoOficios(TipoOficios tipoOficios)
-        {
-            base.AddObject("TipoOficios", tipoOficios);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Zonas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToZonas(Zonas zonas)
-        {
-            base.AddObject("Zonas", zonas);
+            base.AddObject("CapitulosdeObra", capitulosdeObra);
         }
     
         /// <summary>
@@ -419,27 +394,11 @@ namespace SISECOOB.Models
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Menu. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet Contratistas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToMenu(Menu menu)
+        public void AddToContratistas(Contratistas contratistas)
         {
-            base.AddObject("Menu", menu);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Menu_Usuarios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToMenu_Usuarios(Menu_Usuarios menu_Usuarios)
-        {
-            base.AddObject("Menu_Usuarios", menu_Usuarios);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet CapitulosdeObra. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToCapitulosdeObra(CapitulosdeObra capitulosdeObra)
-        {
-            base.AddObject("CapitulosdeObra", capitulosdeObra);
+            base.AddObject("Contratistas", contratistas);
         }
     
         /// <summary>
@@ -459,19 +418,51 @@ namespace SISECOOB.Models
         }
     
         /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Localidades. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToLocalidades(Localidades localidades)
+        {
+            base.AddObject("Localidades", localidades);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Menu. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToMenu(Menu menu)
+        {
+            base.AddObject("Menu", menu);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Menu_Usuarios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToMenu_Usuarios(Menu_Usuarios menu_Usuarios)
+        {
+            base.AddObject("Menu_Usuarios", menu_Usuarios);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Municipios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToMunicipios(Municipios municipios)
+        {
+            base.AddObject("Municipios", municipios);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet NivelesEducativos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToNivelesEducativos(NivelesEducativos nivelesEducativos)
+        {
+            base.AddObject("NivelesEducativos", nivelesEducativos);
+        }
+    
+        /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet Programas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
         public void AddToProgramas(Programas programas)
         {
             base.AddObject("Programas", programas);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet SubProgramasEdu. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToSubProgramasEdu(SubProgramasEdu subProgramasEdu)
-        {
-            base.AddObject("SubProgramasEdu", subProgramasEdu);
         }
     
         /// <summary>
@@ -483,19 +474,27 @@ namespace SISECOOB.Models
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet TipoTelefono. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet TipoOficios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToTipoTelefono(TipoTelefono tipoTelefono)
+        public void AddToTipoOficios(TipoOficios tipoOficios)
         {
-            base.AddObject("TipoTelefono", tipoTelefono);
+            base.AddObject("TipoOficios", tipoOficios);
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Contratistas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet Turnos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToContratistas(Contratistas contratistas)
+        public void AddToTurnos(Turnos turnos)
         {
-            base.AddObject("Contratistas", contratistas);
+            base.AddObject("Turnos", turnos);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Zonas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToZonas(Zonas zonas)
+        {
+            base.AddObject("Zonas", zonas);
         }
     
         /// <summary>
@@ -507,11 +506,11 @@ namespace SISECOOB.Models
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet Turnos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet TipoTelefono. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToTurnos(Turnos turnos)
+        public void AddToTipoTelefono(TipoTelefono tipoTelefono)
         {
-            base.AddObject("Turnos", turnos);
+            base.AddObject("TipoTelefono", tipoTelefono);
         }
 
         #endregion
@@ -2164,6 +2163,28 @@ namespace SISECOOB.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Escuelas_Localidades", "Escuelas")]
+        public EntityCollection<Escuelas> Escuelas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Escuelas>("SISECOOBModel.FK_Escuelas_Localidades", "Escuelas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Escuelas>("SISECOOBModel.FK_Escuelas_Localidades", "Escuelas", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "Fk_Municipios_Localidades", "Municipios")]
         public Municipios Municipios
         {
@@ -2192,28 +2213,6 @@ namespace SISECOOB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Municipios>("SISECOOBModel.Fk_Municipios_Localidades", "Municipios", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Escuelas_Localidades", "Escuelas")]
-        public EntityCollection<Escuelas> Escuelas
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Escuelas>("SISECOOBModel.FK_Escuelas_Localidades", "Escuelas");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Escuelas>("SISECOOBModel.FK_Escuelas_Localidades", "Escuelas", value);
                 }
             }
         }
@@ -2656,28 +2655,6 @@ namespace SISECOOB.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "Fk_Municipios_Localidades", "Localidades")]
-        public EntityCollection<Localidades> Localidades
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Localidades>("SISECOOBModel.Fk_Municipios_Localidades", "Localidades");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Localidades>("SISECOOBModel.Fk_Municipios_Localidades", "Localidades", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Escuelas_Municipios", "Escuelas")]
         public EntityCollection<Escuelas> Escuelas
         {
@@ -2690,6 +2667,28 @@ namespace SISECOOB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Escuelas>("SISECOOBModel.FK_Escuelas_Municipios", "Escuelas", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "Fk_Municipios_Localidades", "Localidades")]
+        public EntityCollection<Localidades> Localidades
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Localidades>("SISECOOBModel.Fk_Municipios_Localidades", "Localidades");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Localidades>("SISECOOBModel.Fk_Municipios_Localidades", "Localidades", value);
                 }
             }
         }
@@ -3045,6 +3044,30 @@ namespace SISECOOB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String Telefono
+        {
+            get
+            {
+                return _Telefono;
+            }
+            set
+            {
+                OnTelefonoChanging(value);
+                ReportPropertyChanging("Telefono");
+                _Telefono = StructuralObject.SetValidValue(value, true, "Telefono");
+                ReportPropertyChanged("Telefono");
+                OnTelefonoChanged();
+            }
+        }
+        private global::System.String _Telefono;
+        partial void OnTelefonoChanging(global::System.String value);
+        partial void OnTelefonoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public global::System.String Proveniente
         {
             get
@@ -3087,6 +3110,48 @@ namespace SISECOOB.Models
         private Nullable<global::System.Int32> _ProvenienteID;
         partial void OnProvenienteIDChanging(Nullable<global::System.Int32> value);
         partial void OnProvenienteIDChanged();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Telefonos_TipoTelefono", "TipoTelefono")]
+        public TipoTelefono TipoTelefono
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoTelefono>("SISECOOBModel.FK_Telefonos_TipoTelefono", "TipoTelefono").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoTelefono>("SISECOOBModel.FK_Telefonos_TipoTelefono", "TipoTelefono").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<TipoTelefono> TipoTelefonoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoTelefono>("SISECOOBModel.FK_Telefonos_TipoTelefono", "TipoTelefono");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoTelefono>("SISECOOBModel.FK_Telefonos_TipoTelefono", "TipoTelefono", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -3327,6 +3392,32 @@ namespace SISECOOB.Models
         private global::System.String _TipoTelefono1;
         partial void OnTipoTelefono1Changing(global::System.String value);
         partial void OnTipoTelefono1Changed();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_Telefonos_TipoTelefono", "Telefonos")]
+        public EntityCollection<Telefonos> Telefonos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Telefonos>("SISECOOBModel.FK_Telefonos_TipoTelefono", "Telefonos");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Telefonos>("SISECOOBModel.FK_Telefonos_TipoTelefono", "Telefonos", value);
+                }
+            }
+        }
 
         #endregion
 
