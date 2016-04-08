@@ -56,6 +56,14 @@
           <Property Name="LugarRegistro" Type="varchar" MaxLength="50" />
           <Property Name="personafisica" Type="bit" />
         </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="DepartamentoID" />
+          </Key>
+          <Property Name="DepartamentoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Departamento" Type="varchar" MaxLength="50" />
+          <Property Name="JefeDepto" Type="varchar" MaxLength="75" />
+        </EntityType>
         <EntityType Name="Escuelas">
           <Key>
             <PropertyRef Name="EscuelaID" />
@@ -258,6 +266,7 @@
           <EntitySet Name="CapitulosdeObra" EntityType="Self.CapitulosdeObra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conceptos" EntityType="Self.Conceptos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contratistas" EntityType="Self.Contratistas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Escuelas" EntityType="Self.Escuelas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leyes" EntityType="Self.Leyes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
@@ -345,6 +354,7 @@
             <End Role="TipoTelefono" EntitySet="TipoTelefono" />
             <End Role="Telefonos" EntitySet="Telefonos" />
           </AssociationSet>
+          <EntitySet Name="Departamentos" EntityType="SISECOOBModel.Departamentos" />
           </EntityContainer>
         <EntityType Name="SubProgramasEdu">
           <Key>
@@ -607,6 +617,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="DepartamentoID" />
+          </Key>
+          <Property Name="DepartamentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Departamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JefeDepto" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -805,6 +823,15 @@
               <MappingFragment StoreEntitySet="TipoTelefono">
                 <ScalarProperty Name="TipoTelefono1" ColumnName="TipoTelefono" />
                 <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamentos">
+            <EntityTypeMapping TypeName="SISECOOBModel.Departamentos">
+              <MappingFragment StoreEntitySet="Departamentos">
+                <ScalarProperty Name="JefeDepto" ColumnName="JefeDepto" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

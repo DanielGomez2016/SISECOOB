@@ -6,7 +6,6 @@
 //    Los cambios manuales en este archivo se sobrescribirán si se regenera el código.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 using System;
 using System.ComponentModel;
 using System.Data.Entity.Core.EntityClient;
@@ -364,6 +363,22 @@ namespace SISECOOB.Models
             }
         }
         private ObjectSet<TipoTelefono> _TipoTelefono;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<Departamentos> Departamentos
+        {
+            get
+            {
+                if ((_Departamentos == null))
+                {
+                    _Departamentos = base.CreateObjectSet<Departamentos>("Departamentos");
+                }
+                return _Departamentos;
+            }
+        }
+        private ObjectSet<Departamentos> _Departamentos;
 
         #endregion
 
@@ -511,6 +526,14 @@ namespace SISECOOB.Models
         public void AddToTipoTelefono(TipoTelefono tipoTelefono)
         {
             base.AddObject("TipoTelefono", tipoTelefono);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet Departamentos. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToDepartamentos(Departamentos departamentos)
+        {
+            base.AddObject("Departamentos", departamentos);
         }
 
         #endregion
@@ -1476,6 +1499,110 @@ namespace SISECOOB.Models
         private Nullable<global::System.Boolean> _personafisica;
         partial void OnpersonafisicaChanging(Nullable<global::System.Boolean> value);
         partial void OnpersonafisicaChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="Departamentos")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Departamentos : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto Departamentos.
+        /// </summary>
+        /// <param name="departamentoID">Valor inicial de la propiedad DepartamentoID.</param>
+        public static Departamentos CreateDepartamentos(global::System.Int32 departamentoID)
+        {
+            Departamentos departamentos = new Departamentos();
+            departamentos.DepartamentoID = departamentoID;
+            return departamentos;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DepartamentoID
+        {
+            get
+            {
+                return _DepartamentoID;
+            }
+            set
+            {
+                if (_DepartamentoID != value)
+                {
+                    OnDepartamentoIDChanging(value);
+                    ReportPropertyChanging("DepartamentoID");
+                    _DepartamentoID = StructuralObject.SetValidValue(value, "DepartamentoID");
+                    ReportPropertyChanged("DepartamentoID");
+                    OnDepartamentoIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _DepartamentoID;
+        partial void OnDepartamentoIDChanging(global::System.Int32 value);
+        partial void OnDepartamentoIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Departamento
+        {
+            get
+            {
+                return _Departamento;
+            }
+            set
+            {
+                OnDepartamentoChanging(value);
+                ReportPropertyChanging("Departamento");
+                _Departamento = StructuralObject.SetValidValue(value, true, "Departamento");
+                ReportPropertyChanged("Departamento");
+                OnDepartamentoChanged();
+            }
+        }
+        private global::System.String _Departamento;
+        partial void OnDepartamentoChanging(global::System.String value);
+        partial void OnDepartamentoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String JefeDepto
+        {
+            get
+            {
+                return _JefeDepto;
+            }
+            set
+            {
+                OnJefeDeptoChanging(value);
+                ReportPropertyChanging("JefeDepto");
+                _JefeDepto = StructuralObject.SetValidValue(value, true, "JefeDepto");
+                ReportPropertyChanged("JefeDepto");
+                OnJefeDeptoChanged();
+            }
+        }
+        private global::System.String _JefeDepto;
+        partial void OnJefeDeptoChanging(global::System.String value);
+        partial void OnJefeDeptoChanged();
 
         #endregion
 

@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConceptosController.cs" />
+    <Compile Include="Controllers\DepartamentosController.cs" />
     <Compile Include="Controllers\EscuelasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Controllers\NivelesEducativosController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\TipoOficiosController.cs" />
+    <Compile Include="Controllers\TipoTelefonosController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UtilidadesController.cs" />
     <Compile Include="Controllers\ZonasController.cs" />
@@ -195,6 +197,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Db.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Departamentos.cs" />
     <Compile Include="Models\Escuelas.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonMvc.cs" />
@@ -1055,11 +1058,13 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controles\Conceptos.js" />
+    <Content Include="Scripts\Controles\Departamentos.js" />
     <Content Include="Scripts\Controles\Escuelas.js" />
     <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Modulos.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
     <Content Include="Scripts\Controles\TipoOficios.js" />
+    <Content Include="Scripts\Controles\TipoTelefono.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />
     <Content Include="Scripts\Controles\Utilidades.js" />
     <Content Include="Scripts\Controles\Zonas.js" />
@@ -1200,6 +1205,10 @@
     <Content Include="Views\Modulos\_Formulario.cshtml" />
     <Content Include="Views\Escuelas\Index.cshtml" />
     <Content Include="Views\Escuelas\_Formulario.cshtml" />
+    <Content Include="Views\TipoTelefonos\Index.cshtml" />
+    <Content Include="Views\TipoTelefonos\_Formulario.cshtml" />
+    <Content Include="Views\Departamentos\Index.cshtml" />
+    <Content Include="Views\Departamentos\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

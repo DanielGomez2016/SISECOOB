@@ -1,0 +1,21 @@
+﻿@model SISECOOB.Models.Departamentos
+
+
+@using (@Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.DepartamentoID)
+            <div class=" form-group col-md-6 col-sm-6 ">
+                @Html.LabelFor(i => i.Departamento)
+                @Html.TextBoxFor(i => i.Departamento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Departamento)
+            </div>
+            <div class=" form-group col-md-6 col-sm-6">
+                @Html.LabelFor(i => i.JefeDepto)
+                @Html.TextBoxFor(i => i.JefeDepto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.JefeDepto)
+            </div>
+        </div>
+    </fieldset>
+}

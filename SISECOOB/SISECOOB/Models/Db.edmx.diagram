@@ -29,6 +29,7 @@
         <EntityTypeShape EntityType="SISECOOBModel.Telefonos" Width="1.5" PointX="12.625" PointY="12.875" />
         <EntityTypeShape EntityType="SISECOOBModel.TipoTelefono" Width="1.5" PointX="10.375" PointY="13.25" />
         <AssociationConnector Association="SISECOOBModel.FK_Telefonos_TipoTelefono" />
+        <EntityTypeShape EntityType="SISECOOBModel.Departamentos" Width="1.5" PointX="10.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
