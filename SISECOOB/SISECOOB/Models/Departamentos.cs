@@ -6,17 +6,20 @@ using System.Web;
 
 namespace SISECOOB.Models
 {
-    [MetadataType(typeof(mTipoEstructura))]
-    public partial class TipoEstructura
+    [MetadataType(typeof(mDepartamentos))]
+    public partial class Departamentos
     {
-        public class mTipoEstructura
+        public class mDepartamentos
         {
             [Display(Name = "Identificador")]
-            public int? EstructruaID { get; set; }
+            public int? DepartamentoID { get; set; }
 
 
-            [Display(Name = "Tipo Estructura")]
-            public string TipoEstructura1 { get; set; }
+            [Display(Name = "Departamento")]
+            public string Departamento { get; set; }
+
+            [Display(Name = "Departamento")]
+            public string JefeDepto { get; set; }
 
         }
 
@@ -25,7 +28,7 @@ namespace SISECOOB.Models
             try
             {
                 SISECOOBEntities db = new SISECOOBEntities();
-                db.TipoEstructura.AddObject(this);
+                db.Departamentos.AddObject(this);
                 db.SaveChanges();
 
             }
@@ -40,8 +43,9 @@ namespace SISECOOB.Models
             try
             {
                 SISECOOBEntities db = new SISECOOBEntities();
-                TipoEstructura te = db.TipoEstructura.FirstOrDefault(i => i.EstructuraID == EstructuraID);
-                te.TipoEstructura1 = TipoEstructura1;
+                Departamentos dep = db.Departamentos.FirstOrDefault(i => i.DepartamentoID == DepartamentoID);
+                dep.Departamento = Departamento;
+                dep.JefeDepto = JefeDepto;
 
                 db.SaveChanges();
             }
@@ -56,8 +60,8 @@ namespace SISECOOB.Models
             try
             {
                 SISECOOBEntities db = new SISECOOBEntities();
-                TipoEstructura te = db.TipoEstructura.FirstOrDefault(i => i.EstructuraID == id);
-                db.TipoEstructura.DeleteObject(te);
+                Departamentos dep = db.Departamentos.FirstOrDefault(i => i.DepartamentoID == id);
+                db.Departamentos.DeleteObject(dep);
 
                 db.SaveChanges();
             }

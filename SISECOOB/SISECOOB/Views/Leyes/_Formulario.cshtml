@@ -1,0 +1,21 @@
+﻿@model SISECOOB.Models.Leyes
+
+
+@using (@Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.LeyesID)
+            <div class=" form-group col-md-12 col-sm-12 ">
+                @Html.LabelFor(i => i.Ley)
+                @Html.TextBoxFor(i => i.Ley, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Ley)
+            </div>
+            <div class=" form-group col-md-12 col-sm-12">
+                @Html.LabelFor(i => i.Descripcion)
+                @Html.TextAreaFor(i => i.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Descripcion)
+            </div>
+        </div>
+    </fieldset>
+}

@@ -1,0 +1,16 @@
+﻿@model SISECOOB.Models.TipoEstructura
+
+
+@using (@Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.EstructuraID)
+            <div class=" form-group col-md-12 col-sm-12 ">
+                @Html.LabelFor(i => i.TipoEstructura1)
+                @Html.TextBoxFor(i => i.TipoEstructura1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.TipoEstructura1)
+            </div>
+        </div>
+    </fieldset>
+}

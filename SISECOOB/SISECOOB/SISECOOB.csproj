@@ -174,12 +174,14 @@
     <Compile Include="Controllers\DepartamentosController.cs" />
     <Compile Include="Controllers\EscuelasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeyesController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModulosController.cs" />
     <Compile Include="Controllers\MunicipiosController.cs" />
     <Compile Include="Controllers\NivelesEducativosController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\TipoEstructurasController.cs" />
     <Compile Include="Controllers\TipoOficiosController.cs" />
     <Compile Include="Controllers\TipoTelefonosController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
@@ -1060,9 +1062,11 @@
     <Content Include="Scripts\Controles\Conceptos.js" />
     <Content Include="Scripts\Controles\Departamentos.js" />
     <Content Include="Scripts\Controles\Escuelas.js" />
+    <Content Include="Scripts\Controles\Leyes.js" />
     <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Modulos.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
+    <Content Include="Scripts\Controles\TipoEstructura.js" />
     <Content Include="Scripts\Controles\TipoOficios.js" />
     <Content Include="Scripts\Controles\TipoTelefono.js" />
     <Content Include="Scripts\Controles\Usuarios.js" />
@@ -1209,6 +1213,10 @@
     <Content Include="Views\TipoTelefonos\_Formulario.cshtml" />
     <Content Include="Views\Departamentos\Index.cshtml" />
     <Content Include="Views\Departamentos\_Formulario.cshtml" />
+    <Content Include="Views\Leyes\Index.cshtml" />
+    <Content Include="Views\Leyes\_Formulario.cshtml" />
+    <Content Include="Views\TipoEstructuras\Index.cshtml" />
+    <Content Include="Views\TipoEstructuras\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
