@@ -91,7 +91,7 @@
         $.ajax({
             url: '@Url.Action("CargarMenu","Utilidades")',
             type: 'get',
-            //cache: true,
+            cache: true,
             success: function (data) {
                 var t = $('#menu-link');
                 if (data.total > 0) {
