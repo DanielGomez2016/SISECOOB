@@ -82,7 +82,7 @@ function Nuevo() {
     $('#titulo').text('Nueva Tipo Estructura');
     $.ajax({
         type: 'POST',
-        url: '/TipoEstructura/Formulario',
+        url: '/TipoEstructuras/Formulario',
         data: { id: 0 },
         beforeSend: function () {
             Loading("Cargando");
@@ -112,7 +112,7 @@ function Crear() {
     if (params != null) {
         $.ajax({
             type: 'POST',
-            url: '/TipoEstructura/Create',
+            url: '/TipoEstructuras/Create',
             data: params,
             beforeSend: function () {
                 Loading("Guardando");
@@ -138,7 +138,7 @@ function Crear() {
 
 
 //abrir modal para actualizar la informacion del municipio
-$('#tleyes').on('click', 'button[name="editar"]', function () {
+$('#ttipoe').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
 

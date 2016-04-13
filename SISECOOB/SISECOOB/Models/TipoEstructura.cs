@@ -12,7 +12,7 @@ namespace SISECOOB.Models
         public class mTipoEstructura
         {
             [Display(Name = "Identificador")]
-            public int? EstructruaID { get; set; }
+            public int? EstructuraID { get; set; }
 
 
             [Display(Name = "Tipo Estructura")]
