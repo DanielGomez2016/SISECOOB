@@ -6,41 +6,7 @@ $(document).ready(function () {
         ignore: '.ignore'
     });
 
-    //marca todos los checbox con el mismo nombre desde el principal/ si es un secundario solo el mismo y el principal
-    $('input[type=checkbox]').live('click', function () {
-        var parent = $(this).attr('id');
-        var valor = $(this).is(":checked");
-
-            if (parent != null) {
-                $('[name=' + parent + ']').prop('checked', valor);
-                $(this).attr('checked', valor);
-            }
-            else {
-                var parent = $(this).data('id');
-
-                if (parent != null) {
-                    var parentppl = $(this).attr('name');
-                    if (valor) {
-                        $('#' + parentppl + '').prop('checked', valor);
-                    }
-                    $('[data-name="' + parent + '"]').prop('checked', valor);
-                    $(this).attr('checked', valor);
-                }
-                else {
-                    var parent = $(this).data('ids');
-                    if (parent) {
-                        var parentppl = $(this).attr('name');
-                        var parentsec = $(this).data('name');
-                        if (valor) {
-                            $('#' + parentppl + '').prop('checked', valor);
-                            $('[data-id="' + parentsec + '"]').prop('checked', valor);
-                        }
-                        $(this).attr('checked', valor);
-                    }
-                }
-            }
-
-    });
+    
 
     $("#accordion").accordion({
         collapsible: true,
@@ -66,6 +32,46 @@ $(document).ready(function () {
         buscar();
     }, 2000);
 });
+
+
+
+
+//marca todos los checbox con el mismo nombre desde el principal/ si es un secundario solo el mismo y el principal
+$('#accordion').on('click', '[data-accion]', function () {
+    var parent = $(this).attr('id');
+    var valor = $(this).is(":checked");
+
+    if (parent != null) {
+        $('[name=' + parent + ']').prop('checked', valor);
+        $(this).attr('checked', valor);
+    }
+    else {
+        var parent = $(this).data('id');
+
+        if (parent != null) {
+            var parentppl = $(this).attr('name');
+            if (valor) {
+                $('#' + parentppl + '').prop('checked', valor);
+            }
+            $('[data-name="' + parent + '"]').prop('checked', valor);
+            $(this).attr('checked', valor);
+        }
+        else {
+            var parent = $(this).data('ids');
+            if (parent) {
+                var parentppl = $(this).attr('name');
+                var parentsec = $(this).data('name');
+                if (valor) {
+                    $('#' + parentppl + '').prop('checked', valor);
+                    $('[data-id="' + parentsec + '"]').prop('checked', valor);
+                }
+                $(this).attr('checked', valor);
+            }
+        }
+    }
+
+});
+
 
 //funcion de javascript para buscar usuarios y llenar la tabla
 function buscar() {
@@ -611,9 +617,9 @@ function AbrirModulos(usuario) {
                 if (e.nivel == 0 && data.datos[n].nombre == e.nombre) {
                     e.submenu = '<div">';
                     if (e.selected) {
-                        e.submenu += '<label class="col-md-12"><input id="' + e.nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
+                        e.submenu += '<label class="col-md-12"><input data-accion id="' + e.nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
                     } else {
-                        e.submenu += '<label class="col-md-12"><input id="' + e.nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
+                        e.submenu += '<label class="col-md-12"><input data-accion id="' + e.nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
                     }
 
                     if (e.hijos.length > 0 ) {
@@ -621,17 +627,17 @@ function AbrirModulos(usuario) {
                         for (i = 0; i < e.hijos.length; i++) {
 
                             if (e.hijos[i].selected) {
-                                e.submenu += '<label class="col-md-12"><input data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                                e.submenu += '<label class="col-md-12"><input data-accion data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
                             } else {
-                                e.submenu += '<label class="col-md-12"><input data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                                e.submenu += '<label class="col-md-12"><input data-accion data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
                             }
 
                             if (e.hijos[i].hijos.length > 0) {
                                 for (j = 0; j < e.hijos[i].hijos.length; j++) {
                                     if (e.hijos[i].hijos[j].selected) {
-                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-accion data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
                                     } else {
-                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-accion data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
                                     }
                                 }
                             }

@@ -14,7 +14,7 @@ using SISECOOB.Models;
 
 namespace IdentitySample.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class UsersAdminController : Controller
     {
         public UsersAdminController()
