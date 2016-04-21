@@ -11,8 +11,8 @@
             @Html.TextBox("nombre", "", new { @class = "form-control" })
         </div>
         <div class="col-md-3 col-sm-3">
-            @Html.Label("Municipio")
-            @Html.DropDownList("municipio", new SelectList(ViewBag.ModuloP, "id", "nombre"), "Todos", new { @class = "form-control" })
+            @Html.Label("Catalogos")
+            @Html.DropDownList("padre", new SelectList(ViewBag.ModuloP, "id", "nombre"), "Todos", new { @class = "form-control" })
         </div>
         <div class="col-md-3 col-sm-3">
             <br />

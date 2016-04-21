@@ -14,7 +14,7 @@ namespace SISECOOB.Controllers
         public ActionResult Index()
         {
             SISECOOBEntities db = new SISECOOBEntities();
-            ViewBag.ModuloP = db.Menu.Where(i => i.Padre == 0).Select(i => new { id = i.MenuID, nombre = i.Nombre }).ToList();
+            ViewBag.ModuloP = db.Menu.Where(i => i.Nivel == 0 || (i.Direccion== "" && i.Controlador == "")).Select(i => new { id = i.MenuID, nombre = i.Nombre }).ToList();
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace SISECOOB.Controllers
             SISECOOBEntities db = new SISECOOBEntities();
             Menu menu = db.Menu.FirstOrDefault(i => i.MenuID == id);
 
-            ViewBag.ModuloP = db.Menu.Where(i => i.Padre == 0).Select(i => new { id = i.MenuID, nombre = i.Nombre }).ToList();
+            ViewBag.ModuloP = db.Menu.Where(i => i.Nivel == 0 || (i.Direccion == "" && i.Controlador == "")).Select(i => new { id = i.MenuID, nombre = i.Nombre }).ToList();
 
             Menu m = new Menu();
 

@@ -44,6 +44,9 @@ namespace SISECOOB.Models
             try
             {
                 SISECOOBEntities db = new SISECOOBEntities();
+                if (this.Padre < 1) { this.Padre = 0; }
+                if (this.Direccion == null) { this.Direccion = ""; }
+                if (this.Controlador == null) { this.Controlador = ""; }
                 db.Menu.AddObject(this);
                 db.SaveChanges();
 
