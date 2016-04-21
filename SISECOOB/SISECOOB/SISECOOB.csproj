@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CapitulosdeObrasController.cs" />
     <Compile Include="Controllers\ConceptosController.cs" />
     <Compile Include="Controllers\DepartamentosController.cs" />
     <Compile Include="Controllers\EscuelasController.cs" />
@@ -1061,6 +1062,7 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controles\CapitulodeObra.js" />
     <Content Include="Scripts\Controles\Conceptos.js" />
     <Content Include="Scripts\Controles\Departamentos.js" />
     <Content Include="Scripts\Controles\Escuelas.js" />
@@ -1229,6 +1231,8 @@
     <Content Include="Views\Programas\_Formulario.cshtml" />
     <Content Include="Views\SubProgramas\Index.cshtml" />
     <Content Include="Views\SubProgramas\_Formulario.cshtml" />
+    <Content Include="Views\CapitulosdeObras\_Formulario.cshtml" />
+    <Content Include="Views\CapitulosdeObras\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

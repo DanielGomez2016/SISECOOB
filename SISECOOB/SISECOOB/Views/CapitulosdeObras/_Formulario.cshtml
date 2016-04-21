@@ -1,0 +1,21 @@
+﻿@model SISECOOB.Models.CapitulosdeObra
+
+
+@using (@Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.CapituloObraID)
+            <div class=" form-group col-md-6 col-sm-6">
+                @Html.LabelFor(i => i.Clave)
+                @Html.TextBoxFor(i => i.Clave, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Clave)
+            </div>
+            <div class=" form-group col-md-6 col-sm-6">
+                @Html.LabelFor(i => i.Capitulo)
+                @Html.TextBoxFor(i => i.Capitulo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Capitulo)
+            </div>
+        </div>
+    </fieldset>
+}
