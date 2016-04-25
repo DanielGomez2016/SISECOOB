@@ -17,7 +17,7 @@ namespace SISECOOB.Models
             [Display(Name = "Domicilio")]
             public string Domicilio { get; set; }
 
-            [Display(Name = "RFC")]
+            [Display(Name = "R.F.C")]
             public string RFC { get; set; }
 
             [Display(Name = "CMIC")]
@@ -29,7 +29,7 @@ namespace SISECOOB.Models
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Display(Name = "RPUC")]
+            [Display(Name = "R.P.U.C")]
             public string RPUC { get; set; }
 
             [Display(Name = "Vigencia")]
@@ -41,55 +41,55 @@ namespace SISECOOB.Models
             [Display(Name = "Nombre")]
             public string Nombre { get; set; }
 
-            [Display(Name = "NumEstructura")]
+            [Display(Name = "Numero de Escritura")]
             public string NumEstructura { get; set; }
 
             [Display(Name = "Cargo")]
             public DateTime Cargo { get; set; }
 
-            [Display(Name = "FechaRepleg")]
+            [Display(Name = "Fecha")]
             public double FechaRepleg { get; set; }
 
-            [Display(Name = "NumNotario")]
+            [Display(Name = "Numero del Notario")]
             public string NumNotario { get; set; }
 
-            [Display(Name = "NomNotario")]
+            [Display(Name = "Nombre deL Notario")]
             public string NomNotario { get; set; }
 
             [Display(Name = "Residencia")]
             public DateTime Residencia { get; set; }
 
-            [Display(Name = "NumEscrituraActCons")]
+            [Display(Name = "Numero de Escritura")]
             public double NumEscrituraActCons { get; set; }
 
             [Display(Name = "Volumen")]
             public string Volumen { get; set; }
 
-            [Display(Name = "FechaActa")]
+            [Display(Name = "Fecha")]
             public string FechaActa { get; set; }
 
-            [Display(Name = "NumNotarioActCons")]
+            [Display(Name = "Numero de Notario")]
             public DateTime NumNotarioActCons { get; set; }
 
-            [Display(Name = "NomNotarioActCons")]
+            [Display(Name = "Nombre del Notario")]
             public double NomNotarioActCons { get; set; }
 
-            [Display(Name = "ResidenciaActCons")]
+            [Display(Name = "Residencia")]
             public string ResidenciaActCons { get; set; }
 
-            [Display(Name = "NumActa")]
+            [Display(Name = "Numero de Acta")]
             public string NumActa { get; set; }
 
-            [Display(Name = "FechaNacimiento")]
+            [Display(Name = "Fecha de Nacimiento")]
             public string FechaNacimiento { get; set; }
 
-            [Display(Name = "LugarNac")]
+            [Display(Name = "Lugar de Nacimiento")]
             public string LugarNac { get; set; }
 
-            [Display(Name = "LugarRegistro")]
+            [Display(Name = "Lugar de Registro")]
             public string LugarRegistro { get; set; }
 
-            [Display(Name = "personafisica")]
+            [Display(Name = "Persona Fisica")]
             public bool personafisica { get; set; }
 
         }

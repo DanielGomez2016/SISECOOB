@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CapitulosdeObrasController.cs" />
     <Compile Include="Controllers\ConceptosController.cs" />
+    <Compile Include="Controllers\ContratistasController.cs" />
     <Compile Include="Controllers\DepartamentosController.cs" />
     <Compile Include="Controllers\EscuelasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\CapitulosdeObra.cs" />
     <Compile Include="Models\Conceptos.cs" />
+    <Compile Include="Models\Contratistas.cs" />
     <Compile Include="Models\Db.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -239,6 +241,7 @@
     <Content Include="Content\assets\css\font-awesome.min.css" />
     <Content Include="Content\assets\css\hint.css" />
     <Content Include="Content\assets\css\icons-style.css" />
+    <Content Include="Content\assets\css\jquery-ui.css" />
     <Content Include="Content\assets\css\loader-style.css" />
     <Content Include="Content\assets\css\login.css" />
     <Content Include="Content\assets\css\mail.css" />
@@ -1064,6 +1067,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controles\CapitulodeObra.js" />
     <Content Include="Scripts\Controles\Conceptos.js" />
+    <Content Include="Scripts\Controles\Contratistas.js" />
     <Content Include="Scripts\Controles\Departamentos.js" />
     <Content Include="Scripts\Controles\Escuelas.js" />
     <Content Include="Scripts\Controles\Leyes.js" />
@@ -1098,11 +1102,12 @@
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Scripts\Jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\Jquery-ui-1.10.2.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.css" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
@@ -1233,6 +1238,8 @@
     <Content Include="Views\SubProgramas\_Formulario.cshtml" />
     <Content Include="Views\CapitulosdeObras\_Formulario.cshtml" />
     <Content Include="Views\CapitulosdeObras\Index.cshtml" />
+    <Content Include="Views\Contratistas\Index.cshtml" />
+    <Content Include="Views\Contratistas\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

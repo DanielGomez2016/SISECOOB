@@ -5,11 +5,11 @@ $(document).ready(function () {
     });
 
     //nos permite solo marcar un checkbox con el mismo name
-    $('input[type=checkbox]').live('click', function () {
-        var parent = $(this).attr('name');
-        $('[name=' + parent + ']').prop('checked', false);
-        $(this).attr('checked', 'checked');
-    });
+    //$('input[type=checkbox]').live('click', function () {
+    //    var parent = $(this).attr('name');
+    //    $('[name=' + parent + ']').prop('checked', false);
+    //    $(this).attr('checked', 'checked');
+    //});
 
 
     $('#municipio').live('change', function () {

@@ -1,0 +1,203 @@
+﻿@model SISECOOB.Models.Contratistas
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(i => i.ContratistaID)
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active remove"><a data-toggle="tab" href="#home">Datos Generales</a></li>
+            <li class="remove"><a data-toggle="tab" href="#menu1">Representante Legal</a></li>
+            <li class="hidden personafisica"><a data-toggle="tab" href="#menu3">Acta de Nacimiento</a></li>
+            <li class="actaconstitutiva"><a data-toggle="tab" href="#menu2">Acta Constitutiva</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active col-md-6 remove">
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.Domicilio)
+                    @Html.TextBoxFor(i => i.Domicilio, new { @class = "form-control"})
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.RFC)
+                    @Html.TextBoxFor(i => i.RFC, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.RPUC)
+                    @Html.TextBoxFor(i => i.RPUC, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.CMIC)
+                    @Html.TextBoxFor(i => i.CMIC, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Vigencia)
+                    @Html.TextBoxFor(i => i.Vigencia, new { @class = "form-control datepicker" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.CURP)
+                    @Html.TextBoxFor(i => i.CURP, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Capital)
+                    @Html.TextBoxFor(i => i.Capital, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Email)
+                    @Html.TextBoxFor(i => i.Email, new { @class = "form-control" })
+                </div><br />
+                <div class="col-md-12" style="margin-top:10px;">
+                    <table id="ttelefonos" class="table table-hover table-stripped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-4">Tipo Telefono</th>
+                                <th class="col-md-4">Telefono</th>
+                                <th class="col-md-4"><button type="button" value="Nuevo Telefono" id="btnagregar" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Nuevo Telefono</button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hidden" id="telefono" name="telefono">
+                                <td>
+                                    @Html.DropDownList("tipotelefono", new SelectList(ViewBag.TipoTel, "id", "nombre"), "Todos", new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    <input name="telefonos" class="form-control" />
+                                </td>
+                                <td>
+                                    <button type="button" class="btn-sm btn-danger" name="btneliminar"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="menu1" class="tab-pane fade col-md-6 remove">
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.Nombre)
+                    @Html.TextBoxFor(i => i.Nombre, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NumEstructura)
+                    @Html.TextBoxFor(i => i.NumEstructura, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.Cargo)
+                    @Html.TextBoxFor(i => i.Cargo, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.FechaRepleg)
+                    @Html.TextBoxFor(i => i.FechaRepleg, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NumNotario)
+                    @Html.TextBoxFor(i => i.NumNotario, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NomNotario)
+                    @Html.TextBoxFor(i => i.NomNotario, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.Residencia)
+                    @Html.TextBoxFor(i => i.Residencia, new { @class = "form-control" })
+                </div>
+            </div>
+            <div id="menu2" class="tab-pane fade col-md-6 actaconstitutiva">
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NumEscrituraActCons)
+                    @Html.TextBoxFor(i => i.NumEscrituraActCons, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.Volumen)
+                    @Html.TextBoxFor(i => i.Volumen, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.FechaActa)
+                    @Html.TextBoxFor(i => i.FechaActa, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NumNotarioActCons)
+                    @Html.TextBoxFor(i => i.NumNotarioActCons, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NomNotarioActCons)
+                    @Html.TextBoxFor(i => i.NomNotarioActCons, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.ResidenciaActCons)
+                    @Html.TextBoxFor(i => i.ResidenciaActCons, new { @class = "form-control valorremove" })
+                </div>
+            </div>
+            <div id="menu3" class="tab-pane fade col-md-6 hidden personafisica">
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.NumActa)
+                    @Html.TextBoxFor(i => i.NumActa, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.FechaNacimiento)
+                    @Html.TextBoxFor(i => i.FechaNacimiento, new { @class = "form-control valorremove datepicker" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.LugarNac)
+                    @Html.TextBoxFor(i => i.LugarNac, new { @class = "form-control valorremove" })
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.LugarRegistro)
+                    @Html.TextBoxFor(i => i.LugarRegistro, new { @class = "form-control valorremove" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="col-md-6" id="perfisica">
+        <label><input data-persona type="checkbox" class="" /> Persona Fisica</label>
+    </div>
+
+}
+<script>
+    //agregar telefonos de la escuela
+    var i = 1;
+    $('#btnagregar').click(function () {
+
+        var tel = $('#telefono');
+        var tel2 = tel.clone();
+        tel2.removeAttr('id');
+        tel2.removeClass('hidden');
+        tel2.attr('data-control', i);
+
+        var btne = tel2.find('[name=btneliminar]');
+        btne.attr('data-cont', i);
+
+        var html = $('#ttelefonos tbody');
+        html.append(tel2);
+        i++;
+    });
+
+    $('#perfisica').on('change', '[data-persona]', function () {
+        var valor = $(this).is(":checked");
+        if (valor) {
+            $('.personafisica').removeClass('hidden');
+            $('.actaconstitutiva').removeClass('active');
+            $('.actaconstitutiva').addClass('hidden');
+            $('.personafisica').addClass('active');
+            $('.personafisica').addClass('in');
+            $('.remove').removeClass('active');
+            $('.valorremove').val('');
+        } else {
+            $('.actaconstitutiva').removeClass('hidden');
+            $('.personafisica').removeClass('active');
+            $('.personafisica').addClass('hidden');
+            $('.actaconstitutiva').addClass('active');
+            $('.remove').removeClass('active');
+            $('.actaconstitutiva').addClass('in');
+            $('.valorremove').val('');
+        }
+    });
+
+    $('#ttelefonos').on('click', 'button[name="btneliminar"]', function () {
+        var data = $(this).data('cont');
+        var eliminar = $('[data-control="' + data + '"]');
+        eliminar.remove();
+    });
+
+    $(".datepicker").datepicker();
+
+</script>

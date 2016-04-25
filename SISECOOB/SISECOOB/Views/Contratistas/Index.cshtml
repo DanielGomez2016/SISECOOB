@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Contratistas";
+}
+
+<div class="col-md-12 col-sm-12 form-group">
+    <form id="fBusqueda">
+        @Html.Hidden("page", 1)
+        @Html.Hidden("pageSize", 10)
+        <div class="col-md-12 col-xs-12 text-center">
+            <h4></h4>
+            <br />
+        </div>
+        <div class="col-md-3 col-sm-2">
+            @Html.Label("Obra")
+            @Html.TextBox("obra", "", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 col-sm-2">
+            @Html.Label("Contratista")
+            @Html.TextBox("contratista", "", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 col-sm-2">
+            <br />
+            <div class="btn-group">
+                <input type="submit" value="Buscar" class="btn btn-sm btn-primary" />
+                <button type="button" id="Nuevo" class="btn btn-sm btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Agregar Contratista</button>
+            </div>
+        </div>
+    </form>
+</div>
+<table id="tcontratista" class="table table-hover table-stripped">
+    <thead>
+        <tr>
+            <th class="col-md-1">Identificador</th>
+            <th class="col-md-2">Nombre</th>
+            <th class="col-md-1">RFC</th>
+            <th class="col-md-1">CURP</th>
+            <th class="col-md-2">Vigencia</th>
+            <th class="col-md-2">Email</th>
+            <th class="col-md-3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="12" class="text-center">No se encontraron resultados</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="paginacion" id="paginador"></div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<div id="nuevocontratista" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button id="guardar" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="editarcontratista" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button id="Editando" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="detallecontratista" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title"></h4>
+            </div>
+            <div id="detallado" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+@section Scripts {
+<link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Scripts/jquery-ui-timepicker-addon.css")" rel="stylesheet" />
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.messages.js")"></script>
+
+    <script src="/Scripts/Paginacion.js"></script>
+    <script src="~/Scripts/Controles/Contratistas.js"></script>
+
+
+}
+
