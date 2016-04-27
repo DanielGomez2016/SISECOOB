@@ -43,6 +43,16 @@
                     <label>@(Model != null && Model.Email != null ? Model.Email : "")</label>
                 </div><br />
                 <div class="col-md-12" style="margin-top:10px;">
+                    <div class="col-md-12">
+                        <label>Telefonos</label>
+                    </div>
+                    @for (int i = 0; i < Model.telefonos.Length; i++)
+                    {
+                    <div class="col-md-6">
+                        <label> @Model.tipotelefono[i] </label>
+                        <label> @Model.telefonos[i] </label>
+                    </div>
+                     }
 
                 </div>
             </div>

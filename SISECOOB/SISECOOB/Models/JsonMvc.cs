@@ -23,4 +23,10 @@ namespace SISECOOB.Models
         public string nombre { get; set; }
     }
 
+    public class ItemTel
+    {
+        public string tel { get; set; }
+        public string tipo { get; set; }
+    }
+
 }

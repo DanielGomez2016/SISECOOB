@@ -48,9 +48,8 @@ namespace SISECOOB.Controllers
         {
             SISECOOBEntities db = new SISECOOBEntities();
             Contratistas con = db.Contratistas.FirstOrDefault(i => i.ContratistaID == id);
-
-            ViewBag.TipoTel = db.TipoTelefono.Select(i => new { id = i.TelefonoID, nombre = i.TipoTelefono1 }).OrderBy(i => i.nombre).ToList();
-            ViewBag.Telefonos = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == id).Select(i => new { tel = i.Telefono, tipo = i.TipoTelefono.TipoTelefono1 }).OrderBy(i => i.tel).ToList();
+            con.telefonos = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == id).OrderBy(i => i.Telefono).Select(i => i.Telefono ).ToArray();
+            con.tipotelefono = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == id).OrderBy(i => i.Telefono).Select(i => i.TipoTelefono.TipoTelefono1).ToArray();
 
             return PartialView("_Details", con);
         }
