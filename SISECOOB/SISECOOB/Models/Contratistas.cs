@@ -53,7 +53,7 @@ namespace SISECOOB.Models
             [Display(Name = "Numero del Notario")]
             public string NumNotario { get; set; }
 
-            [Display(Name = "Nombre deL Notario")]
+            [Display(Name = "Nombre del Notario")]
             public string NomNotario { get; set; }
 
             [Display(Name = "Residencia")]

@@ -1240,6 +1240,7 @@
     <Content Include="Views\CapitulosdeObras\Index.cshtml" />
     <Content Include="Views\Contratistas\Index.cshtml" />
     <Content Include="Views\Contratistas\_Formulario.cshtml" />
+    <Content Include="Views\Contratistas\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

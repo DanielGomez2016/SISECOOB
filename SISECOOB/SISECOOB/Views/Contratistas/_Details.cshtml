@@ -1,0 +1,124 @@
+﻿@model SISECOOB.Models.Contratistas
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active "><a data-toggle="tab" href="#home">Datos Generales</a></li>
+            <li class=""><a data-toggle="tab" href="#menu1">Representante Legal</a></li>
+            <li class=""><a data-toggle="tab" href="#menu3">Acta de Nacimiento</a></li>
+            <li class=""><a data-toggle="tab" href="#menu2">Acta Constitutiva</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active col-md-6 remove">
+                <div class="col-md-12">
+                    @Html.LabelFor(i => i.Domicilio) :
+                    <label>@(Model != null && Model.Domicilio != null ? Model.Domicilio : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.RFC) :
+                    <label>@(Model != null && Model.RFC != null ? Model.RFC : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.RPUC) :
+                    <label>@(Model != null && Model.RPUC != null ? Model.RPUC : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.CMIC) :
+                    <label>@(Model != null && Model.CMIC != null ? Model.CMIC : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Vigencia) :
+                    <label>@(Model != null && Model.Vigencia != null ? Model.Vigencia.Value.ToString("yyyy/MM/dd") : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.CURP) :
+                    <label>@(Model != null && Model.CURP != null ? Model.CURP : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Capital) :
+                    <label>@(Model != null && Model.Capital != null ? Model.Capital : 0)</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Email) :
+                    <label>@(Model != null && Model.Email != null ? Model.Email : "")</label>
+                </div><br />
+                <div class="col-md-12" style="margin-top:10px;">
+
+                </div>
+            </div>
+            <div id="menu1" class="tab-pane fade col-md-6 remove">
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Nombre) :
+                    <label>@(Model != null && Model.Nombre != null ? Model.Nombre : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NumEstructura) :
+                    <label>@(Model != null && Model.NumEstructura != null ? Model.NumEstructura : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Cargo) :
+                    <label>@(Model != null && Model.Cargo != null ? Model.Cargo : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.FechaRepleg) :
+                    <label>@(Model != null && Model.FechaRepleg != null ? Model.FechaRepleg.Value.ToString("yyyy/MM/dd") : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NumNotario) :
+                    <label>@(Model != null && Model.NumNotario != null ? Model.NumNotario : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NomNotario) :
+                    <label>@(Model != null && Model.NomNotario != null ? Model.NomNotario : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Residencia) :
+                    <label>@(Model != null && Model.Residencia != null ? Model.Residencia : "")</label>
+                </div>
+            </div>
+            <div id="menu2" class="tab-pane fade col-md-6">
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NumEscrituraActCons) :
+                    <label>@(Model != null && Model.NumEscrituraActCons != null ? Model.NumEscrituraActCons : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.Volumen) :
+                    <label>@(Model != null && Model.Volumen != null ? Model.Volumen : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.FechaActa) :
+                    <label>@(Model != null && Model.FechaActa != null ? Model.FechaActa.Value.ToString("yyyy/MM/dd") : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NumNotarioActCons) :
+                    <label>@(Model != null && Model.NumNotarioActCons != null ? Model.NumNotarioActCons : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NomNotarioActCons) :
+                    <label>@(Model != null && Model.NomNotarioActCons != null ? Model.NomNotarioActCons : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.ResidenciaActCons) :
+                    <label>@(Model != null && Model.ResidenciaActCons != null ? Model.ResidenciaActCons : "")</label>
+                </div>
+            </div>
+            <div id="menu3" class="tab-pane fade col-md-6">
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.NumActa) :
+                    <label>@(Model != null && Model.NumActa != null ? Model.NumActa : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.FechaNacimiento) :
+                    <label>@(Model != null && Model.FechaNacimiento != null ? Model.FechaNacimiento.Value.ToString("yyyy/MM/dd") : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.LugarNac) :
+                    <label>@(Model != null && Model.LugarNac != null ? Model.LugarNac : "")</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(i => i.LugarRegistro) :
+                    <label>@(Model != null && Model.LugarRegistro != null ? Model.LugarRegistro : "")</label>
+                </div>
+            </div>
+        </div>
+    </div>

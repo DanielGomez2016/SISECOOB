@@ -44,39 +44,15 @@ namespace SISECOOB.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Details(int id)
+        public ActionResult Details(int id)
         {
             SISECOOBEntities db = new SISECOOBEntities();
+            Contratistas con = db.Contratistas.FirstOrDefault(i => i.ContratistaID == id);
 
-            IQueryable<Escuelas> query = db.Escuelas.Where(i => i.EscuelaID == id);
+            ViewBag.TipoTel = db.TipoTelefono.Select(i => new { id = i.TelefonoID, nombre = i.TipoTelefono1 }).OrderBy(i => i.nombre).ToList();
+            ViewBag.Telefonos = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == id).Select(i => new { tel = i.Telefono, tipo = i.TipoTelefono.TipoTelefono1 }).OrderBy(i => i.tel).ToList();
 
-            return Json(new
-            {
-                total = query.Count(),
-                datos = query.OrderBy(i => i.Nombre)
-                             .ToList()
-                             .Select(i => new
-                             {
-                                 nombre = i.Nombre,
-                                 clave = i.Clave,
-                                 nivel = i.NivelesEducativos.Nombre,
-                                 municipio = i.Municipios.Nombre,
-                                 localidad = i.Localidades.Nombre,
-                                 domicilio = i.Domicilio,
-                                 alumnos = i.Alumnos,
-                                 turno = db.Turnos.FirstOrDefault(j => j.TurnoID == i.Turno).Nombre,
-                                 director = i.Director,
-                                 zona = i.Zona,
-                                 sector = i.Sector,
-                                 tipopredio = i.TipoPredio,
-                                 telefonos = db.Telefonos.Where(j => j.Proveniente == "Escuela" && j.ProvenienteID == i.EscuelaID)
-                                                         .Select(j => new {
-                                                             tipotel = j.TipoTelefono.TipoTelefono1,
-                                                             tel = j.Telefono
-                                                         }).ToList()
-                             })
-                             .ToList()
-            }, JsonRequestBehavior.AllowGet);
+            return PartialView("_Details", con);
         }
 
         [HttpPost]
@@ -94,6 +70,32 @@ namespace SISECOOB.Controllers
             if (con != null)
             {
                 cont.ContratistaID = con.ContratistaID;
+                cont.Domicilio = con.Domicilio;
+                cont.RFC = con.RFC;
+                cont.CMIC = con.CMIC;
+                cont.CURP = con.CURP;
+                cont.Email = con.Email;
+                cont.RPUC = con.RPUC;
+                cont.Vigencia = con.Vigencia;
+                cont.Capital = con.Capital;
+                cont.Nombre = con.Nombre;
+                cont.NumEstructura = con.NumEstructura;
+                cont.Cargo = con.Cargo;
+                cont.FechaRepleg = con.FechaRepleg;
+                cont.NumNotario = con.NumNotario;
+                cont.NomNotario = con.NomNotario;
+                cont.Residencia = con.Residencia;
+                cont.NumEscrituraActCons = con.NumEscrituraActCons;
+                cont.Volumen = con.Volumen;
+                cont.FechaActa = con.FechaActa;
+                cont.NumNotarioActCons = con.NumNotarioActCons;
+                cont.NomNotarioActCons = con.NomNotarioActCons;
+                cont.ResidenciaActCons = con.ResidenciaActCons;
+                cont.NumActa = con.NumActa;
+                cont.FechaNacimiento = con.FechaNacimiento;
+                cont.LugarNac = con.LugarNac;
+                cont.LugarRegistro = con.LugarRegistro;
+                cont.personafisica = con.personafisica;
 
                 ViewBag.Telefonos = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == id).Select(i => new { tel = i.Telefono, tipo = i.TipoTelefono.TipoTelefono1 }).OrderBy(i => i.tel).ToList();
 
@@ -104,18 +106,18 @@ namespace SISECOOB.Controllers
 
 
         [HttpPost]
-        public JsonResult Create(Escuelas escuela)
+        public JsonResult Create(Contratistas contratista)
         {
             try
             {
-                var esc = escuela.Crear();
-                for (var i = 1; i < escuela.telefonos.Count(); i++)
+                var cont = contratista.Crear();
+                for (var i = 1; i < contratista.telefonos.Count(); i++)
                 {
                     Telefonos t = new Telefonos();
-                    t.Proveniente = "Escuela";
-                    t.ProvenienteID = esc;
-                    t.TipoTelefono_fk = Convert.ToInt32(escuela.tipotelefono[i]);
-                    t.Telefono = escuela.telefonos[i];
+                    t.Proveniente = "Contratista";
+                    t.ProvenienteID = cont;
+                    t.TipoTelefono_fk = Convert.ToInt32(contratista.tipotelefono[i]);
+                    t.Telefono = contratista.telefonos[i];
 
                     t.Crear();
                 }
@@ -136,14 +138,14 @@ namespace SISECOOB.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edicion(Escuelas escuela)
+        public JsonResult Edicion(Contratistas contratista)
         {
             try
             {
-                var esc = escuela.Editar();
+                var cont = contratista.Editar();
 
                 SISECOOBEntities db = new SISECOOBEntities();
-                List<Telefonos> t = db.Telefonos.Where(i => i.Proveniente == "Escuela" && i.ProvenienteID == esc).ToList();
+                List<Telefonos> t = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == cont).ToList();
 
                 foreach (var i in t)
                 {
@@ -152,13 +154,13 @@ namespace SISECOOB.Controllers
                 }
 
 
-                for (var i = 1; i < escuela.telefonos.Count(); i++)
+                for (var i = 1; i < contratista.telefonos.Count(); i++)
                 {
                     Telefonos tel = new Telefonos();
-                    tel.Proveniente = "Escuela";
-                    tel.ProvenienteID = esc;
-                    tel.TipoTelefono_fk = Convert.ToInt32(escuela.tipotelefono[i]);
-                    tel.Telefono = escuela.telefonos[i];
+                    tel.Proveniente = "Contratista";
+                    tel.ProvenienteID = cont;
+                    tel.TipoTelefono_fk = Convert.ToInt32(contratista.tipotelefono[i]);
+                    tel.Telefono = contratista.telefonos[i];
 
                     tel.Crear();
                 }
@@ -183,8 +185,8 @@ namespace SISECOOB.Controllers
         {
             try
             {
-                Escuelas esc = new Escuelas();
-                esc.Eliminar(id);
+                Contratistas cont = new Contratistas();
+                cont.Eliminar(id);
                 return Json(new
                 {
                     result = true
@@ -204,7 +206,7 @@ namespace SISECOOB.Controllers
         {
             SISECOOBEntities db = new SISECOOBEntities();
 
-            IQueryable<Telefonos> query = db.Telefonos.Where(i => i.Proveniente == "Escuela" && i.ProvenienteID == id);
+            IQueryable<Telefonos> query = db.Telefonos.Where(i => i.Proveniente == "Contratista" && i.ProvenienteID == id);
 
             return Json(new
             {

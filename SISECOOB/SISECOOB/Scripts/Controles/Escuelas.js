@@ -289,7 +289,17 @@ $('#Editando').click(function () {
 
 function Editando() {
 
+    var tipotelefono = new Array();
+    var telefonos = new Array();
     var form = $('#editarescuela form');
+
+    $('#editarescuela select[name=tipotelefono]').each(function () {
+        tipotelefono.push($(this).val());
+    });
+
+    $('#editarescuela input[name=telefonos]').each(function () {
+        telefonos.push($(this).val());
+    });
 
     form.removeData('validator');
     form.removeData('unobtrusiveValidation');

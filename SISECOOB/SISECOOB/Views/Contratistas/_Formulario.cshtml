@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-6">
                     @Html.LabelFor(i => i.Vigencia)
-                    @Html.TextBoxFor(i => i.Vigencia, new { @class = "form-control datepicker" })
+                    @Html.TextBoxFor(i => i.Vigencia, new { @class = "form-control datepicker", Value = (Model != null && Model.Vigencia != null ? Model.Vigencia.Value.ToString("yyyy/MM/dd") : "") })
                 </div>
                 <div class="col-md-6">
                     @Html.LabelFor(i => i.CURP)
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.FechaRepleg)
-                    @Html.TextBoxFor(i => i.FechaRepleg, new { @class = "form-control" })
+                    @Html.TextBoxFor(i => i.FechaRepleg, new { @class = "form-control datepicker", Value = (Model != null && Model.FechaRepleg != null ? Model.FechaRepleg.Value.ToString("yyyy/MM/dd") : "") })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.NumNotario)
@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.FechaActa)
-                    @Html.TextBoxFor(i => i.FechaActa, new { @class = "form-control valorremove" })
+                    @Html.TextBoxFor(i => i.FechaActa, new { @class = "form-control datepicker", Value = (Model != null && Model.FechaActa != null ? Model.FechaActa.Value.ToString("yyyy/MM/dd") : "") })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.NumNotarioActCons)
@@ -133,7 +133,7 @@
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.FechaNacimiento)
-                    @Html.TextBoxFor(i => i.FechaNacimiento, new { @class = "form-control valorremove datepicker" })
+                    @Html.TextBoxFor(i => i.FechaNacimiento, new { @class = "form-control valorremove datepicker", Value = (Model != null && Model.FechaNacimiento != null ? Model.FechaNacimiento.Value.ToString("yyyy/MM/dd") : "") })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.LugarNac)
@@ -148,7 +148,14 @@
     </div>
     <br /><br />
     <div class="col-md-6" id="perfisica">
-        <label><input data-persona type="checkbox" class="" /> Persona Fisica</label>
+        @if (Model.personafisica == true)
+        {
+        <label><input data-persona type="checkbox" class="" checked /> Persona Fisica</label>
+        }
+        else
+        {
+            <label><input data-persona type="checkbox" class="" /> Persona Fisica</label>
+        }
     </div>
 
 }
