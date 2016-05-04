@@ -30,6 +30,19 @@
         <EntityTypeShape EntityType="SISECOOBModel.TipoTelefono" Width="1.5" PointX="10.375" PointY="13.25" />
         <AssociationConnector Association="SISECOOBModel.FK_Telefonos_TipoTelefono" />
         <EntityTypeShape EntityType="SISECOOBModel.Departamentos" Width="1.5" PointX="10.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Estatus" Width="1.5" PointX="12.25" PointY="20.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Obras" Width="1.5" PointX="14.5" PointY="5.375" />
+        <EntityTypeShape EntityType="SISECOOBModel.ObrasOficios" Width="1.5" PointX="16.75" PointY="7.5" />
+        <EntityTypeShape EntityType="SISECOOBModel.Oficios" Width="1.5" PointX="14.5" PointY="0.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.TiposObra" Width="1.5" PointX="12.25" PointY="17.375" />
+        <AssociationConnector Association="SISECOOBModel.FK_Obras_Escuelas" />
+        <AssociationConnector Association="SISECOOBModel.FK_Obras_Estatus" />
+        <AssociationConnector Association="SISECOOBModel.FK_Obras_TipoEstructura" />
+        <AssociationConnector Association="SISECOOBModel.FK_Obras_TiposObra" />
+        <AssociationConnector Association="SISECOOBModel.FK_ObrasOficios_Obras" />
+        <AssociationConnector Association="SISECOOBModel.FK_ObrasOficios_Oficios" />
+        <AssociationConnector Association="SISECOOBModel.FK_Oficios_Programas" />
+        <AssociationConnector Association="SISECOOBModel.FK_Oficios_TipoOficios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ModulosController.cs" />
     <Compile Include="Controllers\MunicipiosController.cs" />
     <Compile Include="Controllers\NivelesEducativosController.cs" />
+    <Compile Include="Controllers\OficiosController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SubProgramasController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\Modulos.cs" />
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\NivelesEducativos.cs" />
+    <Compile Include="Models\Oficios.cs" />
     <Compile Include="Models\Programas.cs" />
     <Compile Include="Models\SubProgramasEdu.cs" />
     <Compile Include="Models\Telefonos.cs" />
@@ -1074,6 +1076,7 @@
     <Content Include="Scripts\Controles\Localidad.js" />
     <Content Include="Scripts\Controles\Modulos.js" />
     <Content Include="Scripts\Controles\Municipios.js" />
+    <Content Include="Scripts\Controles\Oficios.js" />
     <Content Include="Scripts\Controles\Programas.js" />
     <Content Include="Scripts\Controles\SubProgramas.js" />
     <Content Include="Scripts\Controles\TipoEstructura.js" />
@@ -1241,6 +1244,9 @@
     <Content Include="Views\Contratistas\Index.cshtml" />
     <Content Include="Views\Contratistas\_Formulario.cshtml" />
     <Content Include="Views\Contratistas\_Details.cshtml" />
+    <Content Include="Views\Oficios\_Details.cshtml" />
+    <Content Include="Views\Oficios\_Formulario.cshtml" />
+    <Content Include="Views\Oficios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

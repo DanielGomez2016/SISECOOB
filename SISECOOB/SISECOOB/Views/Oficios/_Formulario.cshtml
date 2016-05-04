@@ -1,0 +1,79 @@
+﻿@model SISECOOB.Models.Oficios
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.OficioID, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.OficioID, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                @Html.Label("Recibido / Entregado", new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    <label>  @Html.RadioButtonFor(m => m.Recibido, new { @class = "form-control" }) Recibido </label>
+                    <label>  @Html.RadioButtonFor(m => m.Recibido, new { @class = "form-control" }) Entregado </label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.FechaOficio, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.FechaOficio, new { @class = "form-control datepicker" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.FechaRecibo, new { @class = "col-md-12 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.FechaRecibo, new { @class = "form-control datepicker" })
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.Asunto, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Asunto, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.Descripcion, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.ProgramaID_Fk, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("ProgramaID_Fk", new SelectList(ViewBag.Programa, "id", "nombre"), "Todos", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <table id="ttelefonos" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-md-4">Tipo Telefono</th>
+                            <th class="col-md-4">Telefono</th>
+                            <th class="col-md-4"><button type="button" value="Nuevo Telefono" id="btnagregar" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Nuevo Telefono</button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hidden" id="telefono" name="telefono">
+                            <td>
+                                @*@Html.DropDownList("tipotelefono", new SelectList(ViewBag.TipoTel, "id", "nombre"), "Todos", new { @class = "form-control" })*@
+                            </td>
+                            <td>
+                                <input name="telefonos" class="form-control" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn-sm btn-danger" name="btneliminar"><span class="glyphicon glyphicon-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+}
+<script>
+    $(".datepicker").datepicker();
+</script>

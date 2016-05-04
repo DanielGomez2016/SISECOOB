@@ -9,7 +9,6 @@ namespace SISECOOB.Controllers
 {
     public class ContratistasController : Controller
     {
-        // GET: Escuelas
         public ActionResult Index()
         {
             return View();

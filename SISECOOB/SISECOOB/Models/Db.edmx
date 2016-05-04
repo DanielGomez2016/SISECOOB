@@ -82,6 +82,13 @@
           <Property Name="Sector" Type="int" />
           <Property Name="TipoPredio" Type="int" />
         </EntityType>
+        <EntityType Name="Estatus">
+          <Key>
+            <PropertyRef Name="EstatusID" />
+          </Key>
+          <Property Name="EstatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estatus" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Leyes">
           <Key>
             <PropertyRef Name="LeyesID" />
@@ -131,6 +138,72 @@
           <Property Name="NivelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Obras">
+          <Key>
+            <PropertyRef Name="ObraID" />
+          </Key>
+          <Property Name="ObraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EscuelaID_FK" Type="int" />
+          <Property Name="Pseudonimo" Type="varchar" MaxLength="250" />
+          <Property Name="NombreDirector" Type="varchar" MaxLength="75" />
+          <Property Name="Alumnos" Type="int" />
+          <Property Name="Descripcion" Type="text" />
+          <Property Name="FechaObra" Type="datetime" />
+          <Property Name="ZonaJuarez" Type="bit" />
+          <Property Name="CancelarObra" Type="bit" />
+          <Property Name="O" Type="int" />
+          <Property Name="A" Type="int" />
+          <Property Name="L" Type="int" />
+          <Property Name="T" Type="int" />
+          <Property Name="Ax" Type="int" />
+          <Property Name="Re" Type="int" />
+          <Property Name="Otro" Type="int" />
+          <Property Name="TipoEstructura_Fk" Type="int" />
+          <Property Name="CostoObra" Type="float" />
+          <Property Name="UdeMedida" Type="varchar" MaxLength="13" />
+          <Property Name="EstatusID_Fk" Type="int" />
+          <Property Name="Beneficiados" Type="int" />
+          <Property Name="TipoObra_fk" Type="int" />
+          <Property Name="NumObra" Type="int" />
+          <Property Name="MontoAprobado" Type="float" />
+          <Property Name="Observaciones" Type="text" />
+          <Property Name="Pasar" Type="bit" />
+          <Property Name="Convenio" Type="varchar" MaxLength="25" />
+          <Property Name="FechaConvenio" Type="datetime" />
+          <Property Name="CelebradoCon" Type="varchar" MaxLength="100" />
+          <Property Name="RepresentanteConvenio" Type="varchar" MaxLength="70" />
+          <Property Name="Puesto" Type="varchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="ObrasOficios">
+          <Key>
+            <PropertyRef Name="ObraID" />
+            <PropertyRef Name="OficioID" />
+          </Key>
+          <Property Name="ObraID" Type="int" Nullable="false" />
+          <Property Name="OficioID" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="NoObra" Type="int" />
+          <Property Name="Monto" Type="float" />
+          <Property Name="Orden" Type="float" />
+          <Property Name="Descentralizado" Type="float" />
+          <Property Name="Estatal" Type="float" />
+          <Property Name="Federal" Type="float" />
+          <Property Name="Municipal" Type="float" />
+          <Property Name="Otro" Type="float" />
+          <Property Name="Participante" Type="float" />
+        </EntityType>
+        <EntityType Name="Oficios">
+          <Key>
+            <PropertyRef Name="OficioID" />
+          </Key>
+          <Property Name="OficioID" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="FechaRecibo" Type="datetime" />
+          <Property Name="FechaOficio" Type="datetime" />
+          <Property Name="Asunto" Type="varchar" MaxLength="35" />
+          <Property Name="Descripcion" Type="text" />
+          <Property Name="TipoOficio_Fk" Type="int" />
+          <Property Name="Recibido" Type="bit" />
+          <Property Name="ProgramaID_Fk" Type="int" />
+        </EntityType>
         <EntityType Name="Programas">
           <Key>
             <PropertyRef Name="ProgramaID" />
@@ -168,6 +241,13 @@
           </Key>
           <Property Name="TipoOficioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TiposObra">
+          <Key>
+            <PropertyRef Name="TipoObraID" />
+          </Key>
+          <Property Name="TipoObraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoObra" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TipoTelefono">
           <Key>
@@ -250,6 +330,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Obras_Escuelas">
+          <End Role="Escuelas" Type="Self.Escuelas" Multiplicity="0..1" />
+          <End Role="Obras" Type="Self.Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Escuelas">
+              <PropertyRef Name="EscuelaID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="EscuelaID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obras_Estatus">
+          <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+          <End Role="Obras" Type="Self.Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estatus">
+              <PropertyRef Name="EstatusID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="EstatusID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obras_TipoEstructura">
+          <End Role="TipoEstructura" Type="Self.TipoEstructura" Multiplicity="0..1" />
+          <End Role="Obras" Type="Self.Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoEstructura">
+              <PropertyRef Name="EstructuraID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="TipoEstructura_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obras_TiposObra">
+          <End Role="TiposObra" Type="Self.TiposObra" Multiplicity="0..1" />
+          <End Role="Obras" Type="Self.Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposObra">
+              <PropertyRef Name="TipoObraID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="TipoObra_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObrasOficios_Obras">
+          <End Role="Obras" Type="Self.Obras" Multiplicity="1" />
+          <End Role="ObrasOficios" Type="Self.ObrasOficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obras">
+              <PropertyRef Name="ObraID" />
+            </Principal>
+            <Dependent Role="ObrasOficios">
+              <PropertyRef Name="ObraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObrasOficios_Oficios">
+          <End Role="Oficios" Type="Self.Oficios" Multiplicity="1" />
+          <End Role="ObrasOficios" Type="Self.ObrasOficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficios">
+              <PropertyRef Name="OficioID" />
+            </Principal>
+            <Dependent Role="ObrasOficios">
+              <PropertyRef Name="OficioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oficios_Programas">
+          <End Role="Programas" Type="Self.Programas" Multiplicity="0..1" />
+          <End Role="Oficios" Type="Self.Oficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programas">
+              <PropertyRef Name="ProgramaID" />
+            </Principal>
+            <Dependent Role="Oficios">
+              <PropertyRef Name="ProgramaID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oficios_TipoOficios">
+          <End Role="TipoOficios" Type="Self.TipoOficios" Multiplicity="0..1" />
+          <End Role="Oficios" Type="Self.Oficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoOficios">
+              <PropertyRef Name="TipoOficioID" />
+            </Principal>
+            <Dependent Role="Oficios">
+              <PropertyRef Name="TipoOficio_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Telefonos_TipoTelefono">
           <End Role="TipoTelefono" Type="Self.TipoTelefono" Multiplicity="0..1" />
           <End Role="Telefonos" Type="Self.Telefonos" Multiplicity="*" />
@@ -268,17 +444,22 @@
           <EntitySet Name="Contratistas" EntityType="Self.Contratistas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Escuelas" EntityType="Self.Escuelas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estatus" EntityType="Self.Estatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leyes" EntityType="Self.Leyes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_Usuarios" EntityType="Self.Menu_Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Municipios" EntityType="Self.Municipios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NivelesEducativos" EntityType="Self.NivelesEducativos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obras" EntityType="Self.Obras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObrasOficios" EntityType="Self.ObrasOficios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oficios" EntityType="Self.Oficios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Programas" EntityType="Self.Programas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubProgramasEdu" EntityType="Self.SubProgramasEdu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoEstructura" EntityType="Self.TipoEstructura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoOficios" EntityType="Self.TipoOficios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposObra" EntityType="Self.TiposObra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoTelefono" EntityType="Self.TipoTelefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zonas" EntityType="Self.Zonas" Schema="dbo" store:Type="Tables" />
@@ -301,6 +482,38 @@
           <AssociationSet Name="Fk_Municipios_Localidades" Association="Self.Fk_Municipios_Localidades">
             <End Role="Municipios" EntitySet="Municipios" />
             <End Role="Localidades" EntitySet="Localidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_Escuelas" Association="Self.FK_Obras_Escuelas">
+            <End Role="Escuelas" EntitySet="Escuelas" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_Estatus" Association="Self.FK_Obras_Estatus">
+            <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_TipoEstructura" Association="Self.FK_Obras_TipoEstructura">
+            <End Role="TipoEstructura" EntitySet="TipoEstructura" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_TiposObra" Association="Self.FK_Obras_TiposObra">
+            <End Role="TiposObra" EntitySet="TiposObra" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObrasOficios_Obras" Association="Self.FK_ObrasOficios_Obras">
+            <End Role="Obras" EntitySet="Obras" />
+            <End Role="ObrasOficios" EntitySet="ObrasOficios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObrasOficios_Oficios" Association="Self.FK_ObrasOficios_Oficios">
+            <End Role="Oficios" EntitySet="Oficios" />
+            <End Role="ObrasOficios" EntitySet="ObrasOficios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oficios_Programas" Association="Self.FK_Oficios_Programas">
+            <End Role="Programas" EntitySet="Programas" />
+            <End Role="Oficios" EntitySet="Oficios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oficios_TipoOficios" Association="Self.FK_Oficios_TipoOficios">
+            <End Role="TipoOficios" EntitySet="TipoOficios" />
+            <End Role="Oficios" EntitySet="Oficios" />
           </AssociationSet>
           <AssociationSet Name="FK_Telefonos_TipoTelefono" Association="Self.FK_Telefonos_TipoTelefono">
             <End Role="TipoTelefono" EntitySet="TipoTelefono" />
@@ -355,6 +568,43 @@
             <End Role="Telefonos" EntitySet="Telefonos" />
           </AssociationSet>
           <EntitySet Name="Departamentos" EntityType="SISECOOBModel.Departamentos" />
+          <EntitySet Name="Estatus" EntityType="SISECOOBModel.Estatus" />
+          <EntitySet Name="Obras" EntityType="SISECOOBModel.Obras" />
+          <EntitySet Name="ObrasOficios" EntityType="SISECOOBModel.ObrasOficios" />
+          <EntitySet Name="Oficios" EntityType="SISECOOBModel.Oficios" />
+          <EntitySet Name="TiposObra" EntityType="SISECOOBModel.TiposObra" />
+          <AssociationSet Name="FK_Obras_Escuelas" Association="SISECOOBModel.FK_Obras_Escuelas">
+            <End Role="Escuelas" EntitySet="Escuelas" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_Estatus" Association="SISECOOBModel.FK_Obras_Estatus">
+            <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_TipoEstructura" Association="SISECOOBModel.FK_Obras_TipoEstructura">
+            <End Role="TipoEstructura" EntitySet="TipoEstructura" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obras_TiposObra" Association="SISECOOBModel.FK_Obras_TiposObra">
+            <End Role="TiposObra" EntitySet="TiposObra" />
+            <End Role="Obras" EntitySet="Obras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObrasOficios_Obras" Association="SISECOOBModel.FK_ObrasOficios_Obras">
+            <End Role="Obras" EntitySet="Obras" />
+            <End Role="ObrasOficios" EntitySet="ObrasOficios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObrasOficios_Oficios" Association="SISECOOBModel.FK_ObrasOficios_Oficios">
+            <End Role="Oficios" EntitySet="Oficios" />
+            <End Role="ObrasOficios" EntitySet="ObrasOficios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oficios_Programas" Association="SISECOOBModel.FK_Oficios_Programas">
+            <End Role="Programas" EntitySet="Programas" />
+            <End Role="Oficios" EntitySet="Oficios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oficios_TipoOficios" Association="SISECOOBModel.FK_Oficios_TipoOficios">
+            <End Role="TipoOficios" EntitySet="TipoOficios" />
+            <End Role="Oficios" EntitySet="Oficios" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="SubProgramasEdu">
           <Key>
@@ -434,6 +684,7 @@
           <NavigationProperty Name="Localidades" Relationship="SISECOOBModel.FK_Escuelas_Localidades" FromRole="Escuelas" ToRole="Localidades" />
           <NavigationProperty Name="Municipios" Relationship="SISECOOBModel.FK_Escuelas_Municipios" FromRole="Escuelas" ToRole="Municipios" />
           <NavigationProperty Name="NivelesEducativos" Relationship="SISECOOBModel.FK_Escuelas_NivelesEducativos" FromRole="Escuelas" ToRole="NivelesEducativos" />
+          <NavigationProperty Name="Obras" Relationship="SISECOOBModel.FK_Obras_Escuelas" FromRole="Escuelas" ToRole="Obras" />
         </EntityType>
         <EntityType Name="Leyes">
           <Key>
@@ -497,6 +748,7 @@
           </Key>
           <Property Name="ProgramaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Programa" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Oficios" Relationship="SISECOOBModel.FK_Oficios_Programas" FromRole="Programas" ToRole="Oficios" />
         </EntityType>
         <EntityType Name="TipoEstructura">
           <Key>
@@ -504,6 +756,7 @@
           </Key>
           <Property Name="EstructuraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoEstructura1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Obras" Relationship="SISECOOBModel.FK_Obras_TipoEstructura" FromRole="TipoEstructura" ToRole="Obras" />
         </EntityType>
         <EntityType Name="TipoOficios">
           <Key>
@@ -511,6 +764,7 @@
           </Key>
           <Property Name="TipoOficioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Oficios" Relationship="SISECOOBModel.FK_Oficios_TipoOficios" FromRole="TipoOficios" ToRole="Oficios" />
         </EntityType>
         <EntityType Name="Turnos">
           <Key>
@@ -625,6 +879,194 @@
           <Property Name="Departamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="JefeDepto" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Estatus">
+          <Key>
+            <PropertyRef Name="EstatusID" />
+          </Key>
+          <Property Name="EstatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estatus1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Obras" Relationship="SISECOOBModel.FK_Obras_Estatus" FromRole="Estatus" ToRole="Obras" />
+        </EntityType>
+        <EntityType Name="Obras">
+          <Key>
+            <PropertyRef Name="ObraID" />
+          </Key>
+          <Property Name="ObraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EscuelaID_FK" Type="Int32" />
+          <Property Name="Pseudonimo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="NombreDirector" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="Alumnos" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaObra" Type="DateTime" Precision="3" />
+          <Property Name="ZonaJuarez" Type="Boolean" />
+          <Property Name="CancelarObra" Type="Boolean" />
+          <Property Name="O" Type="Int32" />
+          <Property Name="A" Type="Int32" />
+          <Property Name="L" Type="Int32" />
+          <Property Name="T" Type="Int32" />
+          <Property Name="Ax" Type="Int32" />
+          <Property Name="Re" Type="Int32" />
+          <Property Name="Otro" Type="Int32" />
+          <Property Name="TipoEstructura_Fk" Type="Int32" />
+          <Property Name="CostoObra" Type="Double" />
+          <Property Name="UdeMedida" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="EstatusID_Fk" Type="Int32" />
+          <Property Name="Beneficiados" Type="Int32" />
+          <Property Name="TipoObra_fk" Type="Int32" />
+          <Property Name="NumObra" Type="Int32" />
+          <Property Name="MontoAprobado" Type="Double" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Pasar" Type="Boolean" />
+          <Property Name="Convenio" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FechaConvenio" Type="DateTime" Precision="3" />
+          <Property Name="CelebradoCon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RepresentanteConvenio" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Puesto" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Escuelas" Relationship="SISECOOBModel.FK_Obras_Escuelas" FromRole="Obras" ToRole="Escuelas" />
+          <NavigationProperty Name="Estatus" Relationship="SISECOOBModel.FK_Obras_Estatus" FromRole="Obras" ToRole="Estatus" />
+          <NavigationProperty Name="TipoEstructura" Relationship="SISECOOBModel.FK_Obras_TipoEstructura" FromRole="Obras" ToRole="TipoEstructura" />
+          <NavigationProperty Name="TiposObra" Relationship="SISECOOBModel.FK_Obras_TiposObra" FromRole="Obras" ToRole="TiposObra" />
+          <NavigationProperty Name="ObrasOficios" Relationship="SISECOOBModel.FK_ObrasOficios_Obras" FromRole="Obras" ToRole="ObrasOficios" />
+        </EntityType>
+        <EntityType Name="ObrasOficios">
+          <Key>
+            <PropertyRef Name="ObraID" />
+            <PropertyRef Name="OficioID" />
+          </Key>
+          <Property Name="ObraID" Type="Int32" Nullable="false" />
+          <Property Name="OficioID" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="NoObra" Type="Int32" />
+          <Property Name="Monto" Type="Double" />
+          <Property Name="Orden" Type="Double" />
+          <Property Name="Descentralizado" Type="Double" />
+          <Property Name="Estatal" Type="Double" />
+          <Property Name="Federal" Type="Double" />
+          <Property Name="Municipal" Type="Double" />
+          <Property Name="Otro" Type="Double" />
+          <Property Name="Participante" Type="Double" />
+          <NavigationProperty Name="Obras" Relationship="SISECOOBModel.FK_ObrasOficios_Obras" FromRole="ObrasOficios" ToRole="Obras" />
+          <NavigationProperty Name="Oficios" Relationship="SISECOOBModel.FK_ObrasOficios_Oficios" FromRole="ObrasOficios" ToRole="Oficios" />
+        </EntityType>
+        <EntityType Name="Oficios">
+          <Key>
+            <PropertyRef Name="OficioID" />
+          </Key>
+          <Property Name="OficioID" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRecibo" Type="DateTime" Precision="3" />
+          <Property Name="FechaOficio" Type="DateTime" Precision="3" />
+          <Property Name="Asunto" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TipoOficio_Fk" Type="Int32" />
+          <Property Name="Recibido" Type="Boolean" />
+          <Property Name="ProgramaID_Fk" Type="Int32" />
+          <NavigationProperty Name="ObrasOficios" Relationship="SISECOOBModel.FK_ObrasOficios_Oficios" FromRole="Oficios" ToRole="ObrasOficios" />
+          <NavigationProperty Name="Programas" Relationship="SISECOOBModel.FK_Oficios_Programas" FromRole="Oficios" ToRole="Programas" />
+          <NavigationProperty Name="TipoOficios" Relationship="SISECOOBModel.FK_Oficios_TipoOficios" FromRole="Oficios" ToRole="TipoOficios" />
+        </EntityType>
+        <EntityType Name="TiposObra">
+          <Key>
+            <PropertyRef Name="TipoObraID" />
+          </Key>
+          <Property Name="TipoObraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoObra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Obras" Relationship="SISECOOBModel.FK_Obras_TiposObra" FromRole="TiposObra" ToRole="Obras" />
+        </EntityType>
+        <Association Name="FK_Obras_Escuelas">
+          <End Type="SISECOOBModel.Escuelas" Role="Escuelas" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Obras" Role="Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Escuelas">
+              <PropertyRef Name="EscuelaID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="EscuelaID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obras_Estatus">
+          <End Type="SISECOOBModel.Estatus" Role="Estatus" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Obras" Role="Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estatus">
+              <PropertyRef Name="EstatusID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="EstatusID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obras_TipoEstructura">
+          <End Type="SISECOOBModel.TipoEstructura" Role="TipoEstructura" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Obras" Role="Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoEstructura">
+              <PropertyRef Name="EstructuraID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="TipoEstructura_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obras_TiposObra">
+          <End Type="SISECOOBModel.TiposObra" Role="TiposObra" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Obras" Role="Obras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposObra">
+              <PropertyRef Name="TipoObraID" />
+            </Principal>
+            <Dependent Role="Obras">
+              <PropertyRef Name="TipoObra_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObrasOficios_Obras">
+          <End Type="SISECOOBModel.Obras" Role="Obras" Multiplicity="1" />
+          <End Type="SISECOOBModel.ObrasOficios" Role="ObrasOficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obras">
+              <PropertyRef Name="ObraID" />
+            </Principal>
+            <Dependent Role="ObrasOficios">
+              <PropertyRef Name="ObraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObrasOficios_Oficios">
+          <End Type="SISECOOBModel.Oficios" Role="Oficios" Multiplicity="1" />
+          <End Type="SISECOOBModel.ObrasOficios" Role="ObrasOficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficios">
+              <PropertyRef Name="OficioID" />
+            </Principal>
+            <Dependent Role="ObrasOficios">
+              <PropertyRef Name="OficioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oficios_Programas">
+          <End Type="SISECOOBModel.Programas" Role="Programas" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Oficios" Role="Oficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programas">
+              <PropertyRef Name="ProgramaID" />
+            </Principal>
+            <Dependent Role="Oficios">
+              <PropertyRef Name="ProgramaID_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oficios_TipoOficios">
+          <End Type="SISECOOBModel.TipoOficios" Role="TipoOficios" Multiplicity="0..1" />
+          <End Type="SISECOOBModel.Oficios" Role="Oficios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoOficios">
+              <PropertyRef Name="TipoOficioID" />
+            </Principal>
+            <Dependent Role="Oficios">
+              <PropertyRef Name="TipoOficio_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -832,6 +1274,90 @@
                 <ScalarProperty Name="JefeDepto" ColumnName="JefeDepto" />
                 <ScalarProperty Name="Departamento" ColumnName="Departamento" />
                 <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estatus">
+            <EntityTypeMapping TypeName="SISECOOBModel.Estatus">
+              <MappingFragment StoreEntitySet="Estatus">
+                <ScalarProperty Name="Estatus1" ColumnName="Estatus" />
+                <ScalarProperty Name="EstatusID" ColumnName="EstatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obras">
+            <EntityTypeMapping TypeName="SISECOOBModel.Obras">
+              <MappingFragment StoreEntitySet="Obras">
+                <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+                <ScalarProperty Name="RepresentanteConvenio" ColumnName="RepresentanteConvenio" />
+                <ScalarProperty Name="CelebradoCon" ColumnName="CelebradoCon" />
+                <ScalarProperty Name="FechaConvenio" ColumnName="FechaConvenio" />
+                <ScalarProperty Name="Convenio" ColumnName="Convenio" />
+                <ScalarProperty Name="Pasar" ColumnName="Pasar" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="MontoAprobado" ColumnName="MontoAprobado" />
+                <ScalarProperty Name="NumObra" ColumnName="NumObra" />
+                <ScalarProperty Name="TipoObra_fk" ColumnName="TipoObra_fk" />
+                <ScalarProperty Name="Beneficiados" ColumnName="Beneficiados" />
+                <ScalarProperty Name="EstatusID_Fk" ColumnName="EstatusID_Fk" />
+                <ScalarProperty Name="UdeMedida" ColumnName="UdeMedida" />
+                <ScalarProperty Name="CostoObra" ColumnName="CostoObra" />
+                <ScalarProperty Name="TipoEstructura_Fk" ColumnName="TipoEstructura_Fk" />
+                <ScalarProperty Name="Otro" ColumnName="Otro" />
+                <ScalarProperty Name="Re" ColumnName="Re" />
+                <ScalarProperty Name="Ax" ColumnName="Ax" />
+                <ScalarProperty Name="T" ColumnName="T" />
+                <ScalarProperty Name="L" ColumnName="L" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="O" ColumnName="O" />
+                <ScalarProperty Name="CancelarObra" ColumnName="CancelarObra" />
+                <ScalarProperty Name="ZonaJuarez" ColumnName="ZonaJuarez" />
+                <ScalarProperty Name="FechaObra" ColumnName="FechaObra" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Alumnos" ColumnName="Alumnos" />
+                <ScalarProperty Name="NombreDirector" ColumnName="NombreDirector" />
+                <ScalarProperty Name="Pseudonimo" ColumnName="Pseudonimo" />
+                <ScalarProperty Name="EscuelaID_FK" ColumnName="EscuelaID_FK" />
+                <ScalarProperty Name="ObraID" ColumnName="ObraID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObrasOficios">
+            <EntityTypeMapping TypeName="SISECOOBModel.ObrasOficios">
+              <MappingFragment StoreEntitySet="ObrasOficios">
+                <ScalarProperty Name="Participante" ColumnName="Participante" />
+                <ScalarProperty Name="Otro" ColumnName="Otro" />
+                <ScalarProperty Name="Municipal" ColumnName="Municipal" />
+                <ScalarProperty Name="Federal" ColumnName="Federal" />
+                <ScalarProperty Name="Estatal" ColumnName="Estatal" />
+                <ScalarProperty Name="Descentralizado" ColumnName="Descentralizado" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="NoObra" ColumnName="NoObra" />
+                <ScalarProperty Name="OficioID" ColumnName="OficioID" />
+                <ScalarProperty Name="ObraID" ColumnName="ObraID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oficios">
+            <EntityTypeMapping TypeName="SISECOOBModel.Oficios">
+              <MappingFragment StoreEntitySet="Oficios">
+                <ScalarProperty Name="ProgramaID_Fk" ColumnName="ProgramaID_Fk" />
+                <ScalarProperty Name="Recibido" ColumnName="Recibido" />
+                <ScalarProperty Name="TipoOficio_Fk" ColumnName="TipoOficio_Fk" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+                <ScalarProperty Name="FechaOficio" ColumnName="FechaOficio" />
+                <ScalarProperty Name="FechaRecibo" ColumnName="FechaRecibo" />
+                <ScalarProperty Name="OficioID" ColumnName="OficioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposObra">
+            <EntityTypeMapping TypeName="SISECOOBModel.TiposObra">
+              <MappingFragment StoreEntitySet="TiposObra">
+                <ScalarProperty Name="TipoObra" ColumnName="TipoObra" />
+                <ScalarProperty Name="TipoObraID" ColumnName="TipoObraID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
