@@ -10,6 +10,7 @@ $(document).ready(function () {
     //    $('[name=' + parent + ']').prop('checked', false);
     //    $(this).attr('checked', 'checked');
     //});
+    //
 
     //paginacion de las tablas
     pag = new Paginacion({
