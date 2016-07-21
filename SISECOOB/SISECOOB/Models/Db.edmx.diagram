@@ -43,6 +43,10 @@
         <AssociationConnector Association="SISECOOBModel.FK_ObrasOficios_Oficios" />
         <AssociationConnector Association="SISECOOBModel.FK_Oficios_Programas" />
         <AssociationConnector Association="SISECOOBModel.FK_Oficios_TipoOficios" />
+        <EntityTypeShape EntityType="SISECOOBModel.OficiosCuentas" Width="1.5" PointX="16.75" PointY="1.25" />
+        <EntityTypeShape EntityType="SISECOOBModel.TiposCuentas" Width="1.5" PointX="14.5" PointY="16.625" />
+        <AssociationConnector Association="SISECOOBModel.FK_OficiosCuentas_Oficios" />
+        <AssociationConnector Association="SISECOOBModel.FK_OficiosCuentas_TiposCuentas" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

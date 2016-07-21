@@ -11,7 +11,7 @@ namespace SISECOOB.Models
     {
         public class mOficios
         {
-            [Display(Name = "Identificador")]
+            [Display(Name = "# Oficio")]
             public int OficioID { get; set; }
 
             [Display(Name = "Fecha")]
@@ -35,6 +35,12 @@ namespace SISECOOB.Models
             public DateTime Recibido { get; set; }
 
         }
+
+        public string[] montos { get; set; }
+
+        public string[] cuentas { get; set; }
+
+        public string[] tiposcuentas { get; set; }
 
         public string Crear()
         {

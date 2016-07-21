@@ -34,6 +34,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_ObrasOficios_Oficios", "Oficios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(SISECOOB.Models.Oficios), "ObrasOficios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.ObrasOficios), true)]
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Oficios_Programas", "Programas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Programas), "Oficios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Oficios), true)]
 [assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_Oficios_TipoOficios", "TipoOficios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.TipoOficios), "Oficios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.Oficios), true)]
+[assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_OficiosCuentas_Oficios", "Oficios", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.Oficios), "OficiosCuentas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.OficiosCuentas), true)]
+[assembly: EdmRelationshipAttribute("SISECOOBModel", "FK_OficiosCuentas_TiposCuentas", "TiposCuentas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SISECOOB.Models.TiposCuentas), "OficiosCuentas", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SISECOOB.Models.OficiosCuentas), true)]
 
 #endregion
 
@@ -468,6 +470,38 @@ namespace SISECOOB.Models
             }
         }
         private ObjectSet<TiposObra> _TiposObra;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<OficiosCuentas> OficiosCuentas
+        {
+            get
+            {
+                if ((_OficiosCuentas == null))
+                {
+                    _OficiosCuentas = base.CreateObjectSet<OficiosCuentas>("OficiosCuentas");
+                }
+                return _OficiosCuentas;
+            }
+        }
+        private ObjectSet<OficiosCuentas> _OficiosCuentas;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<TiposCuentas> TiposCuentas
+        {
+            get
+            {
+                if ((_TiposCuentas == null))
+                {
+                    _TiposCuentas = base.CreateObjectSet<TiposCuentas>("TiposCuentas");
+                }
+                return _TiposCuentas;
+            }
+        }
+        private ObjectSet<TiposCuentas> _TiposCuentas;
 
         #endregion
 
@@ -663,6 +697,22 @@ namespace SISECOOB.Models
         public void AddToTiposObra(TiposObra tiposObra)
         {
             base.AddObject("TiposObra", tiposObra);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet OficiosCuentas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToOficiosCuentas(OficiosCuentas oficiosCuentas)
+        {
+            base.AddObject("OficiosCuentas", oficiosCuentas);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet TiposCuentas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToTiposCuentas(TiposCuentas tiposCuentas)
+        {
+            base.AddObject("TiposCuentas", tiposCuentas);
         }
 
         #endregion
@@ -4843,6 +4893,260 @@ namespace SISECOOB.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_OficiosCuentas_Oficios", "OficiosCuentas")]
+        public EntityCollection<OficiosCuentas> OficiosCuentas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OficiosCuentas>("SISECOOBModel.FK_OficiosCuentas_Oficios", "OficiosCuentas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OficiosCuentas>("SISECOOBModel.FK_OficiosCuentas_Oficios", "OficiosCuentas", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="OficiosCuentas")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class OficiosCuentas : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto OficiosCuentas.
+        /// </summary>
+        /// <param name="oficiosCuentasID">Valor inicial de la propiedad OficiosCuentasID.</param>
+        public static OficiosCuentas CreateOficiosCuentas(global::System.Int32 oficiosCuentasID)
+        {
+            OficiosCuentas oficiosCuentas = new OficiosCuentas();
+            oficiosCuentas.OficiosCuentasID = oficiosCuentasID;
+            return oficiosCuentas;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OficiosCuentasID
+        {
+            get
+            {
+                return _OficiosCuentasID;
+            }
+            set
+            {
+                if (_OficiosCuentasID != value)
+                {
+                    OnOficiosCuentasIDChanging(value);
+                    ReportPropertyChanging("OficiosCuentasID");
+                    _OficiosCuentasID = StructuralObject.SetValidValue(value, "OficiosCuentasID");
+                    ReportPropertyChanged("OficiosCuentasID");
+                    OnOficiosCuentasIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _OficiosCuentasID;
+        partial void OnOficiosCuentasIDChanging(global::System.Int32 value);
+        partial void OnOficiosCuentasIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OficioID_Fk
+        {
+            get
+            {
+                return _OficioID_Fk;
+            }
+            set
+            {
+                OnOficioID_FkChanging(value);
+                ReportPropertyChanging("OficioID_Fk");
+                _OficioID_Fk = StructuralObject.SetValidValue(value, true, "OficioID_Fk");
+                ReportPropertyChanged("OficioID_Fk");
+                OnOficioID_FkChanged();
+            }
+        }
+        private global::System.String _OficioID_Fk;
+        partial void OnOficioID_FkChanging(global::System.String value);
+        partial void OnOficioID_FkChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TipoCuentaID
+        {
+            get
+            {
+                return _TipoCuentaID;
+            }
+            set
+            {
+                OnTipoCuentaIDChanging(value);
+                ReportPropertyChanging("TipoCuentaID");
+                _TipoCuentaID = StructuralObject.SetValidValue(value, "TipoCuentaID");
+                ReportPropertyChanged("TipoCuentaID");
+                OnTipoCuentaIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TipoCuentaID;
+        partial void OnTipoCuentaIDChanging(Nullable<global::System.Int32> value);
+        partial void OnTipoCuentaIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Monto
+        {
+            get
+            {
+                return _Monto;
+            }
+            set
+            {
+                OnMontoChanging(value);
+                ReportPropertyChanging("Monto");
+                _Monto = StructuralObject.SetValidValue(value, "Monto");
+                ReportPropertyChanged("Monto");
+                OnMontoChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Monto;
+        partial void OnMontoChanging(Nullable<global::System.Double> value);
+        partial void OnMontoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Cuenta
+        {
+            get
+            {
+                return _Cuenta;
+            }
+            set
+            {
+                OnCuentaChanging(value);
+                ReportPropertyChanging("Cuenta");
+                _Cuenta = StructuralObject.SetValidValue(value, true, "Cuenta");
+                ReportPropertyChanged("Cuenta");
+                OnCuentaChanged();
+            }
+        }
+        private global::System.String _Cuenta;
+        partial void OnCuentaChanging(global::System.String value);
+        partial void OnCuentaChanged();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_OficiosCuentas_Oficios", "Oficios")]
+        public Oficios Oficios
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Oficios>("SISECOOBModel.FK_OficiosCuentas_Oficios", "Oficios").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Oficios>("SISECOOBModel.FK_OficiosCuentas_Oficios", "Oficios").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Oficios> OficiosReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Oficios>("SISECOOBModel.FK_OficiosCuentas_Oficios", "Oficios");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Oficios>("SISECOOBModel.FK_OficiosCuentas_Oficios", "Oficios", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_OficiosCuentas_TiposCuentas", "TiposCuentas")]
+        public TiposCuentas TiposCuentas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TiposCuentas>("SISECOOBModel.FK_OficiosCuentas_TiposCuentas", "TiposCuentas").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TiposCuentas>("SISECOOBModel.FK_OficiosCuentas_TiposCuentas", "TiposCuentas").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<TiposCuentas> TiposCuentasReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TiposCuentas>("SISECOOBModel.FK_OficiosCuentas_TiposCuentas", "TiposCuentas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TiposCuentas>("SISECOOBModel.FK_OficiosCuentas_TiposCuentas", "TiposCuentas", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -5432,6 +5736,112 @@ namespace SISECOOB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Oficios>("SISECOOBModel.FK_Oficios_TipoOficios", "Oficios", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="TiposCuentas")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TiposCuentas : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto TiposCuentas.
+        /// </summary>
+        /// <param name="tipoCuentaID">Valor inicial de la propiedad TipoCuentaID.</param>
+        public static TiposCuentas CreateTiposCuentas(global::System.Int32 tipoCuentaID)
+        {
+            TiposCuentas tiposCuentas = new TiposCuentas();
+            tiposCuentas.TipoCuentaID = tipoCuentaID;
+            return tiposCuentas;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TipoCuentaID
+        {
+            get
+            {
+                return _TipoCuentaID;
+            }
+            set
+            {
+                if (_TipoCuentaID != value)
+                {
+                    OnTipoCuentaIDChanging(value);
+                    ReportPropertyChanging("TipoCuentaID");
+                    _TipoCuentaID = StructuralObject.SetValidValue(value, "TipoCuentaID");
+                    ReportPropertyChanged("TipoCuentaID");
+                    OnTipoCuentaIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TipoCuentaID;
+        partial void OnTipoCuentaIDChanging(global::System.Int32 value);
+        partial void OnTipoCuentaIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TipoCuenta
+        {
+            get
+            {
+                return _TipoCuenta;
+            }
+            set
+            {
+                OnTipoCuentaChanging(value);
+                ReportPropertyChanging("TipoCuenta");
+                _TipoCuenta = StructuralObject.SetValidValue(value, true, "TipoCuenta");
+                ReportPropertyChanged("TipoCuenta");
+                OnTipoCuentaChanged();
+            }
+        }
+        private global::System.String _TipoCuenta;
+        partial void OnTipoCuentaChanging(global::System.String value);
+        partial void OnTipoCuentaChanged();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SISECOOBModel", "FK_OficiosCuentas_TiposCuentas", "OficiosCuentas")]
+        public EntityCollection<OficiosCuentas> OficiosCuentas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OficiosCuentas>("SISECOOBModel.FK_OficiosCuentas_TiposCuentas", "OficiosCuentas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OficiosCuentas>("SISECOOBModel.FK_OficiosCuentas_TiposCuentas", "OficiosCuentas", value);
                 }
             }
         }

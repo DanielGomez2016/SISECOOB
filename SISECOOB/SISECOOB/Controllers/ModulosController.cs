@@ -132,7 +132,6 @@ namespace SISECOOB.Controllers
             }
         }
 
-        [HttpGet]
         public JsonResult ModulosUsuario(string usuario)
         {
 

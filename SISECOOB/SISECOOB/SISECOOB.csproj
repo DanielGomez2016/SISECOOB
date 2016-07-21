@@ -216,6 +216,7 @@
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\NivelesEducativos.cs" />
     <Compile Include="Models\Oficios.cs" />
+    <Compile Include="Models\OficiosCuentas.cs" />
     <Compile Include="Models\Programas.cs" />
     <Compile Include="Models\SubProgramasEdu.cs" />
     <Compile Include="Models\Telefonos.cs" />

@@ -16,7 +16,7 @@ namespace SISECOOB.Controllers
             return View();
         }
 
-        public JsonResult Buscar(string oficio, string fechaoficio, string fecharecibo, int tipooficio = 0, int page = 1, int pageSize = 15)
+        public JsonResult Buscar(string oficio, DateTime? fechaoficio, DateTime? fecharecibo, int tipooficio = 0, int page = 1, int pageSize = 15)
         {
             SISECOOBEntities db = new SISECOOBEntities();
 
@@ -27,9 +27,9 @@ namespace SISECOOB.Controllers
             if (tipooficio > 0)
                 query = query.Where(i => i.TipoOficio_Fk == tipooficio);
             if (fecharecibo != null)
-                query = query.Where(i => i.FechaRecibo.Value.ToString("yyyy/MM/dd") == fecharecibo);
+                query = query.Where(i => i.FechaRecibo >= fecharecibo);
             if (fechaoficio != null)
-                query = query.Where(i => i.FechaOficio.Value.ToString("yyyy/MM/dd") == fechaoficio);
+                query = query.Where(i => i.FechaOficio >= fechaoficio);
 
             return Json(new
             {
@@ -70,6 +70,7 @@ namespace SISECOOB.Controllers
 
             ViewBag.TipoOficio = db.TipoOficios.Select(i => new { id = i.TipoOficioID, nombre = i.Nombre }).OrderBy(i => i.nombre).ToList();
             ViewBag.Programa = db.Programas.Select(i => new { id = i.ProgramaID, nombre = i.Programa }).OrderBy(i => i.nombre).ToList();
+            ViewBag.TipoCuenta = db.TiposCuentas.Select(i => new { id = i.TipoCuentaID, nombre = i.TipoCuenta }).OrderBy(i => i.nombre).ToList();
 
             Oficios ofis = new Oficios();
 
@@ -94,7 +95,17 @@ namespace SISECOOB.Controllers
         {
             try
             {
-                var of = oficio.Crear();
+                var ofi = oficio.Crear();
+                for (var i = 1; i < oficio.cuentas.Count(); i++)
+                {
+                    OficiosCuentas oc = new OficiosCuentas();
+                    oc.OficioID_Fk = ofi;
+                    oc.TipoCuentaID = Convert.ToInt32(oficio.tiposcuentas[i]);
+                    oc.Cuenta = oficio.cuentas[i];
+                    oc.Monto = Convert.ToInt32(oficio.montos[i]);
+
+                    oc.Crear();
+                }
 
                 return Json(new
                 {
@@ -117,6 +128,27 @@ namespace SISECOOB.Controllers
             try
             {
                 var of = oficio.Editar();
+
+                SISECOOBEntities db = new SISECOOBEntities();
+                List<OficiosCuentas> t = db.OficiosCuentas.Where(i => i.OficioID_Fk == oficio.OficioID).ToList();
+
+                foreach (var i in t)
+                {
+                    db.OficiosCuentas.DeleteObject(i);
+                    db.SaveChanges();
+                }
+
+
+                for (var i = 1; i < oficio.cuentas.Count(); i++)
+                {
+                    OficiosCuentas oc = new OficiosCuentas();
+                    oc.OficioID_Fk = of;
+                    oc.TipoCuentaID = Convert.ToInt32(oficio.tiposcuentas[i]);
+                    oc.Cuenta = oficio.cuentas[i];
+                    oc.Monto = Convert.ToInt32(oficio.montos[i]);
+
+                    oc.Crear();
+                }
 
                 return Json(new
                 {
@@ -153,6 +185,27 @@ namespace SISECOOB.Controllers
                     message = e.Message
                 });
             }
+        }
+
+        public JsonResult Cuentas(string id)
+        {
+            SISECOOBEntities db = new SISECOOBEntities();
+
+            IQueryable<OficiosCuentas> query = db.OficiosCuentas.Where(i => i.OficioID_Fk == id);
+
+            return Json(new
+            {
+                total = query.Count(),
+                tc = db.TiposCuentas.Select(i => new { id = i.TipoCuentaID, tipo = i.TipoCuenta }).ToList(),
+                datos = query.Select(i => new
+                {
+                    id = i.OficioID_Fk,
+                    tipocuenta = i.TipoCuentaID,
+                    cuenta = i.Cuenta,
+                    monto = i.Monto,
+        })
+                             .ToList()
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }

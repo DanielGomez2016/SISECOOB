@@ -30,6 +30,12 @@
                 </div>
             </div>
             <div class="form-group col-md-12">
+                @Html.LabelFor(m => m.TipoOficios, new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.DropDownList("TipoOficios", new SelectList(ViewBag.TipoOficio, "id", "nombre"), "", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-12">
                 @Html.LabelFor(m => m.Asunto, new { @class = "col-md-6 control-label" })
                 <div class="col-md-12">
                     @Html.TextBoxFor(m => m.Asunto, new { @class = "form-control" })
@@ -48,21 +54,25 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12">
-                <table id="ttelefonos" class="table table-hover">
+                <table id="tcuentas" class="table table-hover">
                     <thead>
-                        <tr>
-                            <th class="col-md-4">Tipo Telefono</th>
-                            <th class="col-md-4">Telefono</th>
-                            <th class="col-md-4"><button type="button" value="Nuevo Telefono" id="btnagregar" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Nuevo Telefono</button></th>
+                        <tr class="text-center">
+                            <th class="col-md-3">Tipo de cuenta</th>
+                            <th class="col-md-5">Cuenta</th>
+                            <th class="col-md-2">Monto</th>
+                            <th class="col-md-2"><button type="button" value="Nueva Cuenta" id="btnagregar" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Nueva Cuenta</button></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="hidden" id="telefono" name="telefono">
+                        <tr class="hidden" id="cuenta" name="cuenta">
                             <td>
-                                @*@Html.DropDownList("tipotelefono", new SelectList(ViewBag.TipoTel, "id", "nombre"), "Todos", new { @class = "form-control" })*@
+                                @Html.DropDownList("tipocuenta", new SelectList(ViewBag.TipoCuenta, "id", "nombre"), "", new { @class = "form-control" })
                             </td>
                             <td>
-                                <input name="telefonos" class="form-control" />
+                                <input name="cuentas" class="form-control" />
+                            </td>
+                            <td>
+                                <input name="montos" class="form-control" />
                             </td>
                             <td>
                                 <button type="button" class="btn-sm btn-danger" name="btneliminar"><span class="glyphicon glyphicon-trash"></span></button>
@@ -76,4 +86,28 @@
 }
 <script>
     $(".datepicker").datepicker();
+
+    //agregar telefonos de la escuela
+    var i = 1;
+    $('#btnagregar').click(function () {
+
+        var cuenta = $('#cuenta');
+        var cuentaClon = cuenta.clone();
+        cuentaClon.removeAttr('id');
+        cuentaClon.removeClass('hidden');
+        cuentaClon.attr('data-control', i);
+
+        var btne = cuentaClon.find('[name=btneliminar]');
+        btne.attr('data-cont', i);
+
+        var html = $('#tcuentas tbody');
+        html.append(cuentaClon);
+        i++;
+    });
+
+    $('#tcuentas').on('click', 'button[name="btneliminar"]', function () {
+        var data = $(this).data('cont');
+        var eliminar = $('[data-control="' + data + '"]');
+        eliminar.remove();
+    });
 </script>

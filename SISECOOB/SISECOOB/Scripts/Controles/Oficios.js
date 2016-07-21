@@ -113,9 +113,22 @@ $('#guardar').click(function () {
 });
 
 function Crear() {
-    var tipotelefono = new Array();
-    var telefonos = new Array();
+    var tiposcuentas = new Array();
+    var cuentas = new Array();
+    var montos = new Array();
     var form = $('#nuevooficio form');
+
+    $('#nuevooficio select[name=tipocuenta]').each(function () {
+        tiposcuentas.push($(this).val());
+    });
+
+    $('#nuevooficio input[name=cuentas]').each(function () {
+        cuentas.push($(this).val());
+    });
+
+    $('#nuevooficio input[name=montos]').each(function () {
+        montos.push($(this).val());
+    });
 
     form.removeData('validator');
     form.removeData('unobtrusiveValidation');
@@ -158,6 +171,52 @@ $('#toficio').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
 
+//llenar los telefonos al momento de editar la escuela
+function llenarcuentas(id) {
+    $.ajax({
+        type: "GET",
+        url: '/Oficios/Cuentas',
+        data: { id: id },
+        beforeSend: function () {
+            Loading('Buscando');
+        }
+    })
+    .always(function () {
+        Loading();
+    })
+    .done(function (data) {
+
+        var t = $('#ttelefonos tbody');
+
+        if (data.datos.length > 0) {
+            var html = '<tr name="cuenta" data-control="x{x}">'
+                      + '<td>{opciones}</td>'
+                      + '<td><input name="cuentas" class="form-control" value="{ceunta}"/></td>'
+                      + '<td><input name="montos" class="form-control" value="{monto}"/></td>'
+                      + '<td><button type="button" data-cont="x{x}" class="btn-sm btn-danger" name="btneliminar">'
+                      + '<span class="glyphicon glyphicon-trash"></span></button></td></tr>';
+            var x = 1;
+            data.datos.map(function (e) {
+                e.x = x;
+                e.opciones = '<select class="form-control" name="tipocuenta">';
+
+                for (var i = 0; i < data.tc.length; i++) {
+                    if (data.tc[i].tipo == e.tipo) {
+                        e.opciones += '<option value="' + data.tc[i].id + '" selected="selected">' + data.tc[i].tipo + '</option>'
+                    } else {
+                        e.opciones += '<option value="' + data.tc[i].id + ' ">' + data.tc[i].tipo + '</option>'
+                    }
+                }
+                e.opciones += '</select>';
+
+                temp = html.format(e);
+                t.append(temp);
+                x++;
+            });
+        }
+    });
+}
+
 function Editar(id) {
     $('#titulo').text('Editar Oficio');
     $.ajax({
@@ -175,7 +234,7 @@ function Editar(id) {
             $('#editaroficio').find('.modal-body').append(html);
             $('#editaroficio').modal('show');
 
-            llenarTelefono(id);
+            llenarcuentas(id);
         },
         error: function () {
             AlertError('No se pudo cargar el registro. Intente nuevamente.');
@@ -190,7 +249,22 @@ $('#Editando').click(function () {
 
 function Editando() {
 
+    var tiposcuentas = new Array();
+    var cuentas = new Array();
+    var montos = new Array();
     var form = $('#editaroficio form');
+
+    $('#nuevooficio select[name=tipocuenta]').each(function () {
+        tiposcuentas.push($(this).val());
+    });
+
+    $('#nuevooficio input[name=cuentas]').each(function () {
+        cuentas.push($(this).val());
+    });
+
+    $('#nuevooficio input[name=montos]').each(function () {
+        montos.push($(this).val());
+    });
 
     $.validator.unobtrusive.parse(form);
     var url = null;

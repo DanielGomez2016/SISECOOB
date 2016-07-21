@@ -588,69 +588,70 @@ $("#btnModulos").click(function () {
     AbrirModulos($('#idusu').val());
 });
 
-function AbrirModulos(usuario) {
+function AbrirModulos(user) {
     $.ajax({
         type: "GET",
         url: '/Modulos/ModulosUsuario',
-        data: {usuario: usuario},
+        data: {usuario: user},
         beforeSend: function () {
             Loading('Cargando');
-        }
-    })
-    .always(function () {
-        Loading();
-    })
-    .done(function (data) {
-        $('#usuariomodulos').val(usuario);
-        $('#Detallemodel').modal('hide');
-        $('#AgrModulos').modal('show');
+        },
+        success: function (data) {
+            $('#usuariomodulos').val(user);
+            $('#Detallemodel').modal('hide');
+            $('#AgrModulos').modal('show');
 
-        for (n = 0; n < data.datos.length; n++) {
+            for (n = 0; n < data.datos.length; n++) {
 
-        var t = $('#'+data.datos[n].nombre+'-body').empty();
+                var t = $('#' + data.datos[n].nombre + '-body').empty();
 
-        if (data.total > 0) {
-            var html = '<div>{submenu}</div>';
+                if (data.total > 0) {
+                    var html = '<div>{submenu}</div>';
 
-            data.datos.map(function (e) {
+                    data.datos.map(function (e) {
 
-                if (e.nivel == 0 && data.datos[n].nombre == e.nombre) {
-                    e.submenu = '<div">';
-                    if (e.selected) {
-                        e.submenu += '<label class="col-md-12"><input data-accion id="' + e.nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
-                    } else {
-                        e.submenu += '<label class="col-md-12"><input data-accion id="' + e.nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
-                    }
-
-                    if (e.hijos.length > 0 ) {
-                        
-                        for (i = 0; i < e.hijos.length; i++) {
-
-                            if (e.hijos[i].selected) {
-                                e.submenu += '<label class="col-md-12"><input data-accion data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                        if (e.nivel == 0 && data.datos[n].nombre == e.nombre) {
+                            e.submenu = '<div">';
+                            if (e.selected) {
+                                e.submenu += '<label class="col-md-12"><input data-accion id="' + e.nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
                             } else {
-                                e.submenu += '<label class="col-md-12"><input data-accion data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                                e.submenu += '<label class="col-md-12"><input data-accion id="' + e.nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.menuid + '"> Todos de ' + e.nombre + '</label>';
                             }
 
-                            if (e.hijos[i].hijos.length > 0) {
-                                for (j = 0; j < e.hijos[i].hijos.length; j++) {
-                                    if (e.hijos[i].hijos[j].selected) {
-                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-accion data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                            if (e.hijos.length > 0) {
+
+                                for (i = 0; i < e.hijos.length; i++) {
+
+                                    if (e.hijos[i].selected) {
+                                        e.submenu += '<label class="col-md-12"><input data-accion data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
                                     } else {
-                                        e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-accion data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                        e.submenu += '<label class="col-md-12"><input data-accion data-id="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].menuid + '">' + e.hijos[i].nombre + '</label>';
+                                    }
+
+                                    if (e.hijos[i].hijos.length > 0) {
+                                        for (j = 0; j < e.hijos[i].hijos.length; j++) {
+                                            if (e.hijos[i].hijos[j].selected) {
+                                                e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-accion data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" checked type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                            } else {
+                                                e.submenu += '<label class="col-md-10 col-md-offset-2"><input data-accion data-ids="' + e.hijos[i].hijos[j].nombre + '" data-name="' + e.hijos[i].nombre + '" name="' + e.nombre + '" type="checkbox" value="' + e.hijos[i].hijos[j].menuid + '">' + e.hijos[i].hijos[j].nombre + '</label>';
+                                            }
+                                        }
                                     }
                                 }
+                                e.submenu += '</div>';
                             }
+
+
+                            t.append(html.format(e));
                         }
-                        e.submenu += '</div>';
-                    }
-                    
-                
-                t.append(html.format(e));}
-            });
-        }
-        else
-            t.html('<tr><td class="text-center" colspan="6">No se encontraron resultados</td></tr>');
+                    });
+                }
+                else
+                    t.html('<tr><td class="text-center" colspan="6">No se encontraron resultados</td></tr>');
+            }
+        },
+        error: function () {
+            AlertError('No se pudo cargar el registro. Intente nuevamente.');
         }
     });
 }
