@@ -88,6 +88,7 @@
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
     <script>
+
         // Menu
         $.ajax({
             url: '@Url.Action("CargarMenu","Utilidades")',
@@ -135,7 +136,7 @@
                     });
                 }
             }
-        });
+        })(jQuery);
     </script>
     <style>
         .dropdown-submenu {
