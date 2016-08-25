@@ -958,8 +958,6 @@
     <Content Include="Content\assets\js\wizard\lib\modernizr-2.6.2.min.js" />
     <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap-select\bootstrap-select.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
@@ -1070,8 +1068,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap-select.js" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controles\CapitulodeObra.js" />
     <Content Include="Scripts\Controles\Conceptos.js" />
@@ -1092,7 +1088,6 @@
     <Content Include="Scripts\Controles\Utilidades.js" />
     <Content Include="Scripts\Controles\Zonas.js" />
     <Content Include="Scripts\fullcalendar.css" />
-    <Content Include="Scripts\InfoAutocomplete.js" />
     <EntityDeploy Include="Models\Db.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Db.Designer.cs</LastGenOutput>
@@ -1107,18 +1102,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-1.8.js" />
-    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
-    <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
-    <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Scripts\Jquery-ui-1.11.4.js" />
     <Content Include="Scripts\Jquery-ui-1.10.2.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1170,9 +1160,6 @@
     <Content Include="Scripts\plugins\OpenLayers\ol.js" />
     <Content Include="Scripts\plugins\terraformer\terraformer-1.0.3.min.js" />
     <Content Include="Scripts\plugins\terraformer\terraformer-wkt-parser.min.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\uaparser.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

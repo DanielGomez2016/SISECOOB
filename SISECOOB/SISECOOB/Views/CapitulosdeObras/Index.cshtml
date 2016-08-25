@@ -11,15 +11,15 @@
             <h4></h4>
             <br />
         </div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-4">
             @Html.Label("Clave")
             @Html.TextBox("clave", "", new { @class = "form-control" })
         </div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-4">
             @Html.Label("Capitulo")
             @Html.TextBox("capitulo", "", new { @class = "form-control" })
         </div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-4">
             <br />
             <div class="btn-group">
                 <input type="submit" value="Buscar" class="btn btn-sm btn-primary" />
@@ -31,10 +31,10 @@
 <table id="tcapitulo" class="table table-hover table-stripped">
     <thead>
         <tr>
-            <th class="col-md-3">Identificador</th>
-            <th class="col-md-3">Departamento</th>
-            <th class="col-md-3">Jefe Depto</th>
-            <th class="col-md-3"></th>
+            <th class="col-md-3 col-xs-3">Identificador</th>
+            <th class="col-md-3 col-xs-3">Clave</th>
+            <th class="col-md-3 col-xs-3">Capitulo</th>
+            <th class="col-md-3 col-xs-3"></th>
         </tr>
     </thead>
     <tbody>

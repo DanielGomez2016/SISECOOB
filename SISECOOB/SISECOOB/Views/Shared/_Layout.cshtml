@@ -12,19 +12,18 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/assets/js/button/ladda/ladda.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/site.css")">
 
-    @RenderSection("styles", required: false)
-    @Scripts.Render("~/bundles/modernizr")
-     @Scripts.Render("~/bundles/jquery")
-     @*@Scripts.Render("~/bundles/bootstrap")*@
+     @RenderSection("styles", required: false)
 
-    <!-- MAIN EFFECT -->
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+     @Scripts.Render("~/bundles/modernizr")
 
-    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/preloader.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/bootstrap.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/app.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Content/assets/js/load.js")"></script>
+     <!-- MAIN EFFECT -->
+     <script type="text/javascript" src="@Url.Content("~/Content/assets/js/preloader.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Content/assets/js/bootstrap.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Content/assets/js/app.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Content/assets/js/load.js")"></script>
      <script type="text/javascript" src="@Url.Content("~/Content/assets/js/main.js")"></script>
-     
+
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -48,10 +47,18 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
-                    @if (Request.IsAuthenticated && User.IsInRole("Administrator")) {
-                        <li>@Html.ActionLink("Administracion Roles", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("Administracion Usuarios", "Index", "UsersAdmin")</li>
-                        <li>@Html.ActionLink("Modulos", "Index", "Modulos")</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+                    {
+                        <li class=" dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administracion Sistema <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Administracion Roles", "Index", "RolesAdmin")</li>
+                                    <li>@Html.ActionLink("Administracion Usuarios", "Index", "UsersAdmin")</li>
+                                    <li>@Html.ActionLink("Modulos", "Index", "Modulos")</li>
+                                </ul>
+                            </li>
+
+                        
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
                     {
@@ -136,7 +143,7 @@
                     });
                 }
             }
-        })(jQuery);
+        });
     </script>
     <style>
         .dropdown-submenu {

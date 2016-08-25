@@ -12,14 +12,14 @@
 }
 body {
     color: #606060!important;
-    /*font-family:"Open Sans", Arial, sans-serif!important;*/
+    font-family:"Open Sans", Arial, sans-serif!important;
     font-size: 12px!important;
     line-height: 20px;
     overflow-x: hidden!important;
     min-height: 100%;
     z-index: -2;
     margin: 0px !important;
-    background: url('../img/bg.jpg') no-repeat top center fixed;
+    /*background: url('../img/bg.jpg') no-repeat top center fixed;*/
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -131,8 +131,8 @@ body {
 .navbar {
     border: 1px solid rgba(0, 0, 0, 0);
     margin-bottom: 0!important;
-    margin-top: -10px!important;
-    min-height: 50px!important;
+    margin-top: -12px!important;
+    min-height: 65px!important;
     position: relative!important;
 }
 .navbar-inner {
