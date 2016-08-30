@@ -960,8 +960,11 @@
     <Content Include="Content\bootstrap-select\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap-336.min.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\ajax-loading.gif" />
     <Content Include="Content\images\background-login.jpg" />
     <Content Include="Content\images\background-paloma.png" />
@@ -979,15 +982,6 @@
     <Content Include="Content\images\pin.png" />
     <Content Include="Content\images\video.png" />
     <Content Include="Content\loader-style.css" />
-    <Content Include="Content\PlantillasEmail\AutorizacionDemandaSocial.html" />
-    <Content Include="Content\PlantillasEmail\EntregaDemandaSocial.html" />
-    <Content Include="Content\PlantillasEmail\NotificacionEvento.html" />
-    <Content Include="Content\PlantillasEmail\NotificacionSMS.html" />
-    <Content Include="Content\PlantillasEmail\NotificacionSMSPropietario.html" />
-    <Content Include="Content\PlantillasEmail\NotificacionUsuario.html" />
-    <Content Include="Content\PlantillasEmail\ReporteFalla.html" />
-    <Content Include="Content\PlantillasEmail\RespuestaReporteFalla.html" />
-    <Content Include="Content\PlantillasEmail\SolicitudReporte.html" />
     <Content Include="Content\plugins\BasicPrimitives\primitives.css" />
     <Content Include="Content\plugins\dataTables\dataTables.bootstrap.css" />
     <Content Include="Content\plugins\farbtastic\farbtastic.css" />
@@ -1098,6 +1092,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\bootstrap-336.min.css.map" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1106,7 +1106,6 @@
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-1.8.js" />
-    <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\Jquery-ui-1.11.4.js" />
