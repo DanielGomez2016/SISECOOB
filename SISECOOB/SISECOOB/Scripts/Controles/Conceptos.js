@@ -54,7 +54,7 @@ function buscar() {
         var t = $('#tconcepto tbody').empty();
 
         if (data.total > 0) {
-            var html = '<td class="col-md-2">{clave}</td>'
+            var html = '<tr><td class="col-md-2">{clave}</td>'
                 + '<td class="col-md-2">{concepto}</td>'
                 + '<td class="col-md-3">{desc}</td>'
                 + '<td class="col-md-1">{unidad}</td>'
