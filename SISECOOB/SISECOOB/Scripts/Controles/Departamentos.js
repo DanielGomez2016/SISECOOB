@@ -5,11 +5,11 @@ $(document).ready(function () {
     });
 
     //nos permite solo marcar un checkbox con el mismo name
-    $('input[type=checkbox]').live('click', function () {
-        var parent = $(this).attr('name');
-        $('[name=' + parent + ']').prop('checked', false);
-        $(this).attr('checked', 'checked');
-    });
+    //$('input[type=checkbox]').live('click', function () {
+    //    var parent = $(this).attr('name');
+    //    $('[name=' + parent + ']').prop('checked', false);
+    //    $(this).attr('checked', 'checked');
+    //});
 
     //paginacion de las tablas
     pag = new Paginacion({
@@ -31,7 +31,7 @@ $(document).ready(function () {
     }, 2000);
 });
 
-//funcion de javascript para buscar usuarios y llenar la tabla
+//funcion de javascript para buscar deptos y llenar la tabla
 function buscar() {
     var form = $('#fBusqueda');
 
@@ -73,7 +73,7 @@ function buscar() {
     });
 }
 
-//funcion javascript para abrir la vista de crear un nuevo municipio en un modal
+//funcion javascript para abrir la vista de crear un nuevo depto en un modal
 
 $('#Nuevo').click(function () {
     Nuevo();
@@ -138,7 +138,7 @@ function Crear() {
 }
 
 
-//abrir modal para actualizar la informacion del municipio
+//abrir modal para actualizar la informacion del depto
 $('#tdepto').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
@@ -205,7 +205,7 @@ function Editando() {
     }
 }
 
-//eliminar el municipio
+//eliminar el depto
 
 $('#tdepto').on('click', 'button[name="eliminar"]', function () {
     Elimina($(this).val());

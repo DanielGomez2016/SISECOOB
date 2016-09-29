@@ -18,7 +18,7 @@ namespace SISECOOB.Models
             [Display(Name = "Departamento")]
             public string Departamento { get; set; }
 
-            [Display(Name = "Departamento")]
+            [Display(Name = "Jefe Departamento")]
             public string JefeDepto { get; set; }
 
         }
