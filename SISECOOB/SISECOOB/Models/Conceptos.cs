@@ -27,7 +27,7 @@ namespace SISECOOB.Models
             public string Unidad { get; set; }
 
             [Display(Name = "Precio")]
-            public double Precio { get; set; }
+            public float Precio { get; set; }
 
         }
         public void Crear()

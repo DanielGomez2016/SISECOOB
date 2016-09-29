@@ -19,7 +19,6 @@ $(document).ready(function () {
         info: true
     });
 
-
     //realiza la busqueda en nuestra pagina
     $('#fBusqueda').submit(function (e) {
         e.preventDefault();
@@ -54,15 +53,15 @@ function buscar() {
         var t = $('#tcontratista tbody').empty();
 
         if (data.total > 0) {
-            var html = '<tr><td class="col-md-1">{id}</td>'
+            var html = '<tr>'
                 + '<td class="col-md-2">{nombre}</td>'
                 + '<td class="col-md-1">{rfc}</td>'
                 + '<td class="col-md-1">{curp}</td>'
-                + '<td class="col-md-2">{vigencia}</td>'
+                + '<td class="col-md-1">{vigencia}</td>'
                 + '<td class="col-md-2">{email}</td>'
-                + '<td class="col-md-3">'
+                + '<td class="col-md-5">'
                 + '<button type="button" name="detalle" value="{id}" class="btn btn-default">Detalle</button>'
-                + '<button type="button" name="editar" value="{id}" class="btn btn-info">Editar</button>'
+                + ' <button type="button" name="editar" value="{id}" class="btn btn-info">Editar</button>'
                 + ' <button type="button" name="eliminar" value="{id}" class="btn btn-danger">Eliminar</button></td></tr>';
 
             data.datos.map(function (e) {
@@ -77,7 +76,7 @@ function buscar() {
     });
 }
 
-//funcion javascript para abrir la vista de crear un nuevo municipio en un modal
+//funcion javascript para abrir la vista de crear un nuevo contratista en un modal
 
 $('#Nuevo').click(function () {
     Nuevo();
@@ -97,6 +96,7 @@ function Nuevo() {
         },
         success: function (html) {
             $('#nuevocontratista').find('.modal-body form').remove();
+            $('#nuevocontratista').find('.modal-body').empty();
             $('#nuevocontratista').find('.modal-body').append(html);
             $('#nuevocontratista').modal('show');
         },
@@ -113,6 +113,7 @@ $('#guardar').click(function () {
 function Crear() {
     var tipotelefono = new Array();
     var telefonos = new Array();
+    var personafisicas = new Array();
     var form = $('#nuevocontratista form');
 
     $('#nuevocontratista select[name=tipotelefono]').each(function () {
@@ -121,6 +122,10 @@ function Crear() {
 
     $('#nuevocontratista input[name=telefonos]').each(function () {
         telefonos.push($(this).val());
+    });
+
+    $('#nuevocontratista input[name=personafisica]').each(function () {
+        personafisicas.push($(this).is(":checked"));
     });
 
     form.removeData('validator');
@@ -159,7 +164,7 @@ function Crear() {
 }
 
 
-//abrir modal para actualizar la informacion del municipio
+//abrir modal para actualizar la informacion del contratista
 $('#tcontratista').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
@@ -178,6 +183,7 @@ function Editar(id) {
         },
         success: function (html) {
             $('#editarcontratista').find('.modal-body form').remove();
+            $('#nuevocontratista').find('.modal-body').empty();
             $('#editarcontratista').find('.modal-body').append(html);
             $('#editarcontratista').modal('show');
 
@@ -189,7 +195,7 @@ function Editar(id) {
     });
 }
 
-//llenar los telefonos al momento de editar la escuela
+//llenar los telefonos al momento de editar el contratista
 function llenarTelefono(id) {
     $.ajax({
         type: "GET",
@@ -283,7 +289,7 @@ function Editando() {
     }
 }
 
-//eliminar el municipio
+//eliminar el contratista
 
 $('#tcontratista').on('click', 'button[name="eliminar"]', function () {
     Elimina($(this).val());
@@ -335,6 +341,7 @@ function Detalles(id) {
         },
         success: function (html) {
             $('#detallecontratista').find('.modal-body form').remove();
+            $('#detallecontratista').find('.modal-body').empty();
             $('#detallecontratista').find('.modal-body').append(html);
             $('#detallecontratista').modal('show');
         },
@@ -344,34 +351,3 @@ function Detalles(id) {
     });
 }
 
-$('.datepicker').datetimepicker({
-    timeFormat: "hh:mm tt",
-    dateFormat: 'yy/mm/dd',
-    stepMinute: 5,
-    controlType: 'select',
-});
-
-$.datepicker.regional['es'] = {
-    closeText: 'Cerrar',
-    prevText: '<Ant',
-    nextText: 'Sig>',
-    currentText: 'Hoy',
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-    weekHeader: 'Sm',
-    dateFormat: 'yy/mm/dd',
-    firstDay: 1,
-    isRTL: false,
-    showMonthAfterYear: false,
-    yearSuffix: ''
-};
-
-$.datepicker.setDefaults($.datepicker.regional['es']);
-
-
-function addMinutes(date, minutes) {
-    return new Date(date.getTime() + minutes * 60000);
-}

@@ -95,6 +95,7 @@ namespace SISECOOB.Models
         }
         public string[] telefonos { get; set; }
         public string[] tipotelefono { get; set; }
+        public Boolean[] personafisicas { get; set; }
 
         public int Crear()
         {

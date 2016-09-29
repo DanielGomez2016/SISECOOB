@@ -36,7 +36,7 @@ namespace SISECOOB.Controllers
                                  nombre = i.Nombre,
                                  curp = i.CURP,
                                  rfc = i.RFC,
-                                 vigencia = i.Vigencia.Value.ToString("yyyy/MM/dd"),
+                                 vigencia = i.Vigencia != null ? i.Vigencia.Value.ToString("yyyy/MM/dd") : "",
                                  email = i.Email
                              })
                              .ToList()

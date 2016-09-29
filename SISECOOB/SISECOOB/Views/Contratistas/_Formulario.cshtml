@@ -7,8 +7,15 @@
         <ul class="nav nav-tabs">
             <li class="active remove"><a data-toggle="tab" href="#home">Datos Generales</a></li>
             <li class="remove"><a data-toggle="tab" href="#menu1">Representante Legal</a></li>
-            <li class="hidden personafisica"><a data-toggle="tab" href="#menu3">Acta de Nacimiento</a></li>
-            <li class="actaconstitutiva"><a data-toggle="tab" href="#menu2">Acta Constitutiva</a></li>
+            @if (Model.personafisica == true)
+            {
+                <li class="personafisica"><a data-toggle="tab" href="#menu3">Acta de Nacimiento</a></li>
+                <li class="hidden actaconstitutiva"><a data-toggle="tab" href="#menu2">Acta Constitutiva</a></li>
+            }
+            else { 
+                <li class="hidden personafisica"><a data-toggle="tab" href="#menu3">Acta de Nacimiento</a></li>
+                <li class="actaconstitutiva"><a data-toggle="tab" href="#menu2">Acta Constitutiva</a></li>
+            }
         </ul>
 
         <div class="tab-content">
@@ -31,7 +38,7 @@
                 </div>
                 <div class="col-md-6">
                     @Html.LabelFor(i => i.Vigencia)
-                    @Html.TextBoxFor(i => i.Vigencia, new { @class = "form-control datepicker", Value = (Model != null && Model.Vigencia != null ? Model.Vigencia.Value.ToString("yyyy/MM/dd") : "") })
+                    @Html.TextBoxFor(i => i.Vigencia, new { @class = "form-control fecha", type ="date", Value = (Model != null && Model.Vigencia != null ? Model.Vigencia.Value.ToString("yyyy-MM-dd") : "") })
                 </div>
                 <div class="col-md-6">
                     @Html.LabelFor(i => i.CURP)
@@ -85,7 +92,7 @@
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.FechaRepleg)
-                    @Html.TextBoxFor(i => i.FechaRepleg, new { @class = "form-control datepicker", Value = (Model != null && Model.FechaRepleg != null ? Model.FechaRepleg.Value.ToString("yyyy/MM/dd") : "") })
+                    @Html.TextBoxFor(i => i.FechaRepleg, new { @class = "form-control fecha", type = "date", Value = (Model != null && Model.FechaRepleg != null ? Model.FechaRepleg.Value.ToString("yyyy-MM-dd") : "") })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.NumNotario)
@@ -100,7 +107,9 @@
                     @Html.TextBoxFor(i => i.Residencia, new { @class = "form-control" })
                 </div>
             </div>
-            <div id="menu2" class="tab-pane fade col-md-6 actaconstitutiva">
+            @if (Model.personafisica != false)
+            {
+            <div id="menu2" class="tab-pane fade col-md-6 actaconstitutiva hidden">
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.NumEscrituraActCons)
                     @Html.TextBoxFor(i => i.NumEscrituraActCons, new { @class = "form-control valorremove" })
@@ -111,7 +120,7 @@
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.FechaActa)
-                    @Html.TextBoxFor(i => i.FechaActa, new { @class = "form-control datepicker", Value = (Model != null && Model.FechaActa != null ? Model.FechaActa.Value.ToString("yyyy/MM/dd") : "") })
+                    @Html.TextBoxFor(i => i.FechaActa, new { @class = "form-control valorremove fecha", type = "date", Value = (Model != null && Model.FechaActa != null ? Model.FechaActa.Value.ToString("yyyy-MM-dd") : "") })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.NumNotarioActCons)
@@ -126,14 +135,14 @@
                     @Html.TextBoxFor(i => i.ResidenciaActCons, new { @class = "form-control valorremove" })
                 </div>
             </div>
-            <div id="menu3" class="tab-pane fade col-md-6 hidden personafisica">
+            <div id="menu3" class="tab-pane fade col-md-6  personafisica">
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.NumActa)
                     @Html.TextBoxFor(i => i.NumActa, new { @class = "form-control valorremove" })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.FechaNacimiento)
-                    @Html.TextBoxFor(i => i.FechaNacimiento, new { @class = "form-control valorremove datepicker", Value = (Model != null && Model.FechaNacimiento != null ? Model.FechaNacimiento.Value.ToString("yyyy/MM/dd") : "") })
+                    @Html.TextBoxFor(i => i.FechaNacimiento, new { @class = "form-control valorremove fecha", type = "date", Value = (Model != null && Model.FechaNacimiento != null ? Model.FechaNacimiento.Value.ToString("yyyy-MM-dd") : "") })
                 </div>
                 <div class="col-md-12">
                     @Html.LabelFor(i => i.LugarNac)
@@ -144,21 +153,64 @@
                     @Html.TextBoxFor(i => i.LugarRegistro, new { @class = "form-control valorremove" })
                 </div>
             </div>
+            }
+            else
+            {
+                <div id="menu2" class="tab-pane fade col-md-6 actaconstitutiva">
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.NumEscrituraActCons)
+                        @Html.TextBoxFor(i => i.NumEscrituraActCons, new { @class = "form-control valorremove" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.Volumen)
+                        @Html.TextBoxFor(i => i.Volumen, new { @class = "form-control valorremove" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.FechaActa)
+                        @Html.TextBoxFor(i => i.FechaActa, new { @class = "form-control valorremove fecha", type = "date", Value = (Model != null && Model.FechaActa != null ? Model.FechaActa.Value.ToString("yyyy-MM-dd") : "") })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.NumNotarioActCons)
+                        @Html.TextBoxFor(i => i.NumNotarioActCons, new { @class = "form-control valorremove" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.NomNotarioActCons)
+                        @Html.TextBoxFor(i => i.NomNotarioActCons, new { @class = "form-control valorremove" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.ResidenciaActCons)
+                        @Html.TextBoxFor(i => i.ResidenciaActCons, new { @class = "form-control valorremove" })
+                    </div>
+                </div>
+                <div id="menu3" class="tab-pane fade col-md-6 hidden personafisica">
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.NumActa)
+                        @Html.TextBoxFor(i => i.NumActa, new { @class = "form-control valorremove" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.FechaNacimiento)
+                        @Html.TextBoxFor(i => i.FechaNacimiento, new { @class = "form-control valorremove fecha", type = "date", Value = (Model != null && Model.FechaNacimiento != null ? Model.FechaNacimiento.Value.ToString("yyyy-MM-dd") : "") })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.LugarNac)
+                        @Html.TextBoxFor(i => i.LugarNac, new { @class = "form-control valorremove" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(i => i.LugarRegistro)
+                        @Html.TextBoxFor(i => i.LugarRegistro, new { @class = "form-control valorremove" })
+                    </div>
+                </div>
+            }
         </div>
     </div>
     <br /><br />
     <div class="col-md-6" id="perfisica">
-        @if (Model.personafisica == true)
-        {
-        <label><input data-persona type="checkbox" class="" checked /> Persona Fisica</label>
-        }
-        else
-        {
-            <label><input data-persona type="checkbox" class="" /> Persona Fisica</label>
-        }
+        @Html.LabelFor(i => i.personafisica)
+        @Html.CheckBox("personafisica", new { @class = "perfisica", Value = (Model != null && Model.personafisica != false ? true : false) })
     </div>
 
 }
+
 <script>
     //agregar telefonos de la escuela
     var i = 1;
@@ -178,7 +230,7 @@
         i++;
     });
 
-    $('#perfisica').on('change', '[data-persona]', function () {
+    $('#perfisica').on('change', 'input[name="personafisica"]', function () {
         var valor = $(this).is(":checked");
         if (valor) {
             $('.personafisica').removeClass('hidden');
@@ -204,7 +256,5 @@
         var eliminar = $('[data-control="' + data + '"]');
         eliminar.remove();
     });
-
-    $(".datepicker").datepicker();
 
 </script>

@@ -32,7 +32,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -984,6 +984,17 @@
     <Content Include="Content\loader-style.css" />
     <Content Include="Content\plugins\BasicPrimitives\primitives.css" />
     <Content Include="Content\plugins\dataTables\dataTables.bootstrap.css" />
+    <Content Include="Content\plugins\datepicker\css\bootstrap.min.css" />
+    <Content Include="Content\plugins\datepicker\css\qunit.css" />
+    <Content Include="Content\plugins\datepicker\dist\datepicker.css" />
+    <Content Include="Content\plugins\datepicker\dist\datepicker.js" />
+    <Content Include="Content\plugins\datepicker\dist\datepicker.min.css" />
+    <Content Include="Content\plugins\datepicker\dist\datepicker.min.js" />
+    <Content Include="Content\plugins\datepicker\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\plugins\datepicker\js\bootstrap.min.js" />
+    <Content Include="Content\plugins\datepicker\js\jquery.min.js" />
+    <Content Include="Content\plugins\datepicker\js\qunit.js" />
+    <Content Include="Content\plugins\datepicker\src\datepicker.js" />
     <Content Include="Content\plugins\farbtastic\farbtastic.css" />
     <Content Include="Content\plugins\farbtastic\marker.png" />
     <Content Include="Content\plugins\farbtastic\mask.png" />
@@ -1098,11 +1109,17 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\plugins\datepicker\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\plugins\datepicker\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\plugins\datepicker\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\plugins\datepicker\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\plugins\datepicker\src\datepicker.scss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jqueri-ui-1.10.1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-1.8.js" />
