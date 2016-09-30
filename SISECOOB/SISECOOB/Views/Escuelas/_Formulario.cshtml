@@ -137,4 +137,31 @@
         var eliminar = $('[data-control="' + data + '"]');
         eliminar.remove();
     });
+
+    $('#Municipio_fk').on('change', function () {
+        var municipio = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Utilidades/CargarLocalidades',
+            data: { municipio: municipio },
+            success: function (data) {
+                var t = $('#Localidad_fk').empty();
+                t.append('<option value="0">Seleccione Localidad</option>');
+
+                if (data.datos.length > 0) {
+                    var html = '<option value="{id}">{nombre}</option>'
+
+                    data.datos.map(function (e) {
+                        temp = html.format(e);
+                        t.append(temp);
+                    });
+                }
+            },
+            error: function () {
+                AlertError('No se pudo cargar el formulario. Intente nuevamente.');
+            }
+        });
+    });
+
 </script>

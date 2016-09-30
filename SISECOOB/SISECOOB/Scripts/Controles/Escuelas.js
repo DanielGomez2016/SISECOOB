@@ -12,7 +12,7 @@ $(document).ready(function () {
     //});
 
 
-    $('#municipio').live('change', function () {
+    $('#municipio').on('change', function () {
         var municipio = $(this).val();
         
         $.ajax({
@@ -38,31 +38,6 @@ $(document).ready(function () {
         });
     });
 
-    $('#Municipio_fk').live('change', function () {
-        var municipio = $(this).val();
-
-        $.ajax({
-            type: 'POST',
-            url: '/Utilidades/CargarLocalidades',
-            data: { municipio: municipio },
-            success: function (data) {
-                var t = $('#Localidad_fk').empty();
-                t.append('<option value="0">Seleccione Localidad</option>');
-
-                if (data.datos.length > 0) {
-                    var html = '<option value="{id}">{nombre}</option>'
-
-                    data.datos.map(function (e) {
-                        temp = html.format(e);
-                        t.append(temp);
-                    });
-                }
-            },
-            error: function () {
-                AlertError('No se pudo cargar el formulario. Intente nuevamente.');
-            }
-        });
-    });
 
     //paginacion de las tablas
     pag = new Paginacion({
@@ -82,9 +57,11 @@ $(document).ready(function () {
     setTimeout(function () {
         buscar();
     }, 2000);
+
+    $(':input[type="text"]').toUpperCase();
 });
 
-//funcion de javascript para buscar usuarios y llenar la tabla
+//funcion de javascript para buscar escuelas y llenar la tabla
 function buscar() {
     var form = $('#fBusqueda');
 
@@ -208,7 +185,7 @@ function Crear() {
     }
 }
 
-//abrir modal para actualizar la informacion del municipio
+//abrir modal para actualizar la informacion de la escuela
 $('#tescuela').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
@@ -336,7 +313,7 @@ function Editando() {
     }
 }
 
-//eliminar el municipio
+//eliminar la escuela
 
 $('#tescuela').on('click', 'button[name="eliminar"]', function () {
     Elimina($(this).val());
@@ -367,7 +344,7 @@ function Elimina(id) {
     });
 }
 
-//abrir modal para detalle la informacion del municipio
+//abrir modal para detalle la informacion de la escuela
 $('#tescuela').on('click', 'button[name="detalle"]', function () {
     Detalles($(this).val());
 });
@@ -393,17 +370,17 @@ function Detalles(id) {
         if (data.datos.length > 0) {
             var html = '<fieldset>'
                       +'<div class="col-md-12 col-sm-12">'
-                      + '<div class="col-md-6"><label><h4>Nombre: </h4></label> {nombre} </div>'
-                      + '<div class="col-md-6"><label><h4>Clave: </h4></label> {clave} </div>'
-                      + '<div class="col-md-4"><label><h4>Nivel: </h4></label> {nivel} </div>'
-                      + '<div class="col-md-4"><label><h4>Turno: </h4></label> {turno} </div>'
-                      + '<div class="col-md-4"><label><h4># Alumnos: </h4></label> {alumnos} </div>'
-                      + '<div class="col-md-12"><label><h4>Domicilio: </h4></label> {domicilio}, {localidad}, {municipio} </div>'
-                      + '<div class="col-md-12"><label><h4>Director: </h4></label> {director} </div>'
-                      + '<div class="col-md-4"><label><h4>Zona: </h4></label> {zona} </div>'
-                      + '<div class="col-md-4"><label><h4>Sector: </h4></label> {sector} </div>'
-                      + '<div class="col-md-4"><label><h4>Tipo predio: </h4></label> {tipopredio} </div>'
-                      + '<div class="col-md-12"><label><h4>Telefonos: </h4></label></div>'
+                      + '<div class="col-md-12"><label><h5>Nombre: </h5></label> {nombre} </div>'
+                      + '<div class="col-md-3"><label><h5>Clave: </h5></label> {clave} </div>'
+                      + '<div class="col-md-3"><label><h5>Nivel: </h5></label> {nivel} </div>'
+                      + '<div class="col-md-3"><label><h5>Turno: </h5></label> {turno} </div>'
+                      + '<div class="col-md-3"><label><h5># Alumnos: </h5></label> {alumnos} </div>'
+                      + '<div class="col-md-12"><label><h5>Domicilio: </h5></label> {domicilio}, {localidad}, {municipio} </div>'
+                      + '<div class="col-md-12"><label><h5>Director: </h5></label> {director} </div>'
+                      + '<div class="col-md-4"><label><h5>Zona: </h5></label> {zona} </div>'
+                      + '<div class="col-md-4"><label><h5>Sector: </h5></label> {sector} </div>'
+                      + '<div class="col-md-4"><label><h5>Tipo predio: </h5></label> {tipopredio} </div>'
+                      + '<div class="col-md-12"><label><h5>Telefonos: </h5></label></div>'
                       + '{tels}'
                       +'</div></fieldset>';
 
@@ -412,7 +389,7 @@ function Detalles(id) {
 
                 if (e.telefonos.length > 0) {
                     for (var j = 0; j < e.telefonos.length; j++) {
-                        e.tels += '<div class="col-md-6"><label><h4>Tipo Tel:   </h4></label>  ' + e.telefonos[j].tipotel + '  </div><div class="col-md-6"><label><h4>Tel:    </h4></label>  ' + e.telefonos[j].tel + ' </div>';
+                        e.tels += '<div class="col-md-6"><label><h5>Tipo Tel: </h5></label>  ' + e.telefonos[j].tipotel + '  </div><div class="col-md-6"><label><h5>Tel:  </h5></label>  ' + e.telefonos[j].tel + ' </div>';
                     }
                 }
                 e.tels += '</div>'

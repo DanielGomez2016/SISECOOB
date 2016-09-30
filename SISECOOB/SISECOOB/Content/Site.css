@@ -17,6 +17,10 @@
     background-position: bottom right;
 }
 
+input[type="text"] {
+    text-transform: uppercase !important;
+}
+
 .paloma{
     background-image: url('/Content/images/paloma.png');
     background-repeat: no-repeat;
@@ -30,16 +34,6 @@
     margin-left: -11px;
 }
 
-.logo-geos{
-    position: fixed;
-    bottom: 0;
-    left: 133px;
-}
-
-.logo-geos.mini{
-    width:70px;
-    left:0;
-}
 
 .alert.ui-pnotify-container {
   background-color: rgba(255, 150, 0, 0.8);
