@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2e2a4dacd47e471b9910ae983ccf1e0d" Name="Diagram1">
+      <Diagram DiagramId="2e2a4dacd47e471b9910ae983ccf1e0d" Name="Diagram1" ZoomLevel="33">
         <EntityTypeShape EntityType="SISECOOBModel.SubProgramasEdu" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="SISECOOBModel.CapitulosdeObra" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="SISECOOBModel.Conceptos" Width="1.5" PointX="7.75" PointY="3.75" />
@@ -30,11 +30,11 @@
         <EntityTypeShape EntityType="SISECOOBModel.TipoTelefono" Width="1.5" PointX="10.375" PointY="13.25" />
         <AssociationConnector Association="SISECOOBModel.FK_Telefonos_TipoTelefono" />
         <EntityTypeShape EntityType="SISECOOBModel.Departamentos" Width="1.5" PointX="10.375" PointY="3.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.Estatus" Width="1.5" PointX="12.25" PointY="20.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.Estatus" Width="1.5" PointX="18.375" PointY="12.375" />
         <EntityTypeShape EntityType="SISECOOBModel.Obras" Width="1.5" PointX="14.5" PointY="5.375" />
         <EntityTypeShape EntityType="SISECOOBModel.ObrasOficios" Width="1.5" PointX="16.75" PointY="7.5" />
         <EntityTypeShape EntityType="SISECOOBModel.Oficios" Width="1.5" PointX="14.5" PointY="0.75" />
-        <EntityTypeShape EntityType="SISECOOBModel.TiposObra" Width="1.5" PointX="12.25" PointY="17.375" />
+        <EntityTypeShape EntityType="SISECOOBModel.TiposObra" Width="1.5" PointX="14.75" PointY="14.375" />
         <AssociationConnector Association="SISECOOBModel.FK_Obras_Escuelas" />
         <AssociationConnector Association="SISECOOBModel.FK_Obras_Estatus" />
         <AssociationConnector Association="SISECOOBModel.FK_Obras_TipoEstructura" />
@@ -44,7 +44,7 @@
         <AssociationConnector Association="SISECOOBModel.FK_Oficios_Programas" />
         <AssociationConnector Association="SISECOOBModel.FK_Oficios_TipoOficios" />
         <EntityTypeShape EntityType="SISECOOBModel.OficiosCuentas" Width="1.5" PointX="16.75" PointY="1.25" />
-        <EntityTypeShape EntityType="SISECOOBModel.TiposCuentas" Width="1.5" PointX="14.5" PointY="16.625" />
+        <EntityTypeShape EntityType="SISECOOBModel.TiposCuentas" Width="1.5" PointX="19.25" PointY="5.25" />
         <AssociationConnector Association="SISECOOBModel.FK_OficiosCuentas_Oficios" />
         <AssociationConnector Association="SISECOOBModel.FK_OficiosCuentas_TiposCuentas" />
       </Diagram>

@@ -31,7 +31,7 @@ namespace SISECOOB.Controllers
             return Json(new
             {
                 total = query.Count(),
-                datos = query.OrderBy(i => i.Nombre)
+                datos = query.OrderBy(i => i.Municipios.Nombre)
                              .Skip((page - 1) * pageSize)
                              .Take(pageSize)
                              .ToList()
