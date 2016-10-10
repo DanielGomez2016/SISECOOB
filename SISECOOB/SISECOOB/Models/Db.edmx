@@ -13,6 +13,8 @@
           <Property Name="Clave" Type="varchar" MaxLength="10" />
           <Property Name="Capitulo" Type="varchar" MaxLength="50" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SISECOOB-2-1-alpha1.dbo.Conceptos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Conceptos">
           <Key>
             <PropertyRef Name="ConceptoId" />
@@ -221,12 +223,30 @@
           <Property Name="ProgramaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Programa" Type="varchar" MaxLength="75" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SISECOOB-2-1-alpha1.dbo.ProgramasPGOs' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ProgramasPGOs">
+          <Key>
+            <PropertyRef Name="ProgramaPGOID" />
+          </Key>
+          <Property Name="ProgramaPGOID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramaPGO" Type="varchar" MaxLength="75" />
+        </EntityType>
         <EntityType Name="SubProgramasEdu">
           <Key>
             <PropertyRef Name="SubprogramaID" />
           </Key>
           <Property Name="SubprogramaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subprograma" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SISECOOB-2-1-alpha1.dbo.SubProgramasPGOs' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="SubProgramasPGOs">
+          <Key>
+            <PropertyRef Name="SubprogramaPGOID" />
+          </Key>
+          <Property Name="SubprogramaPGOID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubprogramaPGO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Telefonos">
           <Key>
@@ -481,7 +501,6 @@
         </Association>
         <EntityContainer Name="SISECOOBModelStoreContainer">
           <EntitySet Name="CapitulosdeObra" EntityType="Self.CapitulosdeObra" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Conceptos" EntityType="Self.Conceptos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contratistas" EntityType="Self.Contratistas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Escuelas" EntityType="Self.Escuelas" Schema="dbo" store:Type="Tables" />
@@ -506,6 +525,28 @@
           <EntitySet Name="TipoTelefono" EntityType="Self.TipoTelefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zonas" EntityType="Self.Zonas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conceptos" EntityType="Self.Conceptos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Conceptos].[ConceptoId] AS [ConceptoId], 
+    [Conceptos].[Clave] AS [Clave], 
+    [Conceptos].[Concepto] AS [Concepto], 
+    [Conceptos].[Descripcion] AS [Descripcion], 
+    [Conceptos].[Unidad] AS [Unidad], 
+    [Conceptos].[Precio] AS [Precio]
+    FROM [dbo].[Conceptos] AS [Conceptos]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProgramasPGOs" EntityType="Self.ProgramasPGOs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProgramasPGOs].[ProgramaPGOID] AS [ProgramaPGOID], 
+    [ProgramasPGOs].[ProgramaPGO] AS [ProgramaPGO]
+    FROM [dbo].[ProgramasPGOs] AS [ProgramasPGOs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SubProgramasPGOs" EntityType="Self.SubProgramasPGOs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SubProgramasPGOs].[SubprogramaPGOID] AS [SubprogramaPGOID], 
+    [SubProgramasPGOs].[SubprogramaPGO] AS [SubprogramaPGO]
+    FROM [dbo].[SubProgramasPGOs] AS [SubProgramasPGOs]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Escuelas_Localidades" Association="Self.FK_Escuelas_Localidades">
             <End Role="Localidades" EntitySet="Localidades" />
             <End Role="Escuelas" EntitySet="Escuelas" />
@@ -666,6 +707,8 @@
             <End Role="TiposCuentas" EntitySet="TiposCuentas" />
             <End Role="OficiosCuentas" EntitySet="OficiosCuentas" />
           </AssociationSet>
+          <EntitySet Name="ProgramasPGOs" EntityType="SISECOOBModel.ProgramasPGOs" />
+          <EntitySet Name="SubProgramasPGOs" EntityType="SISECOOBModel.SubProgramasPGOs" />
           </EntityContainer>
         <EntityType Name="SubProgramasEdu">
           <Key>
@@ -1173,6 +1216,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProgramasPGOs">
+          <Key>
+            <PropertyRef Name="ProgramaPGOID" />
+          </Key>
+          <Property Name="ProgramaPGOID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramaPGO" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SubProgramasPGOs">
+          <Key>
+            <PropertyRef Name="SubprogramaPGOID" />
+          </Key>
+          <Property Name="SubprogramaPGOID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubprogramaPGO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1483,6 +1540,22 @@
               <MappingFragment StoreEntitySet="TiposCuentas">
                 <ScalarProperty Name="TipoCuenta" ColumnName="TipoCuenta" />
                 <ScalarProperty Name="TipoCuentaID" ColumnName="TipoCuentaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramasPGOs">
+            <EntityTypeMapping TypeName="SISECOOBModel.ProgramasPGOs">
+              <MappingFragment StoreEntitySet="ProgramasPGOs">
+                <ScalarProperty Name="ProgramaPGO" ColumnName="ProgramaPGO" />
+                <ScalarProperty Name="ProgramaPGOID" ColumnName="ProgramaPGOID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubProgramasPGOs">
+            <EntityTypeMapping TypeName="SISECOOBModel.SubProgramasPGOs">
+              <MappingFragment StoreEntitySet="SubProgramasPGOs">
+                <ScalarProperty Name="SubprogramaPGO" ColumnName="SubprogramaPGO" />
+                <ScalarProperty Name="SubprogramaPGOID" ColumnName="SubprogramaPGOID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

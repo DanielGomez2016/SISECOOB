@@ -502,6 +502,38 @@ namespace SISECOOB.Models
             }
         }
         private ObjectSet<TiposCuentas> _TiposCuentas;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<ProgramasPGOs> ProgramasPGOs
+        {
+            get
+            {
+                if ((_ProgramasPGOs == null))
+                {
+                    _ProgramasPGOs = base.CreateObjectSet<ProgramasPGOs>("ProgramasPGOs");
+                }
+                return _ProgramasPGOs;
+            }
+        }
+        private ObjectSet<ProgramasPGOs> _ProgramasPGOs;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SubProgramasPGOs> SubProgramasPGOs
+        {
+            get
+            {
+                if ((_SubProgramasPGOs == null))
+                {
+                    _SubProgramasPGOs = base.CreateObjectSet<SubProgramasPGOs>("SubProgramasPGOs");
+                }
+                return _SubProgramasPGOs;
+            }
+        }
+        private ObjectSet<SubProgramasPGOs> _SubProgramasPGOs;
 
         #endregion
 
@@ -713,6 +745,22 @@ namespace SISECOOB.Models
         public void AddToTiposCuentas(TiposCuentas tiposCuentas)
         {
             base.AddObject("TiposCuentas", tiposCuentas);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet ProgramasPGOs. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToProgramasPGOs(ProgramasPGOs programasPGOs)
+        {
+            base.AddObject("ProgramasPGOs", programasPGOs);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SubProgramasPGOs. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSubProgramasPGOs(SubProgramasPGOs subProgramasPGOs)
+        {
+            base.AddObject("SubProgramasPGOs", subProgramasPGOs);
         }
 
         #endregion
@@ -5261,6 +5309,86 @@ namespace SISECOOB.Models
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="ProgramasPGOs")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProgramasPGOs : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto ProgramasPGOs.
+        /// </summary>
+        /// <param name="programaPGOID">Valor inicial de la propiedad ProgramaPGOID.</param>
+        public static ProgramasPGOs CreateProgramasPGOs(global::System.Int32 programaPGOID)
+        {
+            ProgramasPGOs programasPGOs = new ProgramasPGOs();
+            programasPGOs.ProgramaPGOID = programaPGOID;
+            return programasPGOs;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProgramaPGOID
+        {
+            get
+            {
+                return _ProgramaPGOID;
+            }
+            set
+            {
+                if (_ProgramaPGOID != value)
+                {
+                    OnProgramaPGOIDChanging(value);
+                    ReportPropertyChanging("ProgramaPGOID");
+                    _ProgramaPGOID = StructuralObject.SetValidValue(value, "ProgramaPGOID");
+                    ReportPropertyChanged("ProgramaPGOID");
+                    OnProgramaPGOIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ProgramaPGOID;
+        partial void OnProgramaPGOIDChanging(global::System.Int32 value);
+        partial void OnProgramaPGOIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ProgramaPGO
+        {
+            get
+            {
+                return _ProgramaPGO;
+            }
+            set
+            {
+                OnProgramaPGOChanging(value);
+                ReportPropertyChanging("ProgramaPGO");
+                _ProgramaPGO = StructuralObject.SetValidValue(value, true, "ProgramaPGO");
+                ReportPropertyChanged("ProgramaPGO");
+                OnProgramaPGOChanged();
+            }
+        }
+        private global::System.String _ProgramaPGO;
+        partial void OnProgramaPGOChanging(global::System.String value);
+        partial void OnProgramaPGOChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="SubProgramasEdu")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -5333,6 +5461,86 @@ namespace SISECOOB.Models
         private global::System.String _Subprograma;
         partial void OnSubprogramaChanging(global::System.String value);
         partial void OnSubprogramaChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SISECOOBModel", Name="SubProgramasPGOs")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SubProgramasPGOs : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SubProgramasPGOs.
+        /// </summary>
+        /// <param name="subprogramaPGOID">Valor inicial de la propiedad SubprogramaPGOID.</param>
+        public static SubProgramasPGOs CreateSubProgramasPGOs(global::System.Int32 subprogramaPGOID)
+        {
+            SubProgramasPGOs subProgramasPGOs = new SubProgramasPGOs();
+            subProgramasPGOs.SubprogramaPGOID = subprogramaPGOID;
+            return subProgramasPGOs;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SubprogramaPGOID
+        {
+            get
+            {
+                return _SubprogramaPGOID;
+            }
+            set
+            {
+                if (_SubprogramaPGOID != value)
+                {
+                    OnSubprogramaPGOIDChanging(value);
+                    ReportPropertyChanging("SubprogramaPGOID");
+                    _SubprogramaPGOID = StructuralObject.SetValidValue(value, "SubprogramaPGOID");
+                    ReportPropertyChanged("SubprogramaPGOID");
+                    OnSubprogramaPGOIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _SubprogramaPGOID;
+        partial void OnSubprogramaPGOIDChanging(global::System.Int32 value);
+        partial void OnSubprogramaPGOIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SubprogramaPGO
+        {
+            get
+            {
+                return _SubprogramaPGO;
+            }
+            set
+            {
+                OnSubprogramaPGOChanging(value);
+                ReportPropertyChanging("SubprogramaPGO");
+                _SubprogramaPGO = StructuralObject.SetValidValue(value, true, "SubprogramaPGO");
+                ReportPropertyChanged("SubprogramaPGO");
+                OnSubprogramaPGOChanged();
+            }
+        }
+        private global::System.String _SubprogramaPGO;
+        partial void OnSubprogramaPGOChanging(global::System.String value);
+        partial void OnSubprogramaPGOChanged();
 
         #endregion
 

@@ -1,0 +1,16 @@
+﻿@model SISECOOB.Models.ProgramasPGOs
+
+
+@using (@Html.BeginForm())
+{
+    <fieldset>
+        <div class="col-md-12 col-sm-12">
+            @Html.HiddenFor(i => i.ProgramaPGOID)
+            <div class=" form-group col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                @Html.LabelFor(i => i.ProgramaPGO)
+                @Html.TextBoxFor(i => i.ProgramaPGO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.ProgramaPGO)
+            </div>
+        </div>
+    </fieldset>
+}

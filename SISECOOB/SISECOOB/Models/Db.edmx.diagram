@@ -47,6 +47,8 @@
         <EntityTypeShape EntityType="SISECOOBModel.TiposCuentas" Width="1.5" PointX="19.25" PointY="5.25" />
         <AssociationConnector Association="SISECOOBModel.FK_OficiosCuentas_Oficios" />
         <AssociationConnector Association="SISECOOBModel.FK_OficiosCuentas_TiposCuentas" />
+        <EntityTypeShape EntityType="SISECOOBModel.ProgramasPGOs" Width="1.5" PointX="7.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SISECOOBModel.SubProgramasPGOs" Width="1.5" PointX="0.75" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

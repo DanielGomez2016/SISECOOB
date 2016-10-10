@@ -184,8 +184,10 @@
     <Compile Include="Controllers\NivelesEducativosController.cs" />
     <Compile Include="Controllers\OficiosController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
+    <Compile Include="Controllers\ProgramasPGOsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SubProgramasController.cs" />
+    <Compile Include="Controllers\SubProgramasPGOsController.cs" />
     <Compile Include="Controllers\TipoEstructurasController.cs" />
     <Compile Include="Controllers\TipoOficiosController.cs" />
     <Compile Include="Controllers\TipoTelefonosController.cs" />
@@ -218,6 +220,8 @@
     <Compile Include="Models\Oficios.cs" />
     <Compile Include="Models\OficiosCuentas.cs" />
     <Compile Include="Models\Programas.cs" />
+    <Compile Include="Models\ProgramasPGOs.cs" />
+    <Compile Include="Models\SubProgramaPGOs.cs" />
     <Compile Include="Models\SubProgramasEdu.cs" />
     <Compile Include="Models\Telefonos.cs" />
     <Compile Include="Models\TipoEstructura.cs" />
@@ -1085,7 +1089,9 @@
     <Content Include="Scripts\Controles\Municipios.js" />
     <Content Include="Scripts\Controles\Oficios.js" />
     <Content Include="Scripts\Controles\Programas.js" />
+    <Content Include="Scripts\Controles\ProgramasPGO.js" />
     <Content Include="Scripts\Controles\SubProgramas.js" />
+    <Content Include="Scripts\Controles\SubProgramasPGO.js" />
     <Content Include="Scripts\Controles\TipoEstructura.js" />
     <Content Include="Scripts\Controles\TipoOficios.js" />
     <Content Include="Scripts\Controles\TipoTelefono.js" />
@@ -1263,6 +1269,10 @@
     <Content Include="Views\Oficios\_Details.cshtml" />
     <Content Include="Views\Oficios\_Formulario.cshtml" />
     <Content Include="Views\Oficios\Index.cshtml" />
+    <Content Include="Views\ProgramasPGOs\Index.cshtml" />
+    <Content Include="Views\ProgramasPGOs\_Formulario.cshtml" />
+    <Content Include="Views\SubProgramasPGOs\Index.cshtml" />
+    <Content Include="Views\SubProgramasPGOs\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
