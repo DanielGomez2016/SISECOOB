@@ -12,7 +12,7 @@ namespace SISECOOB.Models
         public class mOficios
         {
             [Display(Name = "# Oficio")]
-            public int OficioID { get; set; }
+            public string OficioID { get; set; }
 
             [Display(Name = "Fecha")]
             public string FechaOficio { get; set; }
@@ -32,15 +32,15 @@ namespace SISECOOB.Models
             [Display(Name = "Tipo de Oficio")]
             public string TipoOficio_Fk { get; set; }
 
-            public DateTime Recibido { get; set; }
+            public Boolean Recibido { get; set; }
 
         }
 
-        public string[] montos { get; set; }
+        public double[] montos { get; set; }
 
         public string[] cuentas { get; set; }
 
-        public string[] tiposcuentas { get; set; }
+        public string[] tipocuenta { get; set; }
 
         public string Crear()
         {
@@ -97,6 +97,27 @@ namespace SISECOOB.Models
 
                     db.Oficios.DeleteObject(ofi);
                     db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public Boolean Existe(string id)
+        {
+            try
+            {
+                SISECOOBEntities db = new SISECOOBEntities();
+                Oficios ofi = db.Oficios.FirstOrDefault(i => i.OficioID == id);
+
+                if (ofi != null)
+                {
+                    return false;
+                }
+                else {
+                    return true;
                 }
             }
             catch (Exception e)

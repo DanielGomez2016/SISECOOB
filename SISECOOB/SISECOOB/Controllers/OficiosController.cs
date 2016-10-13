@@ -34,20 +34,20 @@ namespace SISECOOB.Controllers
             return Json(new
             {
                 total = query.Count(),
-                datos = query.OrderBy(i => i.OficioID)
+                datos = query.OrderBy(i => i.FechaRecibo)
                              .Skip((page - 1) * pageSize)
                              .Take(pageSize)
                              .ToList()
                              .Select(i => new
                              {
                                  id = i.OficioID,
-                                 tipo = i.TipoOficios.Nombre,
-                                 recibido = i.Recibido,
-                                 fechaoficio = i.FechaOficio.Value.ToString("yyyy/MM/dd"),
-                                 fecharecibo = i.FechaRecibo.Value.ToString("yyyy/MM/dd"), 
-                                 programa = i.Programas.Programa,
-                                 asunto = i.Asunto,
-                                 desc = i.Descripcion,
+                                 tipo = i.TipoOficio_Fk != null ? i.TipoOficios.Nombre : "",
+                                 recibido = i.Recibido == true ? "Recibido" : "Enviado",
+                                 fechaoficio = i.FechaOficio != null ? i.FechaOficio.Value.ToString("yyyy/MM/dd") : "",
+                                 fecharecibo = i.FechaRecibo != null ? i.FechaRecibo.Value.ToString("yyyy/MM/dd") : "",
+                                 programa = i.ProgramaID_Fk != null ? i.Programas.Programa : "",
+                                 asunto = i.Asunto != null ? i.Asunto : "",
+                                 desc = i.Descripcion != null ? i.Descripcion : "",
                              })
                              .ToList()
             }, JsonRequestBehavior.AllowGet);
@@ -95,14 +95,21 @@ namespace SISECOOB.Controllers
         {
             try
             {
-                var ofi = oficio.Crear();
+                string ofi = "";
+                var tcuenta = oficio.tipocuenta;
+                var cuentas = oficio.cuentas;
+                var montos = oficio.montos;
+                if (oficio.Existe(oficio.OficioID)) {
+                    ofi = oficio.Crear();
+                }
+
                 for (var i = 1; i < oficio.cuentas.Count(); i++)
                 {
                     OficiosCuentas oc = new OficiosCuentas();
                     oc.OficioID_Fk = ofi;
-                    oc.TipoCuentaID = Convert.ToInt32(oficio.tiposcuentas[i]);
-                    oc.Cuenta = oficio.cuentas[i];
-                    oc.Monto = Convert.ToInt32(oficio.montos[i]);
+                    oc.TipoCuentaID = Convert.ToInt32(tcuenta[i]);
+                    oc.Cuenta = cuentas[i];
+                    oc.Monto = montos[i];
 
                     oc.Crear();
                 }
@@ -143,7 +150,7 @@ namespace SISECOOB.Controllers
                 {
                     OficiosCuentas oc = new OficiosCuentas();
                     oc.OficioID_Fk = of;
-                    oc.TipoCuentaID = Convert.ToInt32(oficio.tiposcuentas[i]);
+                    oc.TipoCuentaID = Convert.ToInt32(oficio.tipocuenta[i]);
                     oc.Cuenta = oficio.cuentas[i];
                     oc.Monto = Convert.ToInt32(oficio.montos[i]);
 

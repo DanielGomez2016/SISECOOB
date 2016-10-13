@@ -90,7 +90,7 @@ function Nuevo() {
     $.ajax({
         type: 'POST',
         url: '/Oficios/Formulario',
-        data: { id: 0 },
+        data: { id: "" },
         beforeSend: function () {
             Loading("Cargando");
         },
@@ -113,14 +113,10 @@ $('#guardar').click(function () {
 });
 
 function Crear() {
-    var tiposcuentas = new Array();
+    var tcuentas = new Array();
     var cuentas = new Array();
     var montos = new Array();
     var form = $('#nuevooficio form');
-
-    $('#nuevooficio select[name=tipocuenta]').each(function () {
-        tiposcuentas.push($(this).val());
-    });
 
     $('#nuevooficio input[name=cuentas]').each(function () {
         cuentas.push($(this).val());
@@ -128,6 +124,10 @@ function Crear() {
 
     $('#nuevooficio input[name=montos]').each(function () {
         montos.push($(this).val());
+    });
+
+    $('#nuevooficio select[name=tipocuenta]').each(function () {
+        tcuentas.push($(this).val());
     });
 
     form.removeData('validator');
@@ -358,34 +358,3 @@ function Detalles(id) {
     });
 }
 
-$('.datepicker').datetimepicker({
-    //timeFormat: "hh:mm tt",
-    dateFormat: 'yy/mm/dd',
-    stepMinute: 5,
-    controlType: 'select',
-});
-
-$.datepicker.regional['es'] = {
-    closeText: 'Cerrar',
-    prevText: '<Ant',
-    nextText: 'Sig>',
-    currentText: 'Hoy',
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-    weekHeader: 'Sm',
-    dateFormat: 'yy/mm/dd',
-    firstDay: 1,
-    isRTL: false,
-    showMonthAfterYear: false,
-    yearSuffix: ''
-};
-
-//$.datepicker.setDefaults($.datepicker.regional['es']);
-
-
-//function addMinutes(date, minutes) {
-//    return new Date(date.getTime() + minutes * 60000);
-//}
