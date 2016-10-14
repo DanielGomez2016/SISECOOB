@@ -186,12 +186,12 @@ function llenarcuentas(id) {
     })
     .done(function (data) {
 
-        var t = $('#ttelefonos tbody');
+        var t = $('#tcuentas tbody');
 
         if (data.datos.length > 0) {
             var html = '<tr name="cuenta" data-control="x{x}">'
                       + '<td>{opciones}</td>'
-                      + '<td><input name="cuentas" class="form-control" value="{ceunta}"/></td>'
+                      + '<td><input name="cuentas" class="form-control" value="{cuenta}"/></td>'
                       + '<td><input name="montos" class="form-control" value="{monto}"/></td>'
                       + '<td><button type="button" data-cont="x{x}" class="btn-sm btn-danger" name="btneliminar">'
                       + '<span class="glyphicon glyphicon-trash"></span></button></td></tr>';
@@ -201,7 +201,7 @@ function llenarcuentas(id) {
                 e.opciones = '<select class="form-control" name="tipocuenta">';
 
                 for (var i = 0; i < data.tc.length; i++) {
-                    if (data.tc[i].tipo == e.tipo) {
+                    if (data.tc[i].id == e.tipocuenta) {
                         e.opciones += '<option value="' + data.tc[i].id + '" selected="selected">' + data.tc[i].tipo + '</option>'
                     } else {
                         e.opciones += '<option value="' + data.tc[i].id + ' ">' + data.tc[i].tipo + '</option>'

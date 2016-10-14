@@ -177,6 +177,15 @@ namespace SISECOOB.Controllers
         {
             try
             {
+                SISECOOBEntities db = new SISECOOBEntities();
+                List<OficiosCuentas> t = db.OficiosCuentas.Where(i => i.OficioID_Fk == id).ToList();
+
+                foreach (var i in t)
+                {
+                    db.OficiosCuentas.DeleteObject(i);
+                    db.SaveChanges();
+                }
+
                 Oficios of = new Oficios();
                 of.Eliminar(id);
                 return Json(new
