@@ -73,7 +73,7 @@ function buscar() {
             });
         }
         else
-            t.html('<tr><td class="text-center" colspan="6">No se encontraron resultados</td></tr>');
+            t.html('<tr><td class="text-center" colspan="12">No se encontraron resultados</td></tr>');
 
         pag.updateControls(data.total);
     });
