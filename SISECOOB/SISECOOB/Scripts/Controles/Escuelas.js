@@ -316,8 +316,24 @@ function Editando() {
 //eliminar la escuela
 
 $('#tescuela').on('click', 'button[name="eliminar"]', function () {
-    Elimina($(this).val());
+    Eliminar($(this).val());
 });
+
+    function Eliminar(id) {
+
+        $("#Eliminarmodal").modal("show");
+        $("#eliminarID").val(id);
+
+        $("#tituloElimina").text("¿ Quieres ELIMINAR esta Escuela ?");
+        $("#btnElimina").val("Si, Eliminar Escuela");
+        $("#btnElimina").addClass('btn-danger');
+
+        $('#titulo').text('Eliminar Escuela');
+    }
+
+    $("#btnElimina").click(function () {
+        Elimina($("#eliminarID").val());
+    });
 
 function Elimina(id) {
     $.ajax({
@@ -333,6 +349,7 @@ function Elimina(id) {
         success: function (data) {
             if (data.result == true) {
                 AlertSuccess('Se ha Eliminado el registro exitosamente.', 'Escuelas');
+                $("#Eliminarmodal").modal("hide");
                 buscar();
             } else {
                 AlertError(data.message, 'Escuelas');

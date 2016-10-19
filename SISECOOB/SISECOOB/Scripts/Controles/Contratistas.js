@@ -292,7 +292,23 @@ function Editando() {
 //eliminar el contratista
 
 $('#tcontratista').on('click', 'button[name="eliminar"]', function () {
-    Elimina($(this).val());
+    Eliminar($(this).val());
+});
+
+function Eliminar(id) {
+
+    $("#Eliminarmodal").modal("show");
+    $("#eliminarID").val(id);
+
+    $("#tituloElimina").text("¿ Quieres ELIMINAR este contratista ?");
+    $("#btnElimina").val("Si, Eliminar Contratista");
+    $("#btnElimina").addClass('btn-danger');
+
+    $('#titulo').text('Eliminar Contratista');
+}
+
+$("#btnElimina").click(function () {
+    Elimina($("#eliminarID").val());
 });
 
 function Elimina(id) {
@@ -309,6 +325,7 @@ function Elimina(id) {
         success: function (data) {
             if (data.result == true) {
                 AlertSuccess('Se ha Eliminado el registro exitosamente.', 'Contratista');
+                $("#Eliminarmodal").modal("hide");
                 buscar();
             } else {
                 AlertError(data.message, 'Contratista');

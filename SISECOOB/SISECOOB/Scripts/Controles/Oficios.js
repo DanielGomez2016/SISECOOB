@@ -297,11 +297,28 @@ function Editando() {
     }
 }
 
-//eliminar el municipio
+//eliminar el oficio
 
 $('#toficio').on('click', 'button[name="eliminar"]', function () {
-    Elimina($(this).val());
+    Eliminar($(this).val());
 });
+
+function Eliminar(id) {
+
+    $("#Eliminarmodal").modal("show");
+    $("#eliminarID").val(id);
+
+    $("#tituloElimina").text("¿ Quieres ELIMINAR este Oficio ?");
+    $("#btnElimina").val("Si, Eliminar Oficio");
+    $("#btnElimina").addClass('btn-danger');
+
+    $('#titulo').text('Eliminar Oficio');
+}
+
+$("#btnElimina").click(function () {
+    Elimina($("#eliminarID").val());
+});
+
 
 function Elimina(id) {
     $.ajax({
@@ -317,6 +334,7 @@ function Elimina(id) {
         success: function (data) {
             if (data.result == true) {
                 AlertSuccess('Se ha Eliminado el registro exitosamente.', 'Oficio');
+                $("#Eliminarmodal").modal("hide");
                 buscar();
             } else {
                 AlertError(data.message, 'Oficio');

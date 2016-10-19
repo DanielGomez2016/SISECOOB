@@ -88,6 +88,27 @@
 </div>
 <!-- /.modal -->
 
+<div id="Eliminarmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="tituloElimina" class="modal-title text-center"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="eliminarID" value="" />
+
+                <div class="col-12 text-center">
+                    <input class="btn btn-primary btn" id="btnElimina" type="button" value="">
+                    <a class="btn btn-default  btn" data-dismiss="modal">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 
 @section Scripts {
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
