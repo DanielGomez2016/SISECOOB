@@ -171,7 +171,7 @@ $('#toficio').on('click', 'button[name="editar"]', function () {
     Editar($(this).val());
 });
 
-//llenar los telefonos al momento de editar la escuela
+//llenar las cuentas de cada oficio
 function llenarcuentas(id) {
     $.ajax({
         type: "GET",
@@ -213,6 +213,47 @@ function llenarcuentas(id) {
                 t.append(temp);
                 x++;
             });
+        }
+    });
+}
+
+function llenarcuentasdet(id) {
+    $.ajax({
+        type: "GET",
+        url: '/Oficios/Cuentas',
+        data: { id: id },
+        beforeSend: function () {
+            Loading('Buscando');
+        }
+    })
+    .always(function () {
+        Loading();
+    })
+    .done(function (data) {
+
+        var t = $('#cuentasdesc');
+        t.empty();
+
+        if (data.datos.length > 0) {
+
+            var html = '<div class="col-md-12">Tipo de cuenta: {tipoc}, con No. cuenta: {cuenta} y un monto de {monto}</div>'
+
+            data.datos.map(function (e) {
+                e.tipoc = '';
+
+                for (var i = 0; i < data.tc.length; i++) {
+                    if (data.tc[i].id == e.tipocuenta) {
+                        e.tipoc = data.tc[i].tipo;
+                    }
+                }
+
+                temp = html.format(e);
+                t.append(temp);
+            });
+        } else {
+
+            var html = '<div class="col-md-12 text-center">No tiene cuentas registradas</div>';
+            t.append(html);
         }
     });
 }
@@ -357,7 +398,7 @@ function Detalles(id) {
 
     $.ajax({
         type: 'POST',
-        url: '/Contratistas/Details',
+        url: '/Oficios/Details',
         data: { id: id },
         beforeSend: function () {
             Loading("Cargando");
@@ -367,8 +408,11 @@ function Detalles(id) {
         },
         success: function (html) {
             $('#detalleoficio').find('.modal-body form').remove();
+            $('#detalleoficio').find('.modal-body').empty();
             $('#detalleoficio').find('.modal-body').append(html);
             $('#detalleoficio').modal('show');
+
+            llenarcuentasdet(id);
         },
         error: function () {
             AlertError('No se pudo cargar el formulario. Intente nuevamente.');

@@ -1,7 +1,41 @@
-﻿
-@{
-    ViewBag.Title = "_Details";
-}
+﻿@model SISECOOB.Models.Oficios
 
-<h2>_Details</h2>
+<fieldset>
+    <div class="col-md-6">
+        @Html.LabelFor(i => i.OficioID) :
+        <label>@(Model != null && Model.OficioID != null ? Model.OficioID : "")</label>
+    </div>
+    <div class="col-md-6">
+        <label>Estatus</label> :
+        <label>@(Model != null && Model.Recibido != false ? "Recibido" : "Enviado")</label>
+    </div>
+    <div class="col-md-6">
+        @Html.LabelFor(i => i.FechaOficio) :
+        <label>@(Model != null && Model.FechaOficio != null ? Model.FechaOficio.Value.ToString("yyyy/MM/dd") : "")</label>
+    </div>
+    <div class="col-md-6">
+        @Html.LabelFor(i => i.FechaRecibo) :
+        <label>@(Model != null && Model.FechaRecibo != null ? Model.FechaRecibo.Value.ToString("yyyy/MM/dd") : "")</label>
+    </div>
+    <div class="col-md-6">
+        @Html.LabelFor(i => i.TipoOficio_Fk) :
+        <label>@(Model != null && Model.TipoOficio_Fk != null ? Model.TipoOficios.Nombre : "")</label>
+    </div>
+    <div class="col-md-12">
+        @Html.LabelFor(i => i.Asunto) :
+        <label>@(Model != null && Model.Asunto != null ? Model.Asunto : "")</label>
+    </div>
+    <div class="col-md-12">
+        @Html.LabelFor(i => i.Descripcion) :
+        <label>@(Model != null && Model.Descripcion != null ? Model.Descripcion : "")</label>
+    </div>
+    <div class="col-md-12">
+        @Html.LabelFor(i => i.ProgramaID_Fk) :
+        <label>@(Model != null && Model.ProgramaID_Fk != null ? Model.Programas.Programa : "")</label>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-12 text-center"><label>Cuentas de Oficio</label></div>
+        <div class="col-md-12" id="cuentasdesc"></div>
+    </div>
 
+</fieldset>
